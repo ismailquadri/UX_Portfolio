@@ -10,6 +10,7 @@ import WaysToWork from "@/components/sections/WaysToWork";
 import Faq from "@/components/sections/Faq";
 import Cta from "@/components/sections/Cta";
 import Footer from "@/components/Footer";
+import { RevealOnScroll } from "@/components/RevealOnScroll";
 
 export default function Home() {
   return (
@@ -17,15 +18,33 @@ export default function Home() {
       <Navbar />
       <main className="flex w-full flex-1 flex-col">
         <Hero />
-        <AiFluencyCallout />
-        <Capabilities />
-        <DomainStrip />
-        <Process />
-        <Result />
-        <TechStack />
-        <WaysToWork />
-        <Faq />
-        <Cta />
+        <RevealOnScroll>
+          <AiFluencyCallout />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Capabilities />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <DomainStrip />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Process />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Result />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <TechStack />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <WaysToWork />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Faq />
+        </RevealOnScroll>
+        <RevealOnScroll>
+          <Cta />
+        </RevealOnScroll>
       </main>
       <Footer />
     </div>
