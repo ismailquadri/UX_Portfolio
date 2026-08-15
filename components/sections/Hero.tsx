@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ChatWidget from "@/components/ChatWidget";
 import HeroSidebar from "@/components/HeroSidebar";
 
 export default function Hero() {
@@ -18,14 +19,7 @@ export default function Hero() {
               className="object-cover"
             />
 
-            <div
-              id="chat"
-              className="absolute left-1/2 top-[53px] flex h-[641px] w-[420px] -translate-x-1/2 items-center rounded-lg border border-paper bg-paper/40 p-3 shadow-lg backdrop-blur-md"
-            >
-              <p className="p-8 text-center text-muted">
-                Chat widget placeholder
-              </p>
-            </div>
+            <ChatWidget />
 
             <div className="absolute left-1/2 top-[714px] w-[337px] -translate-x-1/2 text-center font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-paper">
               <p>
