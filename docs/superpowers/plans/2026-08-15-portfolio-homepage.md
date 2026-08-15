@@ -50,51 +50,51 @@ git commit -m "chore: scaffold Next.js app"
 
 ### Task 2: Configure Tailwind theme tokens
 
+> **Note:** Task 1 scaffolded with Tailwind v4, which uses CSS-first config (no `tailwind.config.ts`). Tokens are defined via an `@theme` block directly in `app/globals.css` instead. This supersedes the original `tailwind.config.ts`-based approach.
+
 **Files:**
-- Modify: `tailwind.config.ts`
+- Modify: `app/globals.css`
 
-- [ ] **Step 1: Replace the theme section with tokens from the design spec**
+- [ ] **Step 1: Replace the `@theme` block with tokens from the design spec**
 
-Open `tailwind.config.ts` and set the `theme.extend` block:
+Open `app/globals.css`. Keep the existing `@import "tailwindcss";` line, remove the default Geist-based `@theme inline` block (and the `--background`/`--foreground` variables and dark-mode media query, which aren't part of this design), and replace with:
 
-```ts
-import type { Config } from "tailwindcss";
+```css
+@import "tailwindcss";
 
-const config: Config = {
-  content: ["./app/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}"],
-  theme: {
-    extend: {
-      fontFamily: {
-        body: ["var(--font-inter-tight)", "sans-serif"],
-        heading: ["var(--font-instrument-serif)", "serif"],
-      },
-      colors: {
-        ink: "#000000",
-        paper: "#FFFFFF",
-        border: "#EFEFEF",
-        surface: "#FAFAFA",
-        accent: "#112527",
-        muted: "#707070",
-        "muted-2": "#505050",
-      },
-      spacing: {
-        "4.5": "18px",
-      },
-      borderRadius: {
-        sm: "8px",
-        md: "16px",
-        lg: "24px",
-      },
-      boxShadow: {
-        button: "0 1px 0 0 rgba(0,0,0,0.06), 0 2px 4px 0 rgba(0,0,0,0.04)",
-      },
-    },
-  },
-  plugins: [],
-};
+@theme {
+  --font-body: var(--font-inter-tight), sans-serif;
+  --font-heading: var(--font-instrument-serif), serif;
 
-export default config;
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-border-subtle: #efefef;
+  --color-surface: #fafafa;
+  --color-accent: #112527;
+  --color-muted: #707070;
+  --color-muted-2: #505050;
+
+  --spacing-4-5: 18px;
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --shadow-button: 0 1px 0 0 rgba(0, 0, 0, 0.06), 0 2px 4px 0 rgba(0, 0, 0, 0.04);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-body bg-paper text-ink antialiased;
+}
 ```
+
+This generates utilities `font-body`/`font-heading`, `bg-ink`/`text-ink`/`border-ink` (and the same for `paper`/`border-subtle`/`surface`/`accent`/`muted`/`muted-2`), `p-4-5`/`m-4-5` etc., `rounded-sm`/`rounded-md`/`rounded-lg`, and `shadow-button`.
+
+Note the color token is named `border-subtle` rather than `border` — Tailwind v4 already generates a `border` utility for the CSS `border` property itself, so naming a color `border` would produce a confusing `border-border` utility. `border-subtle` avoids that collision.
 
 - [ ] **Step 2: Verify Tailwind builds without errors**
 
@@ -102,12 +102,12 @@ export default config;
 npm run build
 ```
 
-Expected: build succeeds (ignore page-content errors at this stage if any — we only care that the Tailwind config itself is valid).
+Expected: build succeeds (ignore page-content errors at this stage if any — we only care that the `@theme` config itself is valid CSS and Tailwind picks it up).
 
 - [ ] **Step 3: Commit**
 
 ```bash
-git add tailwind.config.ts
+git add app/globals.css
 git commit -m "feat: configure Tailwind theme tokens from Figma"
 ```
 
@@ -115,9 +115,10 @@ git commit -m "feat: configure Tailwind theme tokens from Figma"
 
 ### Task 3: Load fonts and set up the root layout
 
+> **Note:** Task 2 already rewrote `app/globals.css` (Tailwind v4 `@theme` tokens, `html { scroll-behavior: smooth }`, and a `body { @apply font-body bg-paper text-ink antialiased }` rule). This task only touches `app/layout.tsx` — do not modify `app/globals.css` again here.
+
 **Files:**
 - Modify: `app/layout.tsx`
-- Modify: `app/globals.css`
 
 - [ ] **Step 1: Configure next/font in app/layout.tsx**
 
@@ -150,41 +151,28 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${interTight.variable} ${instrumentSerif.variable}`}>
-      <body className="font-body bg-paper text-ink antialiased">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
 ```
 
-- [ ] **Step 2: Reset globals.css to a minimal base**
+The `body` styling (font, background, text color, antialiasing) comes from the `@apply` rule already in `app/globals.css` from Task 2 — no need to repeat it as a className here.
 
-Replace the contents of `app/globals.css` with:
-
-```css
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-html {
-  scroll-behavior: smooth;
-}
-```
-
-- [ ] **Step 3: Verify fonts render**
+- [ ] **Step 2: Verify fonts render**
 
 ```bash
-npm run dev &
-sleep 3
-curl -s http://localhost:3000 | grep -o "font-inter-tight" | head -1
-kill %1
+npm run build
+grep -ril "Inter Tight" .next/static/css/ 2>/dev/null | head -1
+grep -ril "Instrument Serif" .next/static/css/ 2>/dev/null | head -1
 ```
 
-Expected: prints `font-inter-tight` (confirms the class made it into the rendered HTML).
+Expected: both commands print a matching `.css` file path (confirms next/font generated `@font-face` rules for both fonts in the production build).
 
-- [ ] **Step 4: Commit**
+- [ ] **Step 3: Commit**
 
 ```bash
-git add app/layout.tsx app/globals.css
+git add app/layout.tsx
 git commit -m "feat: set up Inter Tight and Instrument Serif fonts"
 ```
 
