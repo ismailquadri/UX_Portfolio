@@ -2,7 +2,7 @@ export default function Footer() {
   return (
     <footer className="flex w-full items-center justify-center bg-border-subtle px-6 py-8">
       <div className="flex w-full flex-1 flex-col items-start justify-center gap-20">
-        <div className="not-italic tracking-[-0.32px]">
+        <div className="tracking-[-0.32px]">
           <p className="font-body text-[32px] leading-[1.6] text-accent/50">
             A Product Designer Based in Indonesia
           </p>

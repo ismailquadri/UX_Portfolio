@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import SidebarSpacer from "@/components/SidebarSpacer";
+
 type GridCell = {
   key: string;
   icon?: {
@@ -60,18 +62,15 @@ const CELL_VARIANT_CLASSES: Record<NonNullable<GridCell["variant"]>, string> = {
 export default function TechStack() {
   return (
     <section id="tech-stack" className="flex w-full items-start justify-between shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
-      <div
-        aria-hidden
-        className="hidden w-[269px] shrink-0 self-stretch border-r border-border-subtle bg-surface md:block"
-      />
+      <SidebarSpacer />
 
       <div className="flex w-full flex-1 flex-col items-start gap-10 px-6 py-14 md:flex-row">
         <div className="flex w-full max-w-[431px] flex-col items-start justify-between gap-12 self-stretch">
           <div className="relative flex w-full items-center justify-between">
-            <h2 className="relative font-heading text-[56px] leading-none tracking-[-0.56px] text-ink">
+            <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
               <span className="block">Connected Weapons for</span>
               <span className="relative z-10 block">
-                <span className="absolute -left-2.5 top-1/2 -z-10 h-[67px] w-[301px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0" />
+                <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[301px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
                 Modern Design
               </span>
             </h2>

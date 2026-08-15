@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import SidebarSpacer from "@/components/SidebarSpacer";
+
 const TABS = [
   "UX Audit",
   "User Segmentation",
@@ -63,18 +65,15 @@ const FEEDBACK_ITEMS = [
 export default function Process() {
   return (
     <section id="process" className="flex w-full items-start justify-between">
-      <div
-        aria-hidden
-        className="hidden w-[269px] shrink-0 self-stretch border-r border-border-subtle bg-surface md:block"
-      />
+      <SidebarSpacer />
 
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex items-center gap-2.5">
-            <h2 className="relative font-heading text-[56px] leading-none tracking-[-0.56px] text-ink">
+            <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
               <span className="block">A Process Rooted in</span>
               <span className="relative z-10 block">
-                <span className="absolute -left-2.5 top-1/2 -z-10 h-[67px] w-[383px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0" />
+                <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[383px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
                 Clarity &amp; Insight.
               </span>
             </h2>
@@ -120,7 +119,7 @@ export default function Process() {
                             alt=""
                             width={25}
                             height={18}
-                            className="h-[18px] w-[25px] object-cover"
+                            className="h-[18px] w-[25px] object-contain"
                             aria-hidden="true"
                           />
                         )}
@@ -140,6 +139,7 @@ export default function Process() {
                     src="/images/process-device-mockup.png"
                     alt="Device mockup showing a UX audit interface"
                     fill
+                    sizes="208px"
                     className="object-cover"
                   />
                 </div>
