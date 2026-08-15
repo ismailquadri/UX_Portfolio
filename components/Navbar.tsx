@@ -25,7 +25,14 @@ export default function Navbar() {
       }`}
     >
       <div className="hidden md:flex h-[84px] w-[269px] shrink-0 items-center justify-center gap-3 border-r border-border-subtle px-10 py-4">
-        <span className="relative block size-2 shrink-0 rounded-full bg-[#009B22] shadow-[0_0_0_4px_rgba(0,155,34,0.15)]" />
+        <span className="relative block size-4 shrink-0 -m-1">
+          <Image
+            src="/images/button-notification.svg"
+            alt=""
+            fill
+            sizes="16px"
+          />
+        </span>
         <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
           2 Project Slots Available
         </p>
@@ -73,7 +80,11 @@ export default function Navbar() {
           </button>
           <button
             type="button"
-            className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-accent px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
+            className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
+            style={{
+              backgroundImage:
+                "radial-gradient(ellipse 8.3px 3.6px at 50% 0%, rgba(255,255,255,0.3) 11.881%, rgba(255,255,255,0) 100%)",
+            }}
           >
             About Me
           </button>
