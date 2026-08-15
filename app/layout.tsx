@@ -25,7 +25,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${interTight.variable} ${instrumentSerif.variable}`}>
+    <html
+      lang="en"
+      className={`${interTight.variable} ${instrumentSerif.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
