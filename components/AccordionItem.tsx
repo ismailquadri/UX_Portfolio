@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useId, useState } from "react";
 
 export function AccordionItem({
   question,
@@ -10,6 +10,7 @@ export function AccordionItem({
   answer: string;
 }) {
   const [open, setOpen] = useState(false);
+  const panelId = useId();
 
   return (
     <div className="w-full rounded-lg border border-border-subtle bg-white/70 p-5 backdrop-blur-[22px] shadow-[0px_4px_5px_0px_rgba(0,0,0,0.02),0px_2px_0px_0px_rgba(0,0,0,0.05)]">
@@ -18,6 +19,7 @@ export function AccordionItem({
         onClick={() => setOpen((prev) => !prev)}
         className="flex w-full items-center justify-between gap-4 text-left"
         aria-expanded={open}
+        aria-controls={panelId}
       >
         <span className="font-body text-[24px] font-medium leading-[1.6] tracking-[-0.24px] text-accent">
           {question}
@@ -46,7 +48,10 @@ export function AccordionItem({
         </span>
       </button>
       {open && (
-        <p className="mt-3.5 font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-accent opacity-50">
+        <p
+          id={panelId}
+          className="mt-3.5 font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-accent opacity-50"
+        >
           {answer}
         </p>
       )}

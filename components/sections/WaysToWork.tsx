@@ -1,3 +1,5 @@
+import SidebarSpacer from "@/components/SidebarSpacer";
+
 const ENGAGEMENT_MODES = [
   {
     title: "Full-Time Roles",
@@ -19,10 +21,7 @@ const ENGAGEMENT_MODES = [
 export default function WaysToWork() {
   return (
     <section id="pricing" className="flex w-full items-start justify-between">
-      <div
-        aria-hidden
-        className="hidden w-[269px] shrink-0 self-stretch border-r border-border-subtle bg-surface md:block"
-      />
+      <SidebarSpacer />
 
       <div className="flex w-full flex-1 flex-col items-center gap-16 px-6 py-20 md:px-[120px]">
         <div className="flex w-full flex-col items-center">

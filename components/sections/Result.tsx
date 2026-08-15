@@ -1,15 +1,14 @@
 import Image from "next/image";
 
+import SidebarSpacer from "@/components/SidebarSpacer";
+
 export default function Result() {
   return (
     <section
       id="result"
       className="flex w-full items-start justify-between"
     >
-      <div
-        aria-hidden
-        className="hidden w-[269px] shrink-0 self-stretch border-r border-border-subtle bg-surface md:block"
-      />
+      <SidebarSpacer />
 
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
@@ -36,12 +35,13 @@ export default function Result() {
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
-              <button
-                type="button"
+              {/* TODO: link to case-study pages (later phase) */}
+              <a
+                href="#"
                 className="absolute bottom-[29px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
               >
                 See Study Case
-              </button>
+              </a>
             </div>
 
             <div className="relative h-[280px] w-full overflow-clip rounded-md bg-[#151317] shadow-button md:h-[526px] md:flex-1">
@@ -52,12 +52,13 @@ export default function Result() {
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
-              <button
-                type="button"
+              {/* TODO: link to case-study pages (later phase) */}
+              <a
+                href="#"
                 className="absolute bottom-[30px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
               >
                 See Study Case
-              </button>
+              </a>
             </div>
           </div>
 
@@ -66,8 +67,8 @@ export default function Result() {
               Want to See more magic?
             </p>
             <div className="flex items-center gap-3">
-              <button
-                type="button"
+              <a
+                href="mailto:hello@mike.com"
                 className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-ink shadow-button"
               >
                 Book 15 Mins Call
@@ -78,9 +79,10 @@ export default function Result() {
                   height={14}
                   className="h-[14px] w-[17px] object-cover"
                 />
-              </button>
-              <button
-                type="button"
+              </a>
+              {/* TODO: link to case-study pages (later phase) */}
+              <a
+                href="#"
                 className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
                 style={{
                   backgroundImage:
@@ -88,7 +90,7 @@ export default function Result() {
                 }}
               >
                 See All Finished Product
-              </button>
+              </a>
             </div>
           </div>
         </div>
