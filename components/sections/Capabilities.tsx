@@ -62,7 +62,11 @@ export default function Capabilities() {
             ))}
           </div>
 
-          <div className="hidden flex-1 self-stretch overflow-hidden rounded-lg border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button lg:block" />
+          {/* TODO: placeholder for decorative graphic (Figma composite image mock-UI panel) */}
+          <div
+            aria-hidden="true"
+            className="hidden flex-1 self-stretch overflow-hidden rounded-lg border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button lg:block"
+          />
         </div>
       </div>
     </section>
