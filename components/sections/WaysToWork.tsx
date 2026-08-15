@@ -35,7 +35,7 @@ export default function WaysToWork() {
           {ENGAGEMENT_MODES.map((mode) => (
             <div
               key={mode.title}
-              className="flex w-full flex-1 flex-col items-start gap-3 self-stretch rounded-md bg-surface p-4"
+              className="flex w-full flex-1 flex-col items-start gap-3 self-stretch rounded-sm bg-surface p-4"
             >
               <p className="w-full font-body text-[18px] font-semibold text-ink">
                 {mode.title}

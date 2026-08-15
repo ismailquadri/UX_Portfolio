@@ -8,16 +8,17 @@ type GridCell = {
     size?: number;
   };
   variant?: "elevated" | "flat-shadow" | "flat" | "fade";
+  className?: string;
 };
 
-// 5x5 grid, read left-to-right, top-to-bottom, matching the Figma "Icons Grid" layout.
+// 5x5 grid (24 cells), read left-to-right, top-to-bottom, matching the Figma "Icons Grid" layout.
+// Row 1 col 4 is intentionally empty in the design; Slack is pinned to col 5 so the gap stays open.
 const GRID_CELLS: GridCell[] = [
   // Row 1
   { key: "google-drive", icon: { src: "/images/tools/google-drive.svg", alt: "Google Drive" }, variant: "elevated" },
   { key: "row1-col2", variant: "flat" },
   { key: "row1-col3", variant: "flat-shadow" },
-  { key: "row1-col4", variant: "flat" },
-  { key: "slack", icon: { src: "/images/tools/slack.svg", alt: "Slack" }, variant: "elevated" },
+  { key: "slack", icon: { src: "/images/tools/slack.svg", alt: "Slack" }, variant: "elevated", className: "lg:col-start-5" },
 
   // Row 2
   { key: "row2-col1", variant: "flat" },
@@ -102,7 +103,7 @@ export default function TechStack() {
           {GRID_CELLS.map((cell) => (
             <div
               key={cell.key}
-              className={`relative size-[108px] shrink-0 overflow-hidden rounded-lg ${CELL_VARIANT_CLASSES[cell.variant ?? "flat"]}`}
+              className={`relative size-[108px] shrink-0 overflow-hidden rounded-md ${CELL_VARIANT_CLASSES[cell.variant ?? "flat"]}${cell.className ? ` ${cell.className}` : ""}`}
             >
               {cell.icon && (
                 <Image
