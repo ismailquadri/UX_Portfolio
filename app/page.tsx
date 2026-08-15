@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
 import AiFluencyCallout from "@/components/sections/AiFluencyCallout";
 import Capabilities from "@/components/sections/Capabilities";
+import DomainStrip from "@/components/sections/DomainStrip";
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
         <Hero />
         <AiFluencyCallout />
         <Capabilities />
+        <DomainStrip />
       </main>
     </div>
   );
