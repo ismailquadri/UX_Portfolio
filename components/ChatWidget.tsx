@@ -1,9 +1,32 @@
 "use client";
 
 import Image from "next/image";
-import { SEED_MESSAGES } from "@/lib/chat-seed";
+import { useState, type FormEvent } from "react";
+import { SEED_MESSAGES, type ChatMessage } from "@/lib/chat-seed";
 
 export default function ChatWidget() {
+  const [messages, setMessages] = useState<ChatMessage[]>(SEED_MESSAGES);
+  const [input, setInput] = useState("");
+  const [isSending, setIsSending] = useState(false);
+
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmed = input.trim();
+    if (!trimmed || isSending) return;
+
+    setMessages((prev) => [
+      ...prev,
+      {
+        id: crypto.randomUUID(),
+        role: "user",
+        content: trimmed,
+        timestamp: "Just Now",
+      },
+    ]);
+    setInput("");
+    // network call added in Task 23 (Task 22 builds the /api/chat route)
+  }
+
   return (
     <div
       id="chat"
@@ -28,11 +51,11 @@ export default function ChatWidget() {
 
         {/* Message list */}
         <div className="flex w-full flex-1 flex-col justify-end gap-2 overflow-y-auto py-3">
-          {SEED_MESSAGES.map((message, index) => {
+          {messages.map((message) => {
             const isUser = message.role === "user";
             return (
               <div
-                key={index}
+                key={message.id}
                 className={`flex w-full flex-col gap-1 ${
                   isUser ? "items-end" : "items-start"
                 }`}
@@ -59,11 +82,22 @@ export default function ChatWidget() {
         </div>
 
         {/* Input row */}
-        <div className="flex h-10 w-full shrink-0 items-center gap-2.5 rounded-full border border-paper bg-paper py-1 pl-3 pr-1 shadow-button">
-          <p className="flex-1 truncate font-body text-[16px] tracking-[-0.16px] text-ink/40">
-            Send us message
-          </p>
-          <span className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#353535] bg-gradient-to-b from-black to-[#666]">
+        <form
+          onSubmit={handleSubmit}
+          className="flex h-10 w-full shrink-0 items-center gap-2.5 rounded-full border border-paper bg-paper py-1 pl-3 pr-1 shadow-button"
+        >
+          <input
+            type="text"
+            value={input}
+            onChange={(event) => setInput(event.target.value)}
+            placeholder="Send us message"
+            className="min-w-0 flex-1 bg-transparent font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/40"
+          />
+          <button
+            type="submit"
+            aria-label="Send message"
+            className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#353535] bg-gradient-to-b from-black to-[#666]"
+          >
             <svg
               width="18"
               height="18"
@@ -87,8 +121,8 @@ export default function ChatWidget() {
                 strokeLinejoin="round"
               />
             </svg>
-          </span>
-        </div>
+          </button>
+        </form>
       </div>
     </div>
   );
