@@ -1,0 +1,9 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="32.625" height="48.9375" viewBox="0 0 32.625 48.9375" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="figma">
+<path id="vector" fill-rule="evenodd" clip-rule="evenodd" d="M16.3125 24.4687C16.3125 19.9642 19.9642 16.3125 24.4687 16.3125C28.9733 16.3125 32.625 19.9642 32.625 24.4687C32.625 28.9733 28.9733 32.625 24.4687 32.625C19.9642 32.625 16.3125 28.9733 16.3125 24.4687Z" fill="#1ABCFE"/>
+<path id="vector_2" fill-rule="evenodd" clip-rule="evenodd" d="M0 40.7812C0 36.2767 3.65168 32.625 8.15625 32.625H16.3125V40.7812C16.3125 45.2858 12.6608 48.9375 8.15625 48.9375C3.65168 48.9375 0 45.2858 0 40.7812Z" fill="#0ACF83"/>
+<path id="vector_3" fill-rule="evenodd" clip-rule="evenodd" d="M16.3125 0V16.3125H24.4687C28.9733 16.3125 32.625 12.6608 32.625 8.15625C32.625 3.65168 28.9733 0 24.4687 0H16.3125Z" fill="#FF7262"/>
+<path id="vector_4" fill-rule="evenodd" clip-rule="evenodd" d="M8.34465e-07 8.15625C8.34465e-07 12.6608 3.65168 16.3125 8.15625 16.3125H16.3125V2.98023e-07H8.15625C3.65168 2.98023e-07 8.34465e-07 3.65168 8.34465e-07 8.15625Z" fill="#F24E1E"/>
+<path id="vector_5" fill-rule="evenodd" clip-rule="evenodd" d="M0 24.4687C0 28.9733 3.65168 32.625 8.15625 32.625H16.3125V16.3125H8.15625C3.65168 16.3125 0 19.9642 0 24.4687Z" fill="#A259FF"/>
+</g>
+</svg>
