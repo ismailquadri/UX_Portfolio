@@ -9,22 +9,76 @@ export default function ChatWidget() {
   const [input, setInput] = useState("");
   const [isSending, setIsSending] = useState(false);
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = input.trim();
     if (!trimmed || isSending) return;
 
-    setMessages((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        role: "user",
-        content: trimmed,
-        timestamp: "Just Now",
-      },
-    ]);
+    const userMessage: ChatMessage = {
+      id: crypto.randomUUID(),
+      role: "user",
+      content: trimmed,
+      timestamp: "Just Now",
+    };
+    const nextMessages = [...messages, userMessage];
+    setMessages(nextMessages);
     setInput("");
-    // network call added in Task 23 (Task 22 builds the /api/chat route)
+    setIsSending(true);
+
+    try {
+      const response = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          messages: nextMessages.map(({ role, content }) => ({
+            role,
+            content,
+          })),
+        }),
+      });
+
+      if (!response.ok || !response.body) {
+        throw new Error("chat_request_failed");
+      }
+
+      const assistantId = crypto.randomUUID();
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: assistantId,
+          role: "assistant",
+          content: "",
+          timestamp: "Just Now",
+        },
+      ]);
+
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let accumulated = "";
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        accumulated += decoder.decode(value, { stream: true });
+        setMessages((prev) =>
+          prev.map((m) =>
+            m.id === assistantId ? { ...m, content: accumulated } : m
+          )
+        );
+      }
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          role: "assistant",
+          content:
+            "Having trouble connecting right now — try again in a moment.",
+          timestamp: "Just Now",
+        },
+      ]);
+    } finally {
+      setIsSending(false);
+    }
   }
 
   return (
@@ -91,12 +145,14 @@ export default function ChatWidget() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="Send us message"
-            className="min-w-0 flex-1 bg-transparent font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/40"
+            disabled={isSending}
+            className="min-w-0 flex-1 bg-transparent font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/40 disabled:opacity-60"
           />
           <button
             type="submit"
             aria-label="Send message"
-            className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#353535] bg-gradient-to-b from-black to-[#666]"
+            disabled={isSending}
+            className="flex size-8 shrink-0 items-center justify-center rounded-full border border-[#353535] bg-gradient-to-b from-black to-[#666] disabled:opacity-60"
           >
             <svg
               width="18"
