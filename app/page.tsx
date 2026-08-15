@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/sections/Hero";
+import AiFluencyCallout from "@/components/sections/AiFluencyCallout";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Navbar />
       <main className="flex w-full flex-1 flex-col">
         <Hero />
+        <AiFluencyCallout />
       </main>
     </div>
   );
