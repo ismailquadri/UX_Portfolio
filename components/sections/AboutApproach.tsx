@@ -2,24 +2,28 @@ import SidebarSpacer from "@/components/SidebarSpacer";
 
 const STEPS = [
   {
-    title: "UX Audit",
+    number: "01",
+    title: "Understand",
     description:
-      "Identify what's holding your product back. I analyze usability, flow, and interaction patterns to uncover friction points and turn them into opportunities for better user experience.",
+      "Get a clear picture of your product, users, and goals. No assumptions just real context.",
   },
   {
-    title: "User Segmentation & Insights",
+    number: "02",
+    title: "Analyze",
     description:
-      "Define who your users truly are. I help you develop clear user segments and behavioral insights to make every design decision data-driven and human-centered.",
+      "Identify friction, gaps, and missed opportunities. Where users struggle is where design starts.",
   },
   {
-    title: "UI/UX Design & Prototyping",
+    number: "03",
+    title: "Design",
     description:
-      "From concept to clickable prototype — I design interfaces that don't just look good but feel intuitive, efficient, and on-brand.",
+      "Create solutions that are clear, usable, and scalable. Not just visually good but practical.",
   },
   {
-    title: "MVP Product Development",
+    number: "04",
+    title: "Deliver",
     description:
-      "Turn your idea into a working product fast. I help you design, build, and launch your MVP with just the right features to validate your vision and attract early users.",
+      "Provide outputs that are ready to implement. No confusion, no extra translation needed.",
   },
 ];
 
@@ -34,51 +38,42 @@ export default function AboutApproach() {
             <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
               <span className="block">My approach is simple —</span>
               <span className="relative z-10 block">
-                <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[349px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-                I bring solutions.
+                <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[531px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
+                understand first, design second.
               </span>
             </h2>
           </div>
           <p className="hidden shrink-0 whitespace-nowrap font-body text-[18px] tracking-[-0.18px] text-ink md:block">
-            [ CAPABILITIES ]
+            [ APPROACH ]
           </p>
         </div>
 
-        <div className="flex w-full flex-col items-start px-6">
-          {STEPS.map((step, index) => (
-            <div
-              key={step.title}
-              className={`flex w-full flex-col gap-2 py-6 ${
-                index !== STEPS.length - 1
-                  ? "border-b border-border-subtle"
-                  : ""
-              }`}
-            >
-              <div className="flex items-center gap-3">
-                <span className="font-body text-[14px] tracking-[-0.14px] text-ink/40">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink">
-                  {step.title}
-                </h3>
-              </div>
-              <p className="max-w-2xl font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
-                {step.description}
-              </p>
-            </div>
-          ))}
+        <div className="flex w-full flex-col items-center gap-4 px-6">
+          <p className="w-full font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
+            I start by getting a clear picture of your product, your users, and what
+            you&rsquo;re trying to achieve.
+            <br className="hidden md:block" />
+            From there, I look for where things break, where users get stuck, and where
+            opportunities are being missed.
+          </p>
         </div>
 
-        <div className="flex w-full px-6">
-          <a
-            href="/case-studies"
-            className="relative inline-flex items-center gap-2 overflow-hidden rounded-[8px] border border-white bg-black px-3 py-3 shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
-          >
-            {/* TODO: confirm /case-studies route once merged from parallel work */}
-            <span className="font-body text-[14px] tracking-[-0.28px] text-white">
-              See Works
-            </span>
-          </a>
+        <div className="flex w-full flex-col gap-4 px-6">
+          <div className="grid w-full grid-cols-1 gap-4 md:grid-cols-2">
+            {STEPS.map((step) => (
+              <div
+                key={step.number}
+                className="flex flex-col items-start justify-end gap-3.5 rounded-[24px] border border-border-subtle bg-white/70 p-6 shadow-[0px_4px_5px_0px_rgba(0,0,0,0.02),0px_2px_0px_0px_rgba(0,0,0,0.05)] backdrop-blur-[22px]"
+              >
+                <p className="w-full font-body text-[24px] font-medium leading-[1.6] tracking-[-0.24px] text-[#112527]">
+                  [ {step.number} ] {step.title}
+                </p>
+                <p className="w-full font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
+                  {step.description}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
