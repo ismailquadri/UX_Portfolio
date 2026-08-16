@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import PageSidebar from "@/components/PageSidebar";
 import ContactForm from "@/components/ContactForm";
@@ -44,24 +45,38 @@ export default function ContactPage() {
               </h2>
             </div>
 
-            <ContactForm />
+            <div className="flex w-full flex-col items-center gap-10 lg:flex-row lg:items-start">
+              <div className="flex w-full flex-1 flex-col items-start gap-12">
+                <ContactForm />
 
-            <div className="flex w-full max-w-[576px] items-center justify-between border-t border-border-subtle pt-8">
-              <div className="flex flex-col gap-2">
-                <p className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink/50">
-                  Email
-                </p>
-                <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                  hello@mike.com
-                </p>
+                <div className="flex w-full max-w-[576px] items-center justify-between border-t border-border-subtle pt-8">
+                  <div className="flex flex-col gap-2">
+                    <p className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink/50">
+                      Email
+                    </p>
+                    <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
+                      hello@mike.com
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <p className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink/50">
+                      Response time
+                    </p>
+                    <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
+                      24 hours
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div className="flex flex-col gap-2">
-                <p className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink/50">
-                  Response time
-                </p>
-                <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                  24 hours
-                </p>
+
+              <div className="relative h-[320px] w-full shrink-0 overflow-hidden rounded-2xl sm:h-[420px] lg:h-[518px] lg:w-[507px]">
+                <Image
+                  src="/images/contact-portrait.png"
+                  alt="Portrait of Mike, available for new projects"
+                  fill
+                  sizes="(min-width: 1024px) 507px, 100vw"
+                  className="object-cover"
+                />
               </div>
             </div>
           </div>
