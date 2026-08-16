@@ -39,7 +39,7 @@ export default function Navbar() {
       </div>
 
       <div className="flex h-[83px] flex-1 min-w-px items-center gap-3 px-6 py-4">
-        <div className="flex flex-1 min-w-px flex-col items-start justify-center gap-1">
+        <div className="flex w-full flex-1 min-w-0 flex-col items-start justify-center gap-1 overflow-hidden">
           <div className="flex items-center gap-2.5">
             <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
               Hello,
@@ -59,7 +59,7 @@ export default function Navbar() {
               </p>
             </div>
           </div>
-          <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink opacity-40">
+          <p className="w-full max-w-full truncate font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink opacity-40">
             A Product Designer with a focus on B2B
           </p>
         </div>
@@ -67,7 +67,7 @@ export default function Navbar() {
         <div className="flex shrink-0 items-center gap-3">
           <button
             type="button"
-            className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button"
+            className="hidden h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button sm:flex"
           >
             Book 15 Mins Call
             <Image

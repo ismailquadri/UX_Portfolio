@@ -20,7 +20,7 @@ export default function Cta() {
 
           <div className="relative flex w-full max-w-[544px] flex-col items-start justify-between gap-10 py-10">
             <div className="flex flex-col items-start gap-6">
-              <h2 className="w-full max-w-[469px] font-heading text-[56px] leading-none tracking-[-0.56px] text-ink mix-blend-overlay">
+              <h2 className="w-full max-w-[469px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink mix-blend-overlay md:text-[56px] md:leading-none md:tracking-[-0.56px]">
                 Let&rsquo;s Turn Your Idea Into a Product That Works.
               </h2>
 
