@@ -7,13 +7,8 @@ import Footer from "@/components/Footer";
 import { FAQ_ITEMS } from "@/lib/faq-data";
 
 const SIDEBAR_LINKS = [
-  { label: "Send me Messages", href: "/#chat" },
-  { label: "Capability", href: "/#capabilities" },
-  { label: "Process", href: "/#process" },
-  { label: "The Result", href: "/#result" },
-  { label: "What They Said", href: "/#tech-stack" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "FAQ", href: "/#faq" },
+  { label: "Send me Messages", href: "#message-form" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export default function ContactPage() {
@@ -32,7 +27,7 @@ export default function ContactPage() {
           </p>
         </section>
 
-        <section className="flex w-full items-start justify-between">
+        <section id="message-form" className="flex w-full items-start justify-between">
           <PageSidebar links={SIDEBAR_LINKS} />
 
           <div className="flex w-full flex-1 flex-col items-start gap-12 px-6 py-14">
@@ -82,7 +77,7 @@ export default function ContactPage() {
           </div>
         </section>
 
-        <section className="flex w-full items-start justify-between">
+        <section id="faq" className="flex w-full items-start justify-between">
           <PageSidebar links={SIDEBAR_LINKS} />
 
           <div className="flex w-full flex-1 flex-col items-start gap-12 px-6 py-14">

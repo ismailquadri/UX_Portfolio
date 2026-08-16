@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -84,6 +85,7 @@ export default async function CaseStudyDetailPage({
                     <span className="font-medium text-ink">Category:</span>
                     <span className="text-ink/50">{caseStudy.category}</span>
                   </div>
+                  {/* TODO: replace with real client/duration once available */}
                   <div className="flex items-center gap-2 border-b border-border-subtle pb-3.5 font-body text-[16px] tracking-[-0.16px]">
                     <span className="font-medium text-ink">Client:</span>
                     <span className="text-ink/50">Confidential</span>
@@ -98,6 +100,7 @@ export default async function CaseStudyDetailPage({
                   </div>
                 </div>
 
+                {/* TODO: link to real live project URL once available */}
                 <a
                   href="#"
                   className="inline-flex w-fit items-center justify-center gap-2 rounded-sm border border-paper bg-ink px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper shadow-button"
@@ -148,7 +151,7 @@ export default async function CaseStudyDetailPage({
             <div className="flex flex-col items-center justify-center gap-8 px-6 py-10">
               <div className="flex w-full flex-col items-center gap-4 md:flex-row">
                 {otherCaseStudies.map((cs) => (
-                  <a
+                  <Link
                     key={cs.slug}
                     href={`/case-studies/${cs.slug}`}
                     className="group relative flex h-[280px] w-full flex-1 items-end justify-center overflow-clip rounded-md border border-border-subtle bg-surface p-6 shadow-button md:h-[526px]"
@@ -159,7 +162,7 @@ export default async function CaseStudyDetailPage({
                     <span className="inline-flex items-center justify-center gap-2 rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper opacity-0 backdrop-blur transition-opacity group-hover:opacity-100">
                       See Study Case
                     </span>
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>

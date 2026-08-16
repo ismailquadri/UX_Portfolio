@@ -10,12 +10,7 @@ import { CASE_STUDIES, type CaseStudy } from "@/lib/case-studies";
 const FILTERS = ["All", "FinTech", "AI-native", "GovTech"] as const;
 type Filter = (typeof FILTERS)[number];
 
-const SIDEBAR_LINKS = [
-  { label: "Case Studies", href: "#list" },
-  { label: "FinTech", href: "#list" },
-  { label: "AI-native", href: "#list" },
-  { label: "GovTech", href: "#list" },
-];
+const SIDEBAR_LINKS = [{ label: "Case Studies", href: "#list" }];
 
 export default function CaseStudiesPage() {
   const [filter, setFilter] = useState<Filter>("All");

@@ -4,6 +4,7 @@ import type { CaseStudy } from "@/lib/case-studies";
 export default function CaseStudyCard({ caseStudy }: { caseStudy: CaseStudy }) {
   return (
     <article className="flex w-full flex-col items-center gap-6 md:flex-row md:gap-8">
+      {/* TODO: replace with real case study thumbnail image */}
       <div className="flex h-[240px] w-full shrink-0 items-center justify-center rounded-sm border border-border-subtle bg-border-subtle md:h-[360px] md:w-[560px]">
         <p className="font-body text-[14px] text-[#555]">Thumbnail</p>
       </div>
