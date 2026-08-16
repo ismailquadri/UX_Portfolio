@@ -1,14 +1,6 @@
 import { AccordionItem } from "@/components/AccordionItem";
 import SidebarSpacer from "@/components/SidebarSpacer";
-
-const FAQS = [
-  {
-    question:
-      "How do you usually approach a new design project from start to finish?",
-    answer:
-      "Every project begins with clarity understanding your goals, target users, and the problem you’re solving. From there, I move into UX flow mapping, wireframing, and high-fidelity UI design. Once the concept feels right, I prototype interactions and collaborate with your team until everything aligns perfectly.",
-  },
-];
+import { FAQ_ITEMS } from "@/lib/faq-data";
 
 export default function Faq() {
   return (
@@ -28,7 +20,7 @@ export default function Faq() {
         </div>
 
         <div className="flex w-full flex-col items-start gap-4">
-          {FAQS.map((faq) => (
+          {FAQ_ITEMS.map((faq) => (
             <AccordionItem
               key={faq.question}
               question={faq.question}
