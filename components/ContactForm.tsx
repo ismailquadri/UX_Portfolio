@@ -23,9 +23,29 @@ export default function ContactForm() {
   const interestId = useId();
   const messageId = useId();
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    // network call added in a later task (a separate task builds the /api/contact route)
+    setState("sending");
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, interest, message }),
+      });
+
+      if (!response.ok) {
+        throw new Error("contact_request_failed");
+      }
+
+      setState("success");
+      setName("");
+      setEmail("");
+      setInterest("");
+      setMessage("");
+    } catch {
+      setState("error");
+    }
   }
 
   return (
