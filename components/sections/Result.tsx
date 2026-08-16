@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 
 import SidebarSpacer from "@/components/SidebarSpacer";
 
@@ -35,13 +36,12 @@ export default function Result() {
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
-              {/* TODO: link to case-study pages (later phase) */}
-              <a
-                href="#"
+              <Link
+                href="/case-studies/ryno-finance"
                 className="absolute bottom-[29px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
               >
                 See Study Case
-              </a>
+              </Link>
             </div>
 
             <div className="relative h-[280px] w-full overflow-clip rounded-md bg-[#151317] shadow-button md:h-[526px] md:flex-1">
@@ -52,13 +52,12 @@ export default function Result() {
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"
               />
-              {/* TODO: link to case-study pages (later phase) */}
-              <a
-                href="#"
+              <Link
+                href="/case-studies/linqart"
                 className="absolute bottom-[30px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
               >
                 See Study Case
-              </a>
+              </Link>
             </div>
           </div>
 
@@ -80,9 +79,8 @@ export default function Result() {
                   className="h-[14px] w-[17px] object-cover"
                 />
               </a>
-              {/* TODO: link to case-study pages (later phase) */}
-              <a
-                href="#"
+              <Link
+                href="/case-studies"
                 className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
                 style={{
                   backgroundImage:
@@ -90,7 +88,7 @@ export default function Result() {
                 }}
               >
                 See All Finished Product
-              </a>
+              </Link>
             </div>
           </div>
         </div>

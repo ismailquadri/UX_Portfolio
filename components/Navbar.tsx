@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const SCROLL_THRESHOLD = 80;
@@ -78,8 +79,8 @@ export default function Navbar() {
               className="h-[14px] w-[17px] object-cover"
             />
           </button>
-          <button
-            type="button"
+          <Link
+            href="/about"
             className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
             style={{
               backgroundImage:
@@ -87,7 +88,7 @@ export default function Navbar() {
             }}
           >
             About Me
-          </button>
+          </Link>
         </div>
       </div>
     </div>
