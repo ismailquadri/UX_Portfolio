@@ -71,6 +71,7 @@ export default function MobileNav() {
             <Link
               key={link.href}
               href={link.href}
+              onClick={() => setOpen(false)}
               className={`rounded-sm px-3 py-2 font-body text-[16px] tracking-[-0.16px] text-ink ${
                 isActive(link.href) ? "bg-surface font-medium" : "font-medium opacity-50"
               }`}
