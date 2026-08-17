@@ -92,14 +92,14 @@ export default function ChatWidget() {
           <span className="relative block size-[50px] shrink-0 overflow-hidden rounded-full bg-border-subtle">
             <Image
               src="/images/avatar.png"
-              alt="Quadri's Helper avatar"
+              alt="Quadri Helper avatar"
               fill
               sizes="50px"
               className="object-cover"
             />
           </span>
           <p className="font-body text-[16px] tracking-[-0.16px] text-ink">
-            Quadri&rsquo;s Helper
+            Quadri Helper
           </p>
         </div>
 
