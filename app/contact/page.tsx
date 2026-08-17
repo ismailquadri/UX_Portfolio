@@ -50,7 +50,7 @@ export default function ContactPage() {
                       Email
                     </p>
                     <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                      hello@mike.com
+                      hello@quadriismail.com
                     </p>
                   </div>
                   <div className="flex flex-col gap-2">
@@ -67,7 +67,7 @@ export default function ContactPage() {
               <div className="relative h-[320px] w-full shrink-0 overflow-hidden rounded-2xl sm:h-[420px] lg:h-[518px] lg:w-[507px]">
                 <Image
                   src="/images/contact-portrait.png"
-                  alt="Portrait of Mike, available for new projects"
+                  alt="Portrait of Quadri, available for new projects"
                   fill
                   sizes="(min-width: 1024px) 507px, 100vw"
                   className="object-cover"

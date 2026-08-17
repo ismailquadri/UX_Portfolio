@@ -15,8 +15,8 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Mike Lee — Product Designer",
-  description: "A product designer based in Indonesia.",
+  title: "Quadri Ismail — Product Designer",
+  description: "A product designer based in Lagos.",
 };
 
 export default function RootLayout({

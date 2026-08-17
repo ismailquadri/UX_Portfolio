@@ -67,7 +67,7 @@ export default function Result() {
             </p>
             <div className="flex items-center gap-3">
               <a
-                href="mailto:hello@mike.com"
+                href="mailto:hello@quadriismail.com"
                 className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-ink shadow-button"
               >
                 Book 15 Mins Call

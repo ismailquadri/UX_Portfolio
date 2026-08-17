@@ -144,7 +144,7 @@ export default function ContactForm() {
       {state === "error" && (
         <p className="font-body text-[14px] text-ink">
           Something went wrong sending your message — try again in a moment, or email
-          hello@mike.com directly.
+          hello@quadriismail.com directly.
         </p>
       )}
     </form>

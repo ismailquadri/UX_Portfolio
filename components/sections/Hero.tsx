@@ -25,7 +25,7 @@ export default function Hero() {
               <p>
                 You can send me a message via this popup with the tag{" "}
                 <span className="rounded-[8px] border border-white/10 bg-white/20 px-1.5 py-0.5 text-[14px] tracking-[-0.14px] opacity-70">
-                  @mike
+                  @quadri
                 </span>{" "}
                 or ask anything about my service.
               </p>

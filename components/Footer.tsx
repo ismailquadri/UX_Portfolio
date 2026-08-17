@@ -4,11 +4,11 @@ export default function Footer() {
       <div className="flex w-full flex-1 flex-col items-start justify-center gap-20">
         <div className="tracking-[-0.32px]">
           <p className="font-body text-[32px] leading-[1.6] text-accent/50">
-            A Product Designer Based in Indonesia
+            A Product Designer Based in Lagos
           </p>
           <p className="font-body text-[32px] font-medium leading-[1.6] text-accent">
             Get in touch with me -{" "}
-            <a href="mailto:hello@mike.com">hello@mike.com</a>
+            <a href="mailto:hello@quadriismail.com">hello@quadriismail.com</a>
           </p>
         </div>
         <div className="flex w-full items-center justify-between text-ink">

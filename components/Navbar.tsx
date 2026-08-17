@@ -49,14 +49,14 @@ export default function Navbar() {
               <span className="relative block size-7 shrink-0 overflow-hidden rounded-sm bg-surface">
                 <Image
                   src="/images/avatar.png"
-                  alt="Mike's avatar"
+                  alt="Quadri's avatar"
                   fill
                   sizes="28px"
                   className="object-cover"
                 />
               </span>
               <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                Mike&rsquo;s here!
+                Quadri&rsquo;s here!
               </p>
             </div>
           </div>
