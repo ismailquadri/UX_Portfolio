@@ -25,7 +25,8 @@ export default function SiteSidebar() {
         </Link>
         <nav className="flex w-full flex-col items-start">
           {SITE_LINKS.map((link) => {
-            const isActive = pathname.startsWith(link.href);
+            const isActive =
+              pathname === link.href || pathname.startsWith(`${link.href}/`);
             return (
               <Link
                 key={link.href}
