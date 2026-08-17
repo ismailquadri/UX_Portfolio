@@ -1,16 +1,12 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 export default function Result() {
   return (
     <section
       id="result"
       className="flex w-full items-start justify-between"
     >
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <h2 className="w-full max-w-[971px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
