@@ -53,7 +53,7 @@ export async function POST(request: Request) {
   try {
     await resend.emails.send({
       from: "Portfolio Contact Form <onboarding@resend.dev>",
-      to: "hello@mike.com",
+      to: "hello@quadriismail.com",
       replyTo: body.email,
       subject: `New message from ${body.name} (${body.interest})`,
       text: `Name: ${body.name}\nEmail: ${body.email}\nInterested in: ${body.interest}\n\n${body.message}`,
