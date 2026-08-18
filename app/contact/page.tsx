@@ -1,36 +1,30 @@
 import Image from "next/image";
 import Navbar from "@/components/Navbar";
-import PageSidebar from "@/components/PageSidebar";
+import SiteSidebar from "@/components/SiteSidebar";
 import ContactForm from "@/components/ContactForm";
 import { AccordionItem } from "@/components/AccordionItem";
 import Footer from "@/components/Footer";
 import { FAQ_ITEMS } from "@/lib/faq-data";
 
-const SIDEBAR_LINKS = [
-  { label: "Send me Messages", href: "#message-form" },
-  { label: "FAQ", href: "#faq" },
-];
-
 export default function ContactPage() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-paper">
       <Navbar />
-      <main className="flex w-full flex-1 flex-col">
-        <section className="flex w-full items-end justify-between gap-6 border-b border-border-subtle px-6 py-14">
-          <h1 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
-            Let&rsquo;s start a
-            <br />
-            conversation
-          </h1>
-          <p className="hidden whitespace-nowrap font-body text-[18px] font-medium tracking-[-0.18px] text-ink md:block">
-            [ CONTACT ]
-          </p>
-        </section>
+      <div className="flex w-full flex-1">
+        <SiteSidebar />
+        <main className="flex w-full flex-1 flex-col">
+          <section className="flex w-full items-end justify-between gap-6 border-b border-border-subtle px-6 py-14">
+            <h1 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
+              Let&rsquo;s start a
+              <br />
+              conversation
+            </h1>
+            <p className="hidden whitespace-nowrap font-body text-[18px] font-medium tracking-[-0.18px] text-ink md:block">
+              [ CONTACT ]
+            </p>
+          </section>
 
-        <section id="message-form" className="flex w-full items-start justify-between">
-          <PageSidebar links={SIDEBAR_LINKS} />
-
-          <div className="flex w-full flex-1 flex-col items-start gap-12 px-6 py-14">
+          <section id="message-form" className="flex w-full flex-col items-start gap-12 px-6 py-14">
             <div className="flex w-full flex-col gap-0.5">
               <p className="font-body text-[14px] tracking-[-0.14px] text-ink/50">
                 GET IN TOUCH
@@ -74,13 +68,9 @@ export default function ContactPage() {
                 />
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        <section id="faq" className="flex w-full items-start justify-between">
-          <PageSidebar links={SIDEBAR_LINKS} />
-
-          <div className="flex w-full flex-1 flex-col items-start gap-12 px-6 py-14">
+          <section id="faq" className="flex w-full flex-col items-start gap-12 px-6 py-14">
             <div className="flex w-full items-end justify-between gap-6">
               <div className="flex flex-1 items-center justify-between gap-6">
                 <h2 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
@@ -101,9 +91,9 @@ export default function ContactPage() {
                 />
               ))}
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
       <Footer />
     </div>
   );
