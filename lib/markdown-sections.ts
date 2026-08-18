@@ -30,9 +30,7 @@ export function splitByHeadingText(
 }
 
 function headingText(node: Heading): string {
-  return node.children
-    .map((child) => ("value" in child ? String(child.value) : ""))
-    .join("");
+  return collectText(node.children as RootContent[]);
 }
 
 export function nodesToHtml(nodes: RootContent[]): string {
@@ -48,6 +46,11 @@ export function nodesToPlainText(nodes: RootContent[]): string[] {
   return list.children.map((item) => collectText(item.children as RootContent[]).trim());
 }
 
+// Note: nested lists (a list item containing another list) are concatenated
+// with no separator between the parent item's text and the nested list's
+// text. This is intentional — the content schema only produces flat bullet
+// lists under `## Process`-style sections, so nested-list flattening with
+// proper delimiters is out of scope here.
 function collectText(nodes: RootContent[]): string {
   let text = "";
   for (const node of nodes) {
