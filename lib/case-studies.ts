@@ -93,7 +93,7 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
   }
 
   return {
-    slug: frontmatter.slug,
+    slug,
     title: frontmatter.title,
     category: frontmatter.category,
     summary: frontmatter.summary,
