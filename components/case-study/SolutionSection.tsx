@@ -11,7 +11,7 @@ export default function SolutionSection({
     <div className="flex flex-col gap-12">
       {items.map((item) => (
         <div key={item.heading} className="flex flex-col gap-6">
-          <h3 className="font-heading text-[24px] tracking-[-0.24px] text-ink md:text-[32px]">
+          <h3 className="font-body text-[24px] font-semibold text-ink">
             {item.heading}
           </h3>
           <CaseStudyImage
