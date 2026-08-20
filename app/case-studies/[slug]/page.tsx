@@ -38,6 +38,7 @@ export default async function CaseStudyDetailPage({
   const hasNarrative = Boolean(
     caseStudy.problemHtml ||
       (caseStudy.processInsights && caseStudy.processInsights.length > 0) ||
+      caseStudy.obstaclesHtml ||
       (caseStudy.solutionItems && caseStudy.solutionItems.length > 0) ||
       (caseStudy.metrics && caseStudy.metrics.length > 0) ||
       caseStudy.outcomeHtml ||
@@ -106,6 +107,15 @@ export default async function CaseStudyDetailPage({
                   Process
                 </h2>
                 <ProcessInsights items={caseStudy.processInsights} />
+              </div>
+            )}
+
+            {caseStudy.obstaclesHtml && (
+              <div className="flex flex-col gap-8 px-6">
+                <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
+                  Obstacles
+                </h2>
+                <ProseHtml html={caseStudy.obstaclesHtml} />
               </div>
             )}
 
