@@ -39,6 +39,7 @@ export type CaseStudy = {
   metrics?: CaseStudyMetric[];
   problemHtml?: string;
   processInsights?: string[];
+  obstaclesHtml?: string;
   solutionItems?: CaseStudySolutionItem[];
   outcomeHtml?: string;
   closeHtml?: string;
@@ -79,6 +80,7 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
 
   const problem = getSection("Problem");
   const processSection = getSection("Process");
+  const obstacles = getSection("Obstacles");
   const solution = getSection("Solution");
   const outcome = getSection("Outcome");
   const close = getSection("Close");
@@ -106,6 +108,7 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
     metrics: frontmatter.metrics,
     problemHtml: problem ? nodesToHtml(problem.nodes) : undefined,
     processInsights: processSection ? nodesToPlainText(processSection.nodes) : undefined,
+    obstaclesHtml: obstacles ? nodesToHtml(obstacles.nodes) : undefined,
     solutionItems,
     outcomeHtml: outcome ? nodesToHtml(outcome.nodes) : undefined,
     closeHtml: close ? nodesToHtml(close.nodes) : undefined,
