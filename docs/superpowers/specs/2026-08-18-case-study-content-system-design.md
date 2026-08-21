@@ -52,7 +52,9 @@ Prose.
 
 ## Process
 - Insight one
-- Insight two
+- ![Affinity map photo](/images/case-studies/ryno-finance/affinity-map.png)
+
+  Insight two, with a supporting image above it
 - Insight three
 
 ## Obstacles
@@ -76,7 +78,7 @@ Optional reflection paragraph.
 ```
 
 - `## Problem`, `## Process`, `## Obstacles`, `## Solution`, `## Outcome`, `## Close` are the only recognized top-level headings. Any of them may be omitted.
-- `## Process` content is a markdown bullet list; each top-level list item becomes one insight in the existing insight-list visual style.
+- `## Process` content is a markdown bullet list; each top-level list item becomes one insight in the existing insight-list visual style. An insight may optionally start with its own leading image, written as its own paragraph inside the list item followed by a blank line and then the insight text (as shown above) — the image is extracted the same way a Solution item's leading image is (see below), and renders via the same `<CaseStudyImage>` placeholder-or-real-image treatment. This stays optional per-insight, on purpose: Process is still meant to be scannable by default (plain text bullets), with an image only where a research artifact (affinity map, journey map, workshop photo) genuinely adds evidence — it does not become a repeatable heading+image+prose structure like Solution, which would undercut the "compressed insights" point of this section.
 - `## Obstacles` content is prose (like `## Problem`/`## Outcome`/`## Close`), not a bullet list — deliberately, so a stakeholder-pivot or legacy-constraint story reads as a narrative rather than a compressed list item. It can run longer than the other prose sections; there's no length ceiling.
 - `## Solution` contains a repeatable list of `###` sub-headings (unlimited — 2, 3, 5, whatever the case study needs). Each `###` sub-section may start with a single markdown image (`![alt](path)`); if present, that image is extracted as the item's supporting image and the remaining text becomes that item's body prose. If no leading image is present, the item just has no image (renders a placeholder, per the Images section below).
 - Any other heading text, or content outside a recognized section, is ignored (not an error — keeps authoring forgiving).
@@ -95,6 +97,7 @@ New dependencies: `gray-matter` (frontmatter/body split), `unified` + `remark-pa
 
 ```typescript
 type CaseStudySolutionItem = { heading: string; image?: string; html: string };
+type CaseStudyProcessInsight = { text: string; image?: string };
 
 type CaseStudy = {
   slug: string;
@@ -109,7 +112,7 @@ type CaseStudy = {
   heroImage?: string;
   metrics?: { value: string; label: string }[];
   problemHtml?: string;
-  processInsights?: string[];
+  processInsights?: CaseStudyProcessInsight[];
   obstaclesHtml?: string;
   solutionItems?: CaseStudySolutionItem[];
   outcomeHtml?: string;
@@ -132,7 +135,7 @@ Because reading `content/case-studies/` requires `fs`, `app/case-studies/page.ts
 1. **Hero** — existing header treatment (title, "[ CASE STUDY ]" tag), plus `summary` as a subhead and `heroImage` (or placeholder) as a supporting visual. Replaces today's plain title-only header.
 2. **Context strip** — a compact row of the available facts among `role`, `client`, `duration`, `location`, `category` (category always present), styled like today's existing label/value rows in "About Project." The `liveUrl` button renders only if present. Replaces today's "About Project" section.
 3. **Problem** — renders `problemHtml` if present; section omitted entirely if not.
-4. **Process** — renders `processInsights` as the existing insight-list style; omitted if not present.
+4. **Process** — renders `processInsights` as the existing insight-list style; each insight optionally shows its `image` (or a placeholder, per the Images section, if an image was written but the file doesn't exist yet — an insight with no image at all simply shows no image slot); omitted entirely if not present.
 5. **Obstacles** — renders `obstaclesHtml` as prose (same treatment as Problem/Outcome/Close — full paragraphs, not the compressed insight-list style used for Process); omitted if not present. Sits between Process and Solution: the reader has just seen what was learned, then sees what stood in the way of acting on it, before seeing what was actually shipped.
 6. **Solution** — renders `solutionItems`, each as a heading + image (or placeholder) + prose, in the repeatable style already used for the current narrative sections; omitted if not present.
 7. **Outcome** — renders the `metrics` stat row (if present) above `outcomeHtml` (if present); the whole section is omitted only if both are absent.
@@ -159,4 +162,5 @@ The old hardcoded `CASE_STUDIES` array and `readLink` field are removed — `Cas
 - Add one temporary/manual test fixture case study `.md` file (or manually edit one of the 3) with every optional field and section filled in, including an `## Obstacles` section, a 3-item Solution list, and 2 metrics, to confirm: context strip shows all rows, Process renders as a bullet insight list, Obstacles renders as prose (not a bullet list) between Process and Solution, Solution renders all 3 items with images, Outcome shows the stat row + prose, Close renders, and no fallback note appears. Revert the manual edit after verifying (or keep the fixture out of `content/case-studies/` and use it in a unit test for the parser instead).
 - Confirm a case study with every other section present but `## Obstacles` omitted renders correctly with no gap or stray heading where Obstacles would have been.
 - Confirm a solution `###` item with no leading image renders the placeholder box instead of a broken image.
+- Confirm a Process bullet with a leading image renders that image (or its placeholder), a Process bullet without one renders no image slot at all, and both can appear in the same list without breaking each other's parsing.
 - Confirm `liveUrl` omitted hides the button, and present shows it linking correctly.
