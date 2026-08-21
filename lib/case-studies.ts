@@ -6,7 +6,7 @@ import {
   parseMarkdownBody,
   splitByHeadingText,
   nodesToHtml,
-  nodesToPlainText,
+  listItemsWithLeadingImage,
   extractLeadingImage,
 } from "./markdown-sections";
 
@@ -25,6 +25,11 @@ export type CaseStudySolutionItem = {
   html: string;
 };
 
+export type CaseStudyProcessInsight = {
+  text: string;
+  image?: string;
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -38,7 +43,7 @@ export type CaseStudy = {
   heroImage?: string;
   metrics?: CaseStudyMetric[];
   problemHtml?: string;
-  processInsights?: string[];
+  processInsights?: CaseStudyProcessInsight[];
   obstaclesHtml?: string;
   solutionItems?: CaseStudySolutionItem[];
   outcomeHtml?: string;
@@ -107,7 +112,9 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
     heroImage: frontmatter.heroImage,
     metrics: frontmatter.metrics,
     problemHtml: problem ? nodesToHtml(problem.nodes) : undefined,
-    processInsights: processSection ? nodesToPlainText(processSection.nodes) : undefined,
+    processInsights: processSection
+      ? listItemsWithLeadingImage(processSection.nodes)
+      : undefined,
     obstaclesHtml: obstacles ? nodesToHtml(obstacles.nodes) : undefined,
     solutionItems,
     outcomeHtml: outcome ? nodesToHtml(outcome.nodes) : undefined,
