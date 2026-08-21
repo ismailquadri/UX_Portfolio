@@ -46,12 +46,23 @@ export function nodesToPlainText(nodes: RootContent[]): string[] {
   return list.children.map((item) => collectText(item.children as RootContent[]).trim());
 }
 
+export function listItemsWithLeadingImage(
+  nodes: RootContent[]
+): { text: string; image?: string }[] {
+  const list = nodes.find((node) => node.type === "list");
+  if (!list || list.type !== "list") return [];
+  return list.children.map((item) => {
+    const { image, rest } = extractLeadingImage(item.children as RootContent[]);
+    return { text: collectText(rest).trim(), image };
+  });
+}
+
 // Note: nested lists (a list item containing another list) are concatenated
 // with no separator between the parent item's text and the nested list's
 // text. This is intentional — the content schema only produces flat bullet
 // lists under `## Process`-style sections, so nested-list flattening with
 // proper delimiters is out of scope here.
-function collectText(nodes: RootContent[]): string {
+export function collectText(nodes: RootContent[]): string {
   let text = "";
   for (const node of nodes) {
     if (node.type === "text") {
