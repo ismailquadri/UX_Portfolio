@@ -7,7 +7,7 @@ export default function ProcessInsights({
   items: CaseStudyProcessInsight[];
 }) {
   return (
-    <ul className="flex max-w-[971px] flex-col gap-4">
+    <ul className="flex w-full flex-col gap-4">
       {items.map((item, index) => (
         <li key={`${item.text}-${index}`} className="flex flex-col gap-4">
           <div className="flex items-start gap-3 font-body text-[18px] font-medium leading-[1.6] tracking-[-0.18px] text-ink/50 md:text-[24px] md:tracking-[-0.24px]">

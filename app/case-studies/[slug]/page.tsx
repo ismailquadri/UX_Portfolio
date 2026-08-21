@@ -62,7 +62,7 @@ export default async function CaseStudyDetailPage({
                   [&nbsp;&nbsp;CASE STUDY&nbsp;&nbsp;]
                 </span>
               </div>
-              <p className="max-w-[720px] font-body text-[18px] font-medium leading-[1.6] tracking-[-0.18px] text-ink/50 md:text-[24px] md:tracking-[-0.24px]">
+              <p className="w-full font-body text-[18px] font-medium leading-[1.6] tracking-[-0.18px] text-ink/50 md:text-[24px] md:tracking-[-0.24px]">
                 {caseStudy.summary}
               </p>
             </div>
