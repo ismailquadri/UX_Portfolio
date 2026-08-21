@@ -29,6 +29,7 @@ title: "Ryno Finance — Compliance State Machine"
 category: FinTech
 summary: "Designing the queue where one click blocks or clears real money"
 role: "Lead Product Designer"           # optional
+team: "1 PM, 3 engineers, 1 QA"         # optional
 client: "Ryno Finance"                  # optional
 duration: "14 weeks"                    # optional
 location: "Remote"                      # optional
@@ -105,6 +106,7 @@ type CaseStudy = {
   category: "FinTech" | "AI-native" | "GovTech";
   summary: string;
   role?: string;
+  team?: string;
   client?: string;
   duration?: string;
   location?: string;
@@ -133,7 +135,7 @@ Because reading `content/case-studies/` requires `fs`, `app/case-studies/page.ts
 `app/case-studies/[slug]/page.tsx` is restructured to render, in order:
 
 1. **Hero** — existing header treatment (title, "[ CASE STUDY ]" tag), plus `summary` as a subhead and `heroImage` (or placeholder) as a supporting visual. Replaces today's plain title-only header.
-2. **Context strip** — a compact row of the available facts among `role`, `client`, `duration`, `location`, `category` (category always present), styled like today's existing label/value rows in "About Project." The `liveUrl` button renders only if present. Replaces today's "About Project" section.
+2. **Context strip** — a compact row of the available facts among `role`, `team`, `client`, `duration`, `location`, `category` (category always present), styled like today's existing label/value rows in "About Project." The `liveUrl` button renders only if present. Replaces today's "About Project" section.
 3. **Problem** — renders `problemHtml` if present; section omitted entirely if not.
 4. **Process** — renders `processInsights` as the existing insight-list style; an insight only shows an image slot at all if one was written in the markdown (same real-image-or-broken-until-the-file-exists behavior as a Solution item's leading image — see Images section); an insight with no image written shows no image slot whatsoever, not a placeholder box. Omitted entirely if the section itself isn't present.
 5. **Obstacles** — renders `obstaclesHtml` as prose (same treatment as Problem/Outcome/Close — full paragraphs, not the compressed insight-list style used for Process); omitted if not present. Sits between Process and Solution: the reader has just seen what was learned, then sees what stood in the way of acting on it, before seeing what was actually shipped.
