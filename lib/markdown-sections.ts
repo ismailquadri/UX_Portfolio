@@ -62,7 +62,7 @@ export function listItemsWithLeadingImage(
 // text. This is intentional — the content schema only produces flat bullet
 // lists under `## Process`-style sections, so nested-list flattening with
 // proper delimiters is out of scope here.
-export function collectText(nodes: RootContent[]): string {
+function collectText(nodes: RootContent[]): string {
   let text = "";
   for (const node of nodes) {
     if (node.type === "text") {
