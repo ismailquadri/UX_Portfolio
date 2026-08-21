@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 const CLIENTS = [
   { name: "Foxxie", logo: "/images/clients/foxxie.png" },
   { name: "Mogram", logo: "/images/clients/mogram.png" },
@@ -16,8 +14,6 @@ const CLIENTS = [
 export default function AboutClients() {
   return (
     <section className="flex w-full items-start justify-between">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex items-center gap-2.5">

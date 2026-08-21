@@ -28,9 +28,10 @@ Without an API key set, the site runs fine but the hero chat widget will show a 
 
 - `app/page.tsx` — the homepage, composing all sections in order
 - `app/api/chat/route.ts` — server-side streaming endpoint for the chat widget (calls Anthropic)
-- `components/` — Navbar, Footer, ChatWidget, and reusable pieces
+- `components/` — Navbar, Footer, ChatWidget, SiteSidebar, MobileNav, and reusable pieces
+- `components/SiteSidebar.tsx` — shared sticky left-hand page navigation shown on every page at desktop widths
+- `components/MobileNav.tsx` — hamburger-triggered dropdown menu in the Navbar for mobile widths
 - `components/sections/` — one component per homepage section (Hero, Capabilities, Process, Result, TechStack, WaysToWork, Faq, Cta, etc.)
-- `hooks/useScrollSpy.ts` — highlights the active section in the hero sidebar nav
 - `lib/` — chat seed data and the chat system prompt
 - `docs/superpowers/` — the design spec and implementation plan this build followed
 

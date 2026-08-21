@@ -1,6 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PageSidebar from "@/components/PageSidebar";
+import SiteSidebar from "@/components/SiteSidebar";
 import ContactForm from "@/components/ContactForm";
 import AboutIntro from "@/components/sections/AboutIntro";
 import AboutApproach from "@/components/sections/AboutApproach";
@@ -8,21 +8,13 @@ import AboutSkills from "@/components/sections/AboutSkills";
 import AboutClients from "@/components/sections/AboutClients";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
 
-const ABOUT_LINKS = [
-  { label: "About Me", href: "#intro" },
-  { label: "Capability", href: "#approach" },
-  { label: "Skills & Domains", href: "#skills" },
-  { label: "Who I Work With", href: "#clients" },
-  { label: "Send me Messages", href: "#contact" },
-];
-
 export default function AboutPage() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-paper">
       <Navbar />
-      <main className="flex w-full flex-1">
-        <PageSidebar links={ABOUT_LINKS} />
-        <div className="flex w-full flex-1 flex-col">
+      <div className="flex w-full flex-1">
+        <SiteSidebar />
+        <main className="flex w-full flex-1 flex-col">
           <div id="intro">
             <AboutIntro />
           </div>
@@ -49,8 +41,8 @@ export default function AboutPage() {
               <ContactForm />
             </div>
           </RevealOnScroll>
-        </div>
-      </main>
+        </main>
+      </div>
       <Footer />
     </div>
   );

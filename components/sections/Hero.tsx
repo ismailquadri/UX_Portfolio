@@ -1,12 +1,9 @@
 import Image from "next/image";
 import ChatWidget from "@/components/ChatWidget";
-import HeroSidebar from "@/components/HeroSidebar";
 
 export default function Hero() {
   return (
     <section className="flex w-full items-start justify-between">
-      <HeroSidebar />
-
       <div className="flex w-full flex-1 flex-col items-end">
         <div className="flex h-[814px] w-full items-center justify-center overflow-clip px-6 py-3">
           <div className="relative h-full w-full overflow-clip rounded-lg bg-gradient-to-b from-[#efefef] to-[#898989]">

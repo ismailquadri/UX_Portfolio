@@ -1,5 +1,3 @@
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 const STEPS = [
   {
     number: "01",
@@ -30,8 +28,6 @@ const STEPS = [
 export default function AboutApproach() {
   return (
     <section className="flex w-full items-start justify-between">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex items-center gap-2.5">

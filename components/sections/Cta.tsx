@@ -1,12 +1,8 @@
 import Image from "next/image";
 
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 export default function Cta() {
   return (
     <section className="flex w-full items-start justify-between overflow-clip rounded-b-lg bg-paper shadow-button">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start px-6 py-14">
         <div className="relative flex w-full flex-1 flex-col items-start overflow-hidden rounded-md px-6 py-10 md:px-[90px]">
           <Image

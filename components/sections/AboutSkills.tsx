@@ -1,5 +1,3 @@
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 const SKILL_GROUPS = [
   {
     title: "Product Design",
@@ -34,8 +32,6 @@ const SKILL_GROUPS = [
 export default function AboutSkills() {
   return (
     <section className="flex w-full items-start justify-between">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full flex-col gap-3 px-6">
           <p className="font-body text-[14px] tracking-[-0.14px] text-ink">

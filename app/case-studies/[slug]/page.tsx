@@ -3,20 +3,10 @@ import Link from "next/link";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import PageSidebar from "@/components/PageSidebar";
-import SidebarSpacer from "@/components/SidebarSpacer";
+import SiteSidebar from "@/components/SiteSidebar";
 import { AccordionItem } from "@/components/AccordionItem";
 import { CASE_STUDIES, getCaseStudyBySlug } from "@/lib/case-studies";
 import { FAQ_ITEMS } from "@/lib/faq-data";
-
-const SIDEBAR_LINKS = [
-  { label: "Problem", href: "#problem" },
-  { label: "Solution", href: "#solution" },
-  { label: "Concepting", href: "#concepting" },
-  { label: "Design", href: "#design" },
-  { label: "Result", href: "#result-narrative" },
-  { label: "More Works", href: "#more-works" },
-];
 
 const NARRATIVE_SECTIONS = [
   { heading: "Problem", id: "problem" },
@@ -46,11 +36,11 @@ export default async function CaseStudyDetailPage({
   return (
     <div className="flex min-h-screen w-full flex-col bg-paper">
       <Navbar />
-      <main className="flex w-full flex-1 flex-col">
-        {/* Header */}
-        <section className="flex w-full items-start justify-between border-b border-border-subtle shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-          <SidebarSpacer />
-          <div className="flex w-full flex-1 flex-col gap-12 pt-14">
+      <div className="flex w-full flex-1">
+        <SiteSidebar />
+        <main className="flex w-full flex-1 flex-col">
+          {/* Header */}
+          <section className="flex w-full flex-col gap-12 border-b border-border-subtle pt-14 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
             <div className="flex items-end justify-between px-6">
               <h1 className="relative font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[56px] md:tracking-[-0.56px]">
                 {caseStudy.title}
@@ -60,13 +50,10 @@ export default async function CaseStudyDetailPage({
               </span>
             </div>
             <div className="h-px w-full bg-border-subtle" />
-          </div>
-        </section>
+          </section>
 
-        {/* About Project */}
-        <section className="flex w-full items-start justify-between shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
-          <PageSidebar links={SIDEBAR_LINKS} />
-          <div className="flex w-full flex-1 flex-col gap-12 py-14">
+          {/* About Project */}
+          <section className="flex w-full flex-col gap-12 py-14 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
             <div className="flex flex-col items-start gap-10 px-6 md:flex-row md:justify-center">
               <div className="flex w-full flex-1 flex-col gap-8">
                 <div className="flex flex-col gap-3.5">
@@ -113,13 +100,10 @@ export default async function CaseStudyDetailPage({
                 {/* TODO: replace with real project screenshot for {caseStudy.slug} */}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Narrative sections */}
-        <section className="flex w-full items-start justify-between shadow-button">
-          <SidebarSpacer />
-          <div className="flex w-full flex-1 flex-col gap-12 py-14">
+          {/* Narrative sections */}
+          <section className="flex w-full flex-col gap-12 py-14 shadow-button">
             {NARRATIVE_SECTIONS.map(({ heading, id }) => (
               <div key={id} id={id} className="flex flex-col gap-8 px-6">
                 <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
@@ -132,16 +116,13 @@ export default async function CaseStudyDetailPage({
                 </p>
               </div>
             ))}
-          </div>
-        </section>
+          </section>
 
-        {/* More Works */}
-        <section
-          id="more-works"
-          className="flex w-full items-start justify-between shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]"
-        >
-          <SidebarSpacer />
-          <div className="flex w-full flex-1 flex-col gap-12 py-14">
+          {/* More Works */}
+          <section
+            id="more-works"
+            className="flex w-full flex-col gap-12 py-14 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]"
+          >
             <div className="flex items-end justify-between px-6">
               <h2 className="relative font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[56px] md:tracking-[-0.56px]">
                 More Works
@@ -166,16 +147,13 @@ export default async function CaseStudyDetailPage({
                 ))}
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* FAQ */}
-        <section
-          id="faq"
-          className="flex w-full items-start justify-between shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]"
-        >
-          <SidebarSpacer />
-          <div className="flex w-full flex-1 flex-col gap-12 px-6 py-14">
+          {/* FAQ */}
+          <section
+            id="faq"
+            className="flex w-full flex-col items-start gap-12 px-6 py-14 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]"
+          >
             <div className="flex w-full items-end justify-between gap-6">
               <div className="flex flex-1 items-center justify-between gap-6">
                 <h2 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
@@ -196,9 +174,9 @@ export default async function CaseStudyDetailPage({
                 />
               ))}
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
       <Footer />
     </div>
   );

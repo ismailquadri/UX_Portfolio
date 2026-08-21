@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+import MobileNav from "@/components/MobileNav";
+
 const SCROLL_THRESHOLD = 80;
 
 export default function Navbar() {
@@ -66,6 +68,7 @@ export default function Navbar() {
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
+          <MobileNav />
           <button
             type="button"
             className="hidden h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button sm:flex"
