@@ -20,7 +20,7 @@ export default function CaseStudyCard({ caseStudy }: { caseStudy: CaseStudy }) {
           href={`/case-studies/${caseStudy.slug}`}
           className="font-body text-[14px] font-medium text-ink underline decoration-solid [text-underline-position:from-font]"
         >
-          {caseStudy.readLink} &rarr;
+          Read case study &rarr;
         </Link>
       </div>
     </article>
