@@ -1,6 +1,7 @@
 type ContextStripProps = {
   category: string;
   role?: string;
+  team?: string;
   client?: string;
   duration?: string;
   location?: string;
@@ -10,6 +11,7 @@ type ContextStripProps = {
 export default function ContextStrip({
   category,
   role,
+  team,
   client,
   duration,
   location,
@@ -17,6 +19,7 @@ export default function ContextStrip({
 }: ContextStripProps) {
   const rows: { label: string; value?: string }[] = [
     { label: "Role", value: role },
+    { label: "Team", value: team },
     { label: "Client", value: client },
     { label: "Duration", value: duration },
     { label: "Location", value: location },

@@ -83,6 +83,7 @@ export default async function CaseStudyDetailPage({
             <ContextStrip
               category={caseStudy.category}
               role={caseStudy.role}
+              team={caseStudy.team}
               client={caseStudy.client}
               duration={caseStudy.duration}
               location={caseStudy.location}

@@ -36,6 +36,7 @@ export type CaseStudy = {
   category: CaseStudyCategory;
   summary: string;
   role?: string;
+  team?: string;
   client?: string;
   duration?: string;
   location?: string;
@@ -56,6 +57,7 @@ type CaseStudyFrontmatter = {
   category: CaseStudyCategory;
   summary: string;
   role?: string;
+  team?: string;
   client?: string;
   duration?: string;
   location?: string;
@@ -105,6 +107,7 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
     category: frontmatter.category,
     summary: frontmatter.summary,
     role: frontmatter.role,
+    team: frontmatter.team,
     client: frontmatter.client,
     duration: frontmatter.duration,
     location: frontmatter.location,
