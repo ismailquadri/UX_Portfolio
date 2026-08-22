@@ -17,6 +17,19 @@ import type {
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "case-studies");
 
+// Defense in depth: every function that turns a slug into a filesystem path
+// goes through here, so a caller that forgets its own validation (e.g. a
+// future script or test) can't be tricked into reading/writing/deleting
+// outside content/case-studies/ via a slug like "../../etc/passwd".
+function resolveContentPath(slug: string): string {
+  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  const resolved = path.resolve(filePath);
+  if (!resolved.startsWith(path.resolve(CONTENT_DIR) + path.sep)) {
+    throw new Error(`Invalid slug: "${slug}"`);
+  }
+  return resolved;
+}
+
 export type RawSolutionItem = {
   heading: string;
   images: string[];
@@ -67,7 +80,7 @@ export function getAllRawCaseStudySlugs(): string[] {
 }
 
 export function getRawCaseStudyContent(slug: string): RawCaseStudyContent | undefined {
-  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  const filePath = resolveContentPath(slug);
   if (!fs.existsSync(filePath)) return undefined;
 
   const raw = fs.readFileSync(filePath, "utf-8");
@@ -164,9 +177,12 @@ function buildBody(data: RawCaseStudyContent): string {
 }
 
 export function saveCaseStudyContent(slug: string, data: RawCaseStudyContent): void {
-  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  const filePath = resolveContentPath(slug);
   const frontmatter: RawFrontmatter = {
-    slug: data.slug,
+    // Frontmatter always reflects the `slug` this function was actually
+    // asked to write to, not `data.slug` — those two could otherwise
+    // silently disagree and corrupt the file with a mismatched slug.
+    slug,
     title: data.title,
     category: data.category,
     summary: data.summary,
@@ -191,7 +207,7 @@ export function createCaseStudy(data: {
   category: CaseStudyCategory;
   summary: string;
 }): void {
-  const filePath = path.join(CONTENT_DIR, `${data.slug}.md`);
+  const filePath = resolveContentPath(data.slug);
   if (fs.existsSync(filePath)) {
     throw new Error(`A case study with slug "${data.slug}" already exists`);
   }
@@ -204,7 +220,7 @@ export function createCaseStudy(data: {
 }
 
 export function deleteCaseStudy(slug: string): void {
-  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  const filePath = resolveContentPath(slug);
   if (!fs.existsSync(filePath)) {
     throw new Error(`No case study found with slug "${slug}"`);
   }
