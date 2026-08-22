@@ -21,7 +21,7 @@ export default function SolutionSection({
                   item.images.length % 2 === 1 && index === item.images.length - 1;
                 return (
                   <CaseStudyImage
-                    key={image}
+                    key={`${image}-${index}`}
                     src={image}
                     alt={`${item.heading} (${index + 1})`}
                     label={`Solution screenshot — 800×600 (${item.heading} ${index + 1})`}
