@@ -40,6 +40,13 @@ export function nodesToHtml(nodes: RootContent[]): string {
   return processor.stringify(hastTree) as string;
 }
 
+export function nodesToPlainParagraphs(nodes: RootContent[]): string {
+  return nodes
+    .filter((node) => node.type === "paragraph")
+    .map((node) => collectText((node as Paragraph).children as RootContent[]).trim())
+    .join("\n\n");
+}
+
 export function listItemsWithLeadingImage(
   nodes: RootContent[]
 ): { text: string; image?: string }[] {
