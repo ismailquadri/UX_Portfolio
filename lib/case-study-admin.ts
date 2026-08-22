@@ -121,3 +121,92 @@ export function getAllRawCaseStudies(): RawCaseStudyContent[] {
     .map((slug) => getRawCaseStudyContent(slug))
     .filter((cs): cs is RawCaseStudyContent => cs !== undefined);
 }
+
+function serializeProseSection(heading: string, text?: string): string {
+  if (!text || text.trim() === "") return "";
+  return `## ${heading}\n${text.trim()}\n`;
+}
+
+function serializeProcessSection(insights?: CaseStudyProcessInsight[]): string {
+  if (!insights || insights.length === 0) return "";
+  const items = insights.map((insight) => {
+    if (insight.image) {
+      return `- ![Screenshot](${insight.image})\n\n  ${insight.text}`;
+    }
+    return `- ${insight.text}`;
+  });
+  return `## Process\n${items.join("\n")}\n`;
+}
+
+function serializeSolutionSection(items?: RawSolutionItem[]): string {
+  if (!items || items.length === 0) return "";
+  const blocks = items.map((item) => {
+    const imageLines = item.images
+      .filter((src) => src.trim() !== "")
+      .map((src) => `![Screenshot](${src})`)
+      .join("\n");
+    const imagePart = imageLines ? `${imageLines}\n` : "";
+    return `### ${item.heading}\n${imagePart}${item.body.trim()}`;
+  });
+  return `## Solution\n${blocks.join("\n\n")}\n`;
+}
+
+function buildBody(data: RawCaseStudyContent): string {
+  const sections = [
+    serializeProseSection("Problem", data.problem),
+    serializeProcessSection(data.process),
+    serializeProseSection("Obstacles", data.obstacles),
+    serializeSolutionSection(data.solution),
+    serializeProseSection("Outcome", data.outcome),
+    serializeProseSection("Close", data.close),
+  ].filter((section) => section.length > 0);
+  return `\n${sections.join("\n")}`;
+}
+
+export function saveCaseStudyContent(slug: string, data: RawCaseStudyContent): void {
+  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  const frontmatter: RawFrontmatter = {
+    slug: data.slug,
+    title: data.title,
+    category: data.category,
+    summary: data.summary,
+  };
+  if (data.role) frontmatter.role = data.role;
+  if (data.team) frontmatter.team = data.team;
+  if (data.client) frontmatter.client = data.client;
+  if (data.duration) frontmatter.duration = data.duration;
+  if (data.location) frontmatter.location = data.location;
+  if (data.liveUrl) frontmatter.liveUrl = data.liveUrl;
+  if (data.heroImage) frontmatter.heroImage = data.heroImage;
+  if (data.metrics && data.metrics.length > 0) frontmatter.metrics = data.metrics;
+
+  const body = buildBody(data);
+  const fileContents = matter.stringify(body, frontmatter);
+  fs.writeFileSync(filePath, fileContents, "utf-8");
+}
+
+export function createCaseStudy(data: {
+  slug: string;
+  title: string;
+  category: CaseStudyCategory;
+  summary: string;
+}): void {
+  const filePath = path.join(CONTENT_DIR, `${data.slug}.md`);
+  if (fs.existsSync(filePath)) {
+    throw new Error(`A case study with slug "${data.slug}" already exists`);
+  }
+  saveCaseStudyContent(data.slug, {
+    slug: data.slug,
+    title: data.title,
+    category: data.category,
+    summary: data.summary,
+  });
+}
+
+export function deleteCaseStudy(slug: string): void {
+  const filePath = path.join(CONTENT_DIR, `${slug}.md`);
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`No case study found with slug "${slug}"`);
+  }
+  fs.unlinkSync(filePath);
+}
