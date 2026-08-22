@@ -58,7 +58,11 @@ export async function PUT(
     return jsonError("invalid_payload", 400);
   }
 
-  saveCaseStudyContent(slug, body);
+  try {
+    saveCaseStudyContent(slug, body);
+  } catch (error) {
+    return jsonError(error instanceof Error ? error.message : "save_failed", 400);
+  }
   return new Response(JSON.stringify({ ok: true }), {
     status: 200,
     headers: { "Content-Type": "application/json" },
