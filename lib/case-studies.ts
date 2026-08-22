@@ -7,7 +7,6 @@ import {
   splitByHeadingText,
   nodesToHtml,
   listItemsWithLeadingImage,
-  extractLeadingImage,
   extractLeadingImages,
 } from "./markdown-sections";
 

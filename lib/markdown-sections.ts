@@ -72,15 +72,36 @@ export function extractLeadingImage(
   nodes: RootContent[]
 ): { image?: string; alt?: string; rest: RootContent[] } {
   if (nodes.length === 0) return { rest: nodes };
-  const [first, ...rest] = nodes;
-  if (first.type === "paragraph") {
-    const paragraph = first as Paragraph;
-    if (paragraph.children.length === 1 && paragraph.children[0].type === "image") {
-      const image = paragraph.children[0] as MdastImage;
-      return { image: image.url, alt: image.alt ?? undefined, rest };
-    }
+  const [first, ...restNodes] = nodes;
+  if (first.type !== "paragraph") return { rest: nodes };
+
+  const paragraph = first as Paragraph;
+  const [firstChild, ...remainingChildren] = paragraph.children;
+  if (!firstChild || firstChild.type !== "image") return { rest: nodes };
+
+  const image = firstChild as MdastImage;
+
+  // Remark merges an image and any immediately-following text (no blank
+  // line between them) into a single paragraph's inline children, rather
+  // than producing separate block nodes. Drop leading whitespace-only text
+  // so a following image or prose on the very next line is still detected,
+  // and keep any remaining inline content as a new paragraph node so it
+  // isn't lost.
+  let leftover = remainingChildren;
+  if (
+    leftover.length > 0 &&
+    leftover[0].type === "text" &&
+    leftover[0].value.trim() === ""
+  ) {
+    leftover = leftover.slice(1);
   }
-  return { rest: nodes };
+
+  const rest: RootContent[] =
+    leftover.length > 0
+      ? [{ ...paragraph, children: leftover } as Paragraph, ...restNodes]
+      : restNodes;
+
+  return { image: image.url, alt: image.alt ?? undefined, rest };
 }
 
 export function extractLeadingImages(
