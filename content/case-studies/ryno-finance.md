@@ -7,6 +7,7 @@ role: "Lead Product Designer, End-to-end UX"
 team: "1 PM, 3 engineers, 1 compliance officer, 1 QA"
 client: "Ryno, B2B crypto payout platform"
 duration: "~4 months"
+heroImage: /images/case-studies/ryno-finance/hero.png
 metrics:
   - value: "79%"
     label: "Faster wallet screening decisions (12 min -> 2.5 min)"
@@ -32,7 +33,9 @@ Country launches weren't much better. Compliance wrote requirements in a Google 
 ## Process
 - Shadowed the compliance officer through three live screening sessions: 60% of her time wasn't spent deciding anything, it was spent gathering context across four open tabs, a spreadsheet, a block explorer, a risk tool, and Slack
 - She had risk heuristics in her head that were never written down anywhere, like flagging a wallet with zero inflow but real outflow regardless of its official score. The tool wasn't just slow, it wasn't capturing what she actually knew
-- Walked through three recent country launches with operations and found the same shape every time: documents, verification method, validity window, risk rules. It just wasn't treated as a repeatable pattern
+- ![Figma pages overview: Compliance/Back office Flow, Country-Specific Onboarding Requirements, Treasury Partners](/images/case-studies/ryno-finance/process-figma-overview.png)
+
+  Walked through three recent country launches with operations and found the same shape every time: documents, verification method, validity window, risk rules. It just wasn't treated as a repeatable pattern
 - Looked at how partners were actually using Ryno, through the PM's interview notes, and every request came down to the same thing: let me answer my own question instead of emailing an account manager
 
 ## Obstacles
@@ -48,6 +51,7 @@ The other tension showed up in the country-configuration work. Operations wanted
 
 ## Solution
 ### The wallet screening queue
+![Onboarding dashboard with compliance flags and wallet screening queue with a screening detail panel open](/images/case-studies/ryno-finance/solution-wallet-screening.png)
 I built the queue around one rule: everything needed to make a decision has to be visible without scrolling or opening another tab. Risk tier comes first because that's how she actually triages, high risk before medium, medium before low, then wallet address, currency and network, and how long it's been waiting.
 
 Clicking into a wallet opens a side panel instead of a new page, on purpose. A full page navigation costs her a few seconds of re-orientation every time, and across a queue of a few hundred wallets that adds up to real minutes. The panel shows the screening evidence, transaction history, and why it was flagged. She approves or rejects from the same panel, and it closes back into her place in the queue.
@@ -55,11 +59,16 @@ Clicking into a wallet opens a side panel instead of a new page, on purpose. A f
 When the queue is actually empty, the interface doesn't just go blank. It tells her the queue is clear and shows the day's numbers: screened, flagged, total. Small thing, but it gave her a sense of progress and doubled as reporting she didn't have to ask for.
 
 ### Country-specific onboarding configuration
+![Onboarding configurations overview dashboard with country coverage](/images/case-studies/ryno-finance/solution-config-overview.png)
+![Global account configuration detail for Ghana with auto-provisioning logic](/images/case-studies/ryno-finance/solution-config-detail.png)
+![Onboarding configurations table listing multiple countries and their status](/images/case-studies/ryno-finance/solution-config-table.png)
 This is the piece that let operations launch new markets without an engineering ticket. Instead of a blank canvas, every country is built from the same structured template: document types, verification method per document, how old a document is allowed to be, which risk tiers trigger extra scrutiny. You can't accidentally skip a required category, because the system already knows the categories.
 
 The view uses progressive disclosure. Country cards up top show how much of a country's config is done versus outstanding, and drilling into one reveals the full structure. Two new markets went live on this system without me or an engineer touching them.
 
 ### The treasury partner portal
+![Treasury partner detail view showing wallets, limits, and settlement snapshot](/images/case-studies/ryno-finance/solution-partner-detail.png)
+![Treasury partners list with an operational mode configuration dialog](/images/case-studies/ryno-finance/solution-partner-list.png)
 Partners get a scoped view of exactly their own world: their customers, their volumes, their settlement status, mirroring the same information architecture as the compliance side, just walled off entirely to one partner's data. That wall isn't just a permission check, it's architecturally separate, so cross-partner data leakage isn't possible by the way the system is built.
 
 ## Outcome
