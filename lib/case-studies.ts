@@ -8,6 +8,7 @@ import {
   nodesToHtml,
   listItemsWithLeadingImage,
   extractLeadingImage,
+  extractLeadingImages,
 } from "./markdown-sections";
 
 const CONTENT_DIR = path.join(process.cwd(), "content", "case-studies");
@@ -21,7 +22,7 @@ export type CaseStudyMetric = {
 
 export type CaseStudySolutionItem = {
   heading: string;
-  image?: string;
+  images: string[];
   html: string;
 };
 
@@ -96,8 +97,8 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
   if (solution) {
     const items = splitByHeadingText(solution.nodes as RootContent[], 3);
     solutionItems = items.map((item) => {
-      const { image, rest } = extractLeadingImage(item.nodes);
-      return { heading: item.heading, image, html: nodesToHtml(rest) };
+      const { images, rest } = extractLeadingImages(item.nodes);
+      return { heading: item.heading, images, html: nodesToHtml(rest) };
     });
   }
 

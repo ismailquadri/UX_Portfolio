@@ -82,3 +82,17 @@ export function extractLeadingImage(
   }
   return { rest: nodes };
 }
+
+export function extractLeadingImages(
+  nodes: RootContent[]
+): { images: string[]; rest: RootContent[] } {
+  const images: string[] = [];
+  let rest = nodes;
+  while (true) {
+    const result = extractLeadingImage(rest);
+    if (!result.image) break;
+    images.push(result.image);
+    rest = result.rest;
+  }
+  return { images, rest };
+}
