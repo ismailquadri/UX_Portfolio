@@ -25,7 +25,7 @@ export default function Navbar() {
         scrolled ? "border-b border-border-subtle" : "border-b border-transparent"
       }`}
     >
-      <div className="hidden md:flex h-[84px] w-[269px] shrink-0 items-center justify-center gap-3 border-r border-border-subtle px-10 py-4">
+      <div className="hidden md:flex h-[74px] w-[269px] shrink-0 items-center justify-center gap-3 border-r border-border-subtle px-10 py-4">
         <span className="relative block size-4 shrink-0 -m-1">
           <Image
             src="/images/button-notification.svg"
@@ -39,7 +39,7 @@ export default function Navbar() {
         </p>
       </div>
 
-      <div className="flex h-[83px] flex-1 min-w-px items-center gap-3 px-6 py-4">
+      <div className="flex h-[73px] flex-1 min-w-px items-center gap-3 px-6">
         <div className="flex w-full flex-1 min-w-0 flex-col items-start justify-center gap-1 overflow-hidden">
           <div className="flex items-center gap-2.5">
             <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">

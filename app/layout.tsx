@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Instrument_Serif } from "next/font/google";
 import "./globals.css";
+import Script from "next/script";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -30,6 +31,10 @@ export default function RootLayout({
       className={`${interTight.variable} ${instrumentSerif.variable}`}
     >
       <body>{children}</body>
+      {/* <Script 
+            src="https://challenges.cloudflare.com/turnstile/v0/api.js" 
+            strategy="lazyOnload" 
+        /> */}
     </html>
   );
 }
