@@ -47,6 +47,25 @@ export function nodesToPlainParagraphs(nodes: RootContent[]): string {
     .join("\n\n");
 }
 
+// Like nodesToPlainParagraphs, but slices the ORIGINAL markdown source
+// instead of re-deriving plain text from the parsed tree, so inline
+// formatting (**bold**, _italic_, [links](url)) survives a round trip
+// through an editor textarea instead of being silently flattened to
+// plain text. Falls back to nodesToPlainParagraphs if position info is
+// missing (shouldn't happen with the default remark-parse config, but
+// this keeps the function total rather than throwing).
+export function nodesToSourceText(nodes: RootContent[], source: string): string {
+  if (nodes.length === 0) return "";
+  const first = nodes[0];
+  const last = nodes[nodes.length - 1];
+  const start = first.position?.start.offset;
+  const end = last.position?.end.offset;
+  if (start === undefined || end === undefined) {
+    return nodesToPlainParagraphs(nodes);
+  }
+  return source.slice(start, end).trim();
+}
+
 export function listItemsWithLeadingImage(
   nodes: RootContent[]
 ): { text: string; image?: string }[] {

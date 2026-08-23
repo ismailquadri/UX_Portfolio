@@ -7,7 +7,7 @@ import {
   splitByHeadingText,
   listItemsWithLeadingImage,
   extractLeadingImages,
-  nodesToPlainParagraphs,
+  nodesToSourceText,
 } from "./markdown-sections";
 import type {
   CaseStudyCategory,
@@ -103,7 +103,7 @@ export function getRawCaseStudyContent(slug: string): RawCaseStudyContent | unde
     const items = splitByHeadingText(solution.nodes as RootContent[], 3);
     solutionItems = items.map((item) => {
       const { images, rest } = extractLeadingImages(item.nodes);
-      return { heading: item.heading, images, body: nodesToPlainParagraphs(rest) };
+      return { heading: item.heading, images, body: nodesToSourceText(rest, content) };
     });
   }
 
@@ -120,12 +120,12 @@ export function getRawCaseStudyContent(slug: string): RawCaseStudyContent | unde
     liveUrl: frontmatter.liveUrl,
     heroImage: frontmatter.heroImage,
     metrics: frontmatter.metrics,
-    problem: problem ? nodesToPlainParagraphs(problem.nodes) : undefined,
+    problem: problem ? nodesToSourceText(problem.nodes, content) : undefined,
     process: processSection ? listItemsWithLeadingImage(processSection.nodes) : undefined,
-    obstacles: obstacles ? nodesToPlainParagraphs(obstacles.nodes) : undefined,
+    obstacles: obstacles ? nodesToSourceText(obstacles.nodes, content) : undefined,
     solution: solutionItems,
-    outcome: outcome ? nodesToPlainParagraphs(outcome.nodes) : undefined,
-    close: close ? nodesToPlainParagraphs(close.nodes) : undefined,
+    outcome: outcome ? nodesToSourceText(outcome.nodes, content) : undefined,
+    close: close ? nodesToSourceText(close.nodes, content) : undefined,
   };
 }
 
