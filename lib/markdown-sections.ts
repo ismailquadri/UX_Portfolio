@@ -122,9 +122,23 @@ export function extractLeadingImage(
     leftover = leftover.slice(1);
   }
 
+  // The reconstructed paragraph must NOT keep the original paragraph's
+  // `.position` — that still spans back to the stripped image's start
+  // offset. nodesToSourceText() slices markdown source by node position,
+  // so an inherited position would cause the "removed" image's markdown
+  // to reappear (duplicated) in the extracted text. Rebase the start to
+  // the first surviving child's own position instead.
+  const rebasedPosition =
+    leftover.length > 0 && leftover[0].position && paragraph.position
+      ? { start: leftover[0].position.start, end: paragraph.position.end }
+      : undefined;
+
   const rest: RootContent[] =
     leftover.length > 0
-      ? [{ ...paragraph, children: leftover } as Paragraph, ...restNodes]
+      ? [
+          { ...paragraph, children: leftover, position: rebasedPosition } as Paragraph,
+          ...restNodes,
+        ]
       : restNodes;
 
   return { image: image.url, alt: image.alt ?? undefined, rest };
