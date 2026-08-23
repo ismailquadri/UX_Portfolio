@@ -37,7 +37,8 @@ export async function POST(
   const formData = await request.formData();
   const file = formData.get("file");
   const maxWidthRaw = formData.get("maxWidth");
-  const maxWidth = typeof maxWidthRaw === "string" ? parseInt(maxWidthRaw, 10) : 1200;
+  const parsedMaxWidth = typeof maxWidthRaw === "string" ? parseInt(maxWidthRaw, 10) : NaN;
+  const maxWidth = Number.isFinite(parsedMaxWidth) && parsedMaxWidth > 0 ? parsedMaxWidth : 1200;
 
   if (!(file instanceof File)) {
     return jsonError("missing_file", 400);
@@ -57,9 +58,14 @@ export async function POST(
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  const resized = await sharp(buffer)
-    .resize({ width: maxWidth, withoutEnlargement: true })
-    .toBuffer();
+  let resized: Buffer;
+  try {
+    resized = await sharp(buffer)
+      .resize({ width: maxWidth, withoutEnlargement: true })
+      .toBuffer();
+  } catch {
+    return jsonError("invalid_image", 400);
+  }
 
   fs.writeFileSync(path.join(dir, filename), resized);
 
