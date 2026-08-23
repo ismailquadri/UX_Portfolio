@@ -34,6 +34,7 @@ export default function ImageUploadField({
 
     if (!response.ok) {
       window.alert("Image upload failed.");
+      event.target.value = "";
       return;
     }
 
