@@ -23,6 +23,7 @@ export default function ProcessInsights({
               alt={item.text}
               label="Process insight image — 800×600"
               className="ml-[18px] h-[220px] w-full max-w-[600px] md:h-[280px]"
+              sizes="(min-width: 768px) min(calc(100vw - 335px), 600px), calc(100vw - 66px)"
             />
           )}
         </li>

@@ -16,9 +16,14 @@ export default function MobileNav() {
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
+  // Close the menu when the route changes (covers back/forward navigation;
+  // in-app link clicks close it via onClick). Adjusting state during render is
+  // the pattern recommended over an effect for derived resets.
+  const [prevPathname, setPrevPathname] = useState(pathname);
+  if (prevPathname !== pathname) {
+    setPrevPathname(pathname);
     setOpen(false);
-  }, [pathname]);
+  }
 
   useEffect(() => {
     if (!open) return;

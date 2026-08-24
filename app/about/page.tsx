@@ -7,6 +7,13 @@ import AboutApproach from "@/components/sections/AboutApproach";
 import AboutSkills from "@/components/sections/AboutSkills";
 import AboutClients from "@/components/sections/AboutClients";
 import { RevealOnScroll } from "@/components/RevealOnScroll";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About — Quadri Ismail",
+  description:
+    "Product designer focused on B2B — my approach, skills, and the clients I've worked with.",
+};
 
 export default function AboutPage() {
   return (

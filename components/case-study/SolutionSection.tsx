@@ -20,24 +20,32 @@ export default function SolutionSection({
                 const isTrailingOdd =
                   item.images.length % 2 === 1 && index === item.images.length - 1;
                 return (
-                  <CaseStudyImage
+                  <div
                     key={`${image}-${index}`}
-                    src={image}
-                    alt={`${item.heading} (${index + 1})`}
-                    label={`Solution screenshot — 800×600 (${item.heading} ${index + 1})`}
-                    className={`h-[280px] w-full md:h-[400px] ${
-                      isTrailingOdd ? "sm:col-span-2" : ""
-                    }`}
-                  />
+                    className={isTrailingOdd ? "flex justify-center sm:col-span-2" : ""}
+                  >
+                    <CaseStudyImage
+                      src={image}
+                      alt={`${item.heading} (${index + 1})`}
+                      label={`Solution screenshot — 800×600 (${item.heading} ${index + 1})`}
+                      className={`aspect-[4/3] w-full ${
+                        isTrailingOdd ? "sm:w-1/2" : ""
+                      }`}
+                      sizes={isTrailingOdd ? "(min-width: 640px) 23vw, calc(100vw - 48px)" : undefined}
+                    />
+                  </div>
                 );
               })}
             </div>
           ) : (
-            <CaseStudyImage
-              alt={item.heading}
-              label={`Solution screenshot — 800×600 (${item.heading})`}
-              className="h-[280px] w-full md:h-[400px]"
-            />
+            <div className="flex justify-center">
+              <CaseStudyImage
+                alt={item.heading}
+                label={`Solution screenshot — 800×600 (${item.heading})`}
+                className="aspect-[4/3] w-full sm:w-1/2"
+                sizes="(min-width: 640px) 23vw, calc(100vw - 48px)"
+              />
+            </div>
           )}
           <ProseHtml html={item.html} />
         </div>
