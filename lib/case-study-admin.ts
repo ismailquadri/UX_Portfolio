@@ -135,18 +135,32 @@ export function getAllRawCaseStudies(): RawCaseStudyContent[] {
     .filter((cs): cs is RawCaseStudyContent => cs !== undefined);
 }
 
+// A line of user-typed prose that happens to start with "#" (e.g. "## Notes
+// to self:") would otherwise be re-parsed as a heading on the next load,
+// silently splitting the section and losing whatever came after it — this
+// content is free text, not markdown the operator is expected to author.
+// Escaping the leading "#" run keeps it as literal text on round-trip while
+// leaving intentional markdown elsewhere (bold, italic, links) untouched.
+function escapeLeadingHeadingMarker(text: string): string {
+  return text
+    .split("\n")
+    .map((line) => line.replace(/^( {0,3})(#{1,6})(\s|$)/, "$1\\$2$3"))
+    .join("\n");
+}
+
 function serializeProseSection(heading: string, text?: string): string {
   if (!text || text.trim() === "") return "";
-  return `## ${heading}\n${text.trim()}\n`;
+  return `## ${heading}\n${escapeLeadingHeadingMarker(text.trim())}\n`;
 }
 
 function serializeProcessSection(insights?: CaseStudyProcessInsight[]): string {
   if (!insights || insights.length === 0) return "";
   const items = insights.map((insight) => {
+    const text = escapeLeadingHeadingMarker(insight.text);
     if (insight.image) {
-      return `- ![Screenshot](${insight.image})\n\n  ${insight.text}`;
+      return `- ![Screenshot](${insight.image})\n\n  ${text}`;
     }
-    return `- ${insight.text}`;
+    return `- ${text}`;
   });
   return `## Process\n${items.join("\n")}\n`;
 }
@@ -159,7 +173,9 @@ function serializeSolutionSection(items?: RawSolutionItem[]): string {
       .map((src) => `![Screenshot](${src})`)
       .join("\n");
     const imagePart = imageLines ? `${imageLines}\n` : "";
-    return `### ${item.heading}\n${imagePart}${item.body.trim()}`;
+    const heading = escapeLeadingHeadingMarker(item.heading);
+    const body = escapeLeadingHeadingMarker(item.body.trim());
+    return `### ${heading}\n${imagePart}${body}`;
   });
   return `## Solution\n${blocks.join("\n\n")}\n`;
 }
