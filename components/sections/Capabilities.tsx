@@ -1,5 +1,3 @@
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 const SERVICES = [
   {
     title: "UX Audit",
@@ -26,8 +24,6 @@ const SERVICES = [
 export default function Capabilities() {
   return (
     <section id="capabilities" className="flex w-full items-start justify-between">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex flex-1 items-center gap-2.5">

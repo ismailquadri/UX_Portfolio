@@ -9,25 +9,78 @@ import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import ReactMarkdown from 'react-markdown';
 import { ChatMessage } from '@/lib/chat-seed'; // Adjust path if needed
 
+
+const samplePrompt = ['Walk me through your design process', 'Show me your most impactful case study', 'How soon can you start?']
+
 export default function ChatWidget() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [input, setInput] = useState('');
 	const [isSending, setIsSending] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	// const [sendType, setSendType] = useState('')
+	const [isShowSamplePrompt, setIsShowSamplePrompt] = useState(false);
 	const [error, setError] = useState('');
 	const ref = useRef<TurnstileInstance | null>(null);
 
 	// FIX: Ref for scrolling container
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
 
+	const handleSelectPrompt = async (userPrompt: string, sendType = 'select') => {
+		
+
+					setIsLoading(true);
+		try {
+			// FIX: Ensure session is fully resolved and active BEFORE getting the token
+			await getOrCreateSession(ref, setError);
+			const activeSessionId = localStorage.getItem('anonymous_session_token');
+
+			if (!activeSessionId) {
+				throw new Error('Session could not be established.');
+			}
+			setIsShowSamplePrompt(true)
+      
+			setIsLoading(true);
+			await sendPromptToAi(userPrompt, activeSessionId, sendType);
+	
+
+			setIsShowSamplePrompt(false)
+		} catch (error: any) {
+			console.error('Submission error:', error);
+			setError(typeof error === 'string' ? error : error.message);
+      setIsShowSamplePrompt(true)
+			// Handle 401 Unauthorized token expiry gracefully and retry once
+			if (error?.response?.status === 401) {
+				setIsShowSamplePrompt(true)
+				localStorage.removeItem('anonymous_session_token');
+				await getOrCreateSession(ref, setError);
+				const refreshedSessionId = localStorage.getItem(
+					'anonymous_session_token',
+				);
+				if (refreshedSessionId) {
+					await sendPromptToAi(userPrompt, refreshedSessionId, sendType);
+				}
+			}
+		} 
+	}
+
 	useEffect(() => {
 		async function getMessages() {
 			const session_id = localStorage.getItem('anonymous_session_token');
-			if (!session_id) return;
+
+			if (!session_id) {
+					setIsShowSamplePrompt(true)
+				return;
+			}
 			try {
 				const response = await api.get(`/chat/history/${session_id}`);
 				setMessages(response.data?.history || []);
+console.log(response.data?.history.length);
+
+				if (response.data?.history.length < 1) {
+					setIsShowSamplePrompt(true)
+				}
 			} catch (err) {
+						
 				console.error('Failed to load history', err);
 			}
 		}
@@ -60,7 +113,7 @@ export default function ChatWidget() {
 		});
 	}
 
-	async function sendPromptToAi(userPrompt: string, sessionToken: string) {
+	async function sendPromptToAi(userPrompt: string, sessionToken: string, sendType: string) {
 		setMessages((prev) => [
 			...prev,
 			{
@@ -149,7 +202,7 @@ export default function ChatWidget() {
 		}
 	}
 
-	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+	async function handleSubmit(event: FormEvent<HTMLFormElement>, sendType = 'form') {
 		event.preventDefault();
 		const userPrompt = input.trim();
 		if (!userPrompt || isSending) return;
@@ -167,7 +220,7 @@ export default function ChatWidget() {
 				throw new Error('Session could not be established.');
 			}
 
-			await sendPromptToAi(userPrompt, activeSessionId);
+			await sendPromptToAi(userPrompt, activeSessionId, sendType);
 		} catch (error: any) {
 			console.error('Submission error:', error);
 			setError(typeof error === 'string' ? error : error.message);
@@ -180,7 +233,7 @@ export default function ChatWidget() {
 					'anonymous_session_token',
 				);
 				if (refreshedSessionId) {
-					await sendPromptToAi(userPrompt, refreshedSessionId);
+					await sendPromptToAi(userPrompt, refreshedSessionId, sendType);
 				}
 			}
 		}
@@ -189,11 +242,11 @@ export default function ChatWidget() {
 	return (
 		<div
 			id='chat'
-			className='absolute left-1/2 top-[53px] flex h-[641px] w-[420px] -translate-x-1/2 items-center gap-2.5 rounded-lg bg-paper/40 p-3 backdrop-blur-md'
+			className='absolute left-1/2 top-[23px] flex h-[500px] w-[420px] -translate-x-1/2 items-center gap-2.5 rounded-lg bg-paper/40 p-3 backdrop-blur-md'
 		>
 			<div className='flex h-full w-full flex-col items-center justify-end rounded-md border border-paper bg-paper/[0.79] p-2.5'>
 				{/* Header */}
-				<div className='flex shrink-0 background-inherit z-99999 absolute top-7 left-1/2 -translate-x-1/2 flex-col items-center justify-center gap-2.5'>
+				<div className='flex shrink-0 z-99999 absolute -top-4 left-1/2 -translate-x-1/2 flex-col items-center justify-center gap-2.5'>
 					<span className='relative block size-[40px] shrink-0 overflow-hidden rounded-full bg-border-subtle'>
 						<Image
 							src='/images/avatar.png'
@@ -203,15 +256,15 @@ export default function ChatWidget() {
 							className='object-cover'
 						/>
 					</span>
-					<p className='font-body text-[16px] tracking-[-0.16px] text-ink'>
+					{messages?.length > 1 || !isShowSamplePrompt ? null : <p className='font-body  text-sm font-medium tracking-[-0.16px] text-ink'>
 						Quadri Assistant
-					</p>
+					</p>}
 				</div>
 
 				{/* Message list - FIX: Changed justify-end to justify-start so history stacks naturally and scrolls properly */}
 				<div
 					ref={scrollContainerRef}
-					className='flex w-full flex-1 flex-col justify-start h-[500px] gap-2 overflow-y-auto py-12 px-2'
+					className={`flex w-full flex-1 flex-col justify-start gap-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-y-auto py-12 px-2 ${messages?.length > 2 ? 'h-[500px]' : 'h-[300px]'}`}
 				>
 					{messages?.map((message, idx) => {
 						const isUser = message.role === 'user';
@@ -274,11 +327,24 @@ export default function ChatWidget() {
 					})}
 				</div>
 
+					<div className='flex flex-wrap mb-5 gap-3'>
+						{messages?.length > 1 || !isShowSamplePrompt ? null : samplePrompt.map((prompt) => {
+							return (
+								<button onClick={() => handleSelectPrompt(prompt)} disabled={isLoading} className='border p-2 cursor-pointer hover:bg-black/50 hover:text-white transition-all rounded-2xl border-accent border-solid text-sm font-medium' key={prompt} type="button">
+								{prompt}
+							</button>
+							)
+						})}
+				</div>
+				
+
 				{/* Input row */}
 				<form
 					onSubmit={handleSubmit}
 					className='flex h-10 w-full shrink-0 items-center gap-2.5 rounded-full border border-paper bg-paper py-1 pl-3 pr-1 shadow-button'
 				>
+				
+
 					<input
 						type='text'
 						name='message'

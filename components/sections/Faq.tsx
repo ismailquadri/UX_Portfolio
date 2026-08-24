@@ -1,12 +1,9 @@
 import { AccordionItem } from "@/components/AccordionItem";
-import SidebarSpacer from "@/components/SidebarSpacer";
 import { FAQ_ITEMS } from "@/lib/faq-data";
 
 export default function Faq() {
   return (
     <section id="faq" className="flex w-full items-start justify-between">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 px-6 py-14">
         <div className="flex w-full items-end justify-between gap-6">
           <div className="flex flex-1 items-center justify-between gap-6">

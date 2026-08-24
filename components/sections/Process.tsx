@@ -3,8 +3,6 @@
 import Image from "next/image";
 import { useState } from "react";
 
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 type ProcessTab = {
   label: string;
   steps: { title: string; description: string }[];
@@ -271,8 +269,6 @@ export default function Process() {
 
   return (
     <section id="process" className="flex w-full items-start justify-between">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex items-center gap-2.5">

@@ -1,7 +1,5 @@
 import Image from "next/image";
 
-import SidebarSpacer from "@/components/SidebarSpacer";
-
 type GridCell = {
   key: string;
   icon?: {
@@ -62,8 +60,6 @@ const CELL_VARIANT_CLASSES: Record<NonNullable<GridCell["variant"]>, string> = {
 export default function TechStack() {
   return (
     <section id="tech-stack" className="flex w-full items-start justify-between shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
-      <SidebarSpacer />
-
       <div className="flex w-full flex-1 flex-col items-start gap-10 px-6 py-14 md:flex-row">
         <div className="flex w-full max-w-[431px] flex-col items-start justify-between gap-12 self-stretch">
           <div className="relative flex w-full items-center justify-between">
