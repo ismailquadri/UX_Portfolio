@@ -127,7 +127,7 @@ console.log(response.data?.history.length);
 		setIsLoading(true);
 
 		try {
-			const response = await fetch('http://localhost:8000/prompt', {
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
