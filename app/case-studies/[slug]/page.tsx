@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -20,6 +21,22 @@ import { FAQ_ITEMS } from "@/lib/faq-data";
 
 export function generateStaticParams() {
   return getAllCaseStudySlugs().map((slug) => ({ slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const caseStudy = getCaseStudyBySlug(slug);
+  if (!caseStudy) {
+    return {};
+  }
+  return {
+    title: `${caseStudy.title} — Quadri Ismail`,
+    description: caseStudy.summary,
+  };
 }
 
 export default async function CaseStudyDetailPage({
@@ -70,7 +87,8 @@ export default async function CaseStudyDetailPage({
               src={caseStudy.heroImage}
               alt={caseStudy.title}
               label="Hero image — 1200×675"
-              className="mx-6 h-[280px] md:h-[480px]"
+              className="mx-auto aspect-video w-[80%]"
+              sizes="(min-width: 768px) calc((100vw - 269px) * 0.8), 80vw"
             />
             <div className="h-px w-full bg-border-subtle" />
           </section>

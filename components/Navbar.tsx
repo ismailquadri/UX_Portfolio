@@ -2,14 +2,18 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
+import BookingModal from "@/components/BookingModal";
 import MobileNav from "@/components/MobileNav";
 
 const SCROLL_THRESHOLD = 80;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [bookingOpen, setBookingOpen] = useState(false);
+
+  const closeBooking = useCallback(() => setBookingOpen(false), []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,6 +75,7 @@ export default function Navbar() {
           <MobileNav />
           <button
             type="button"
+            onClick={() => setBookingOpen(true)}
             className="hidden h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button sm:flex"
           >
             Book 15 Mins Call
@@ -94,6 +99,7 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
+      <BookingModal open={bookingOpen} onClose={closeBooking} />
     </div>
   );
 }

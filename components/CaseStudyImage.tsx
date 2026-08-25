@@ -5,13 +5,17 @@ type CaseStudyImageProps = {
   alt: string;
   label: string;
   className?: string;
+  sizes?: string;
 };
+
+const DEFAULT_SIZES = "(min-width: 640px) 45vw, calc(100vw - 48px)";
 
 export default function CaseStudyImage({
   src,
   alt,
   label,
   className = "",
+  sizes = DEFAULT_SIZES,
 }: CaseStudyImageProps) {
   if (!src) {
     return (
@@ -25,7 +29,7 @@ export default function CaseStudyImage({
 
   return (
     <div className={`relative overflow-hidden rounded-md ${className}`}>
-      <Image src={src} alt={alt} fill className="object-cover" />
+      <Image src={src} alt={alt} fill sizes={sizes} className="object-cover" />
     </div>
   );
 }

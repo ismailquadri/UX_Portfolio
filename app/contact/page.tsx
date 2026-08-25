@@ -5,6 +5,13 @@ import ContactForm from "@/components/ContactForm";
 import { AccordionItem } from "@/components/AccordionItem";
 import Footer from "@/components/Footer";
 import { FAQ_ITEMS } from "@/lib/faq-data";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact — Quadri Ismail",
+  description:
+    "Get in touch about UX audits, UI/UX design, or MVP product development.",
+};
 
 export default function ContactPage() {
   return (

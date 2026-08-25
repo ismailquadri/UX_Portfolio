@@ -3,6 +3,13 @@ import Footer from "@/components/Footer";
 import SiteSidebar from "@/components/SiteSidebar";
 import CaseStudyListClient from "@/components/CaseStudyListClient";
 import { getAllCaseStudies } from "@/lib/case-studies";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Case Studies — Quadri Ismail",
+  description:
+    "Selected UX and product design case studies across FinTech, AI-native, and GovTech.",
+};
 
 export default function CaseStudiesPage() {
   const caseStudies = getAllCaseStudies();

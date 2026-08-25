@@ -12,6 +12,8 @@ import { ChatMessage } from '@/lib/chat-seed'; // Adjust path if needed
 
 const samplePrompt = ['Walk me through your design process', 'Show me your most impactful case study', 'How soon can you start?']
 
+const NEAR_BOTTOM_PX = 48;
+
 export default function ChatWidget() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [input, setInput] = useState('');
@@ -24,6 +26,33 @@ export default function ChatWidget() {
 
 	// FIX: Ref for scrolling container
 	const scrollContainerRef = useRef<HTMLDivElement>(null);
+	const widgetRef = useRef<HTMLDivElement>(null);
+	// While true, new/streaming messages keep the list pinned to the bottom.
+	// Set false when the user scrolls away from the bottom, true again when
+	// they return or send a message.
+	const stickToBottomRef = useRef(true);
+
+	// Capture the wheel gesture whenever the cursor is over the chat widget so
+	// the page behind doesn't scroll and the message list always responds,
+	// even before it has enough content to scroll natively.
+	useEffect(() => {
+		const widget = widgetRef.current;
+		if (!widget) return;
+
+		function handleWheel(event: WheelEvent) {
+			const list = scrollContainerRef.current;
+			if (!list) return;
+			event.preventDefault();
+			list.scrollTop += event.deltaY;
+			list.scrollLeft += event.deltaX;
+			const distanceFromBottom =
+				list.scrollHeight - list.scrollTop - list.clientHeight;
+			stickToBottomRef.current = distanceFromBottom <= NEAR_BOTTOM_PX;
+		}
+
+		widget.addEventListener('wheel', handleWheel, { passive: false });
+		return () => widget.removeEventListener('wheel', handleWheel);
+	}, []);
 
 	const handleSelectPrompt = async (userPrompt: string, sendType = 'select') => {
 		
@@ -98,8 +127,11 @@ console.log(response.data?.history.length);
 		}
 	};
 
-	// FIX: Trigger scroll whenever messages update
+	// FIX: Trigger scroll whenever messages update, but only while the user
+	// hasn't scrolled away to read earlier messages — otherwise a streaming
+	// reply would keep yanking them back to the bottom.
 	useEffect(() => {
+		if (!stickToBottomRef.current) return;
 		scrollToBottom();
 	}, [messages]);
 
@@ -114,6 +146,7 @@ console.log(response.data?.history.length);
 	}
 
 	async function sendPromptToAi(userPrompt: string, sessionToken: string, sendType: string) {
+		stickToBottomRef.current = true;
 		setMessages((prev) => [
 			...prev,
 			{
@@ -242,6 +275,7 @@ console.log(response.data?.history.length);
 	return (
 		<div
 			id='chat'
+			ref={widgetRef}
 			className='absolute left-1/2 top-[23px] flex h-[500px] w-[420px] -translate-x-1/2 items-center gap-2.5 rounded-lg bg-paper/40 p-3 backdrop-blur-md'
 		>
 			<div className='flex h-full w-full flex-col items-center justify-end rounded-md border border-paper bg-paper/[0.79] p-2.5'>
