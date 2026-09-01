@@ -13,7 +13,7 @@ export function AccordionItem({
   const panelId = useId();
 
   return (
-    <div className="w-full rounded-lg border border-border-subtle bg-white/70 p-5 backdrop-blur-[22px] shadow-[0px_4px_5px_0px_rgba(0,0,0,0.02),0px_2px_0px_0px_rgba(0,0,0,0.05)]">
+    <div className="w-full rounded-lg border border-border-subtle bg-paper p-5 shadow-button">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
@@ -21,11 +21,11 @@ export function AccordionItem({
         aria-expanded={open}
         aria-controls={panelId}
       >
-        <span className="font-body text-[24px] font-medium leading-[1.6] tracking-[-0.24px] text-accent">
+        <span className="font-body text-[24px] font-medium leading-[1.6] tracking-[-0.24px] text-ink">
           {question}
         </span>
         <span
-          className={`shrink-0 text-accent transition-transform duration-200 ${
+          className={`shrink-0 text-ink transition-transform duration-200 ${
             open ? "rotate-180" : ""
           }`}
           aria-hidden="true"
@@ -50,7 +50,7 @@ export function AccordionItem({
       {open && (
         <p
           id={panelId}
-          className="mt-3.5 font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-accent opacity-50"
+          className="mt-3.5 font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-ink/50"
         >
           {answer}
         </p>

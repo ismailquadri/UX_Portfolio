@@ -22,8 +22,10 @@ export default function ProcessInsights({
               src={item.image}
               alt={item.text}
               label="Process insight image — 800×600"
-              className="ml-[18px] h-[220px] w-full max-w-[600px] md:h-[280px]"
-              sizes="(min-width: 768px) min(calc(100vw - 335px), 600px), calc(100vw - 66px)"
+              aspect="video"
+              parallax
+              className="ml-[18px] w-full"
+              sizes="(min-width: 768px) min(calc((100vw - 269px) * 0.8), 600px), calc(100vw - 48px)"
             />
           )}
         </li>

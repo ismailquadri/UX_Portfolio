@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
@@ -17,7 +17,7 @@ export default function NotFound() {
           className="object-cover"
           priority
         />
-        <div className="relative z-10 flex w-[801px] max-w-[calc(100%-48px)] flex-col items-center justify-center gap-2.5 rounded-md border-[1.5px] border-border-subtle bg-[rgba(250,250,250,0.6)] px-8 py-20 text-center backdrop-blur-sm md:px-[200px]">
+        <div className="relative z-10 flex w-[801px] max-w-[calc(100%_-_48px)] flex-col items-center justify-center gap-2.5 rounded-md border-[1.5px] border-border-subtle bg-[rgba(250,250,250,0.6)] px-8 py-20 text-center backdrop-blur-sm md:px-[200px]">
           <div className="flex flex-col items-center justify-center gap-3">
             <div className="flex flex-col items-center gap-1.5">
               <span className="font-body text-[18px] font-medium tracking-[-0.18px] text-ink">

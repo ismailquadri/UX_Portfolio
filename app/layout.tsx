@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { Inter_Tight, Instrument_Serif } from "next/font/google";
+import { ViewTransitions } from "next-view-transitions";
+import SmoothScrollProvider from "@/components/SmoothScrollProvider";
+import PageTransition from "@/components/PageTransition";
 import "./globals.css";
-import Script from "next/script";
 
 const interTight = Inter_Tight({
   subsets: ["latin"],
@@ -26,15 +28,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${interTight.variable} ${instrumentSerif.variable}`}
-    >
-      <body>{children}</body>
-      {/* <Script 
-            src="https://challenges.cloudflare.com/turnstile/v0/api.js" 
-            strategy="lazyOnload" 
-        /> */}
-    </html>
+    <ViewTransitions>
+      <html
+        lang="en"
+        className={`${interTight.variable} ${instrumentSerif.variable}`}
+      >
+        <body>
+          <SmoothScrollProvider>
+            <PageTransition>{children}</PageTransition>
+          </SmoothScrollProvider>
+        </body>
+      </html>
+    </ViewTransitions>
   );
 }

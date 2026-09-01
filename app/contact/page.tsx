@@ -2,9 +2,8 @@ import Image from "next/image";
 import Navbar from "@/components/Navbar";
 import SiteSidebar from "@/components/SiteSidebar";
 import ContactForm from "@/components/ContactForm";
-import { AccordionItem } from "@/components/AccordionItem";
+import Faq from "@/components/sections/Faq";
 import Footer from "@/components/Footer";
-import { FAQ_ITEMS } from "@/lib/faq-data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -77,28 +76,7 @@ export default function ContactPage() {
             </div>
           </section>
 
-          <section id="faq" className="flex w-full flex-col items-start gap-12 px-6 py-14">
-            <div className="flex w-full items-end justify-between gap-6">
-              <div className="flex flex-1 items-center justify-between gap-6">
-                <h2 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
-                  Things You Might Want to Know
-                </h2>
-                <p className="hidden whitespace-nowrap font-body text-[18px] font-medium tracking-[-0.18px] text-ink md:block">
-                  [ FREQUENTLY ASKED QUESTIONS ]
-                </p>
-              </div>
-            </div>
-
-            <div className="flex w-full flex-col items-start gap-4">
-              {FAQ_ITEMS.map((faq) => (
-                <AccordionItem
-                  key={faq.question}
-                  question={faq.question}
-                  answer={faq.answer}
-                />
-              ))}
-            </div>
-          </section>
+          <Faq />
         </main>
       </div>
       <Footer />

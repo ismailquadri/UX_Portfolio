@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useCallback, useEffect, useState } from "react";
 
 import BookingModal from "@/components/BookingModal";
@@ -67,12 +67,12 @@ export default function Navbar() {
             </div>
           </div>
           <p className="w-full max-w-full truncate font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink opacity-40">
-            A Product Designer with a focus on B2B
+            A Product Designer for Complex Products
           </p>
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
-          <MobileNav />
+          <MobileNav onBookCall={() => setBookingOpen(true)} />
           <button
             type="button"
             onClick={() => setBookingOpen(true)}

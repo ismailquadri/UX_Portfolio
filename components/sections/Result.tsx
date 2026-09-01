@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 
 export default function Result() {
   return (
@@ -26,8 +26,8 @@ export default function Result() {
           <div className="flex w-full flex-col items-center gap-4 md:flex-row">
             <div className="relative h-[280px] w-full overflow-clip rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button md:h-[526px] md:flex-1">
               <Image
-                src="/images/result-tile-1.png"
-                alt="Case study preview: e-commerce product page mockup"
+                src="/images/case-studies/ryno-finance/hero.png"
+                alt="Ryno Finance case study preview"
                 fill
                 sizes="(min-width: 768px) 50vw, 100vw"
                 className="object-cover"

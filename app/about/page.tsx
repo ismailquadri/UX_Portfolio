@@ -12,7 +12,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "About — Quadri Ismail",
   description:
-    "Product designer focused on B2B — my approach, skills, and the clients I've worked with.",
+    "Product designer focused on complex, high-stakes products — my approach, skills, and the clients I've worked with.",
 };
 
 export default function AboutPage() {

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 
 const SITE_LINKS = [
@@ -14,7 +14,7 @@ export default function SiteSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="sticky top-[84px] hidden h-[calc(100vh-84px)] w-[269px] shrink-0 flex-col items-start justify-center overflow-clip border-r border-border-subtle bg-surface md:flex">
+    <div className="sticky top-[84px] hidden h-[calc(100vh_-_84px)] w-[269px] shrink-0 flex-col items-start justify-center overflow-clip border-r border-border-subtle bg-surface md:flex">
       <div className="flex w-full flex-col items-start justify-center gap-8 py-10 pl-10 pr-4">
         <Link
           href="/"

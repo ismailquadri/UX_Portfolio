@@ -10,7 +10,7 @@ import ReactMarkdown from 'react-markdown';
 import { ChatMessage } from '@/lib/chat-seed'; // Adjust path if needed
 
 
-const samplePrompt = ['Walk me through your design process', 'Show me your most impactful case study', 'How soon can you start?']
+const samplePrompt = ['Walk me through your design process', 'Show me your most impactful case study', 'How soon can you start?'];
 
 const NEAR_BOTTOM_PX = 48;
 
@@ -31,6 +31,9 @@ export default function ChatWidget() {
 	// Set false when the user scrolls away from the bottom, true again when
 	// they return or send a message.
 	const stickToBottomRef = useRef(true);
+	// Streaming accumulates tokens across async chunks; keeping it in a ref
+	// avoids reassigning a value React considers immutable during render.
+	const fullAssistantReplyRef = useRef('');
 
 	// Capture the wheel gesture whenever the cursor is over the chat widget so
 	// the page behind doesn't scroll and the message list always responds,
@@ -54,7 +57,7 @@ export default function ChatWidget() {
 		return () => widget.removeEventListener('wheel', handleWheel);
 	}, []);
 
-	const handleSelectPrompt = async (userPrompt: string, sendType = 'select') => {
+	const handleSelectPrompt = async (userPrompt: string) => {
 		
 
 					setIsLoading(true);
@@ -69,16 +72,27 @@ export default function ChatWidget() {
 			setIsShowSamplePrompt(true)
       
 			setIsLoading(true);
-			await sendPromptToAi(userPrompt, activeSessionId, sendType);
+			await sendPromptToAi(userPrompt, activeSessionId);
 	
 
 			setIsShowSamplePrompt(false)
-		} catch (error: any) {
+		} catch (error: unknown) {
 			console.error('Submission error:', error);
-			setError(typeof error === 'string' ? error : error.message);
+			const message =
+				typeof error === 'string'
+					? error
+					: error instanceof Error
+					? error.message
+					: 'Something went wrong.';
+			setError(message);
       setIsShowSamplePrompt(true)
 			// Handle 401 Unauthorized token expiry gracefully and retry once
-			if (error?.response?.status === 401) {
+			if (
+				typeof error === 'object' &&
+				error !== null &&
+				'response' in error &&
+				(error as { response?: { status?: number } }).response?.status === 401
+			) {
 				setIsShowSamplePrompt(true)
 				localStorage.removeItem('anonymous_session_token');
 				await getOrCreateSession(ref, setError);
@@ -86,11 +100,22 @@ export default function ChatWidget() {
 					'anonymous_session_token',
 				);
 				if (refreshedSessionId) {
-					await sendPromptToAi(userPrompt, refreshedSessionId, sendType);
+					await sendPromptToAi(userPrompt, refreshedSessionId);
 				}
 			}
 		} 
 	}
+
+	// Scroll the message list to the bottom (used on history load and when
+	// following a streaming reply).
+	const scrollToBottom = () => {
+		if (scrollContainerRef.current) {
+			scrollContainerRef.current.scrollTo({
+				top: scrollContainerRef.current.scrollHeight,
+				behavior: 'smooth',
+			});
+		}
+	};
 
 	useEffect(() => {
 		async function getMessages() {
@@ -102,30 +127,23 @@ export default function ChatWidget() {
 			}
 			try {
 				const response = await api.get(`/chat/history/${session_id}`);
-				setMessages(response.data?.history || []);
-console.log(response.data?.history.length);
+				const history = response.data?.history || [];
+				setMessages(history);
 
-				if (response.data?.history.length < 1) {
-					setIsShowSamplePrompt(true)
+				if (history.length < 1) {
+					setIsShowSamplePrompt(true);
+				} else {
+					// Jump to the latest message when a session's history loads.
+					stickToBottomRef.current = true;
+					requestAnimationFrame(() => scrollToBottom());
 				}
 			} catch (err) {
-						
 				console.error('Failed to load history', err);
 			}
 		}
 
 		getMessages();
 	}, []);
-
-	// FIX: Scroll to bottom utility function
-	const scrollToBottom = () => {
-		if (scrollContainerRef.current) {
-			scrollContainerRef.current.scrollTo({
-				top: scrollContainerRef.current.scrollHeight,
-				behavior: 'smooth',
-			});
-		}
-	};
 
 	// FIX: Trigger scroll whenever messages update, but only while the user
 	// hasn't scrolled away to read earlier messages — otherwise a streaming
@@ -145,7 +163,7 @@ console.log(response.data?.history.length);
 		});
 	}
 
-	async function sendPromptToAi(userPrompt: string, sessionToken: string, sendType: string) {
+	async function sendPromptToAi(userPrompt: string, sessionToken: string) {
 		stickToBottomRef.current = true;
 		setMessages((prev) => [
 			...prev,
@@ -160,7 +178,11 @@ console.log(response.data?.history.length);
 		setIsLoading(true);
 
 		try {
-			const response = await fetch('http://localhost:8000/prompt', {
+			// FIX: was hardcoded to http://localhost:8000/prompt, which only
+			// resolves on the developer's own machine — every other visitor's
+			// browser would try to hit their own localhost and fail silently.
+			// Use the same env-configured API base as the rest of the app.
+			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt`, {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
@@ -177,8 +199,7 @@ console.log(response.data?.history.length);
 			if (!reader) return;
 
 			const decoder = new TextDecoder();
-			let fullAssistantReply = '';
-			let isFirstChunk = true;
+			fullAssistantReplyRef.current = '';
 
 			while (true) {
 				const { value, done } = await reader.read();
@@ -198,20 +219,19 @@ console.log(response.data?.history.length);
 						}
 
 						try {
-							const parsed = JSON.parse(jsonString);
+							const parsed = JSON.parse(jsonString) as {
+								token?: string;
+								error?: string;
+							};
 
 							if (parsed?.token) {
-								if (isFirstChunk) {
-									fullAssistantReply = '';
-									isFirstChunk = false;
-								}
-
-								fullAssistantReply += parsed.token;
+								fullAssistantReplyRef.current += parsed.token;
+								const content = fullAssistantReplyRef.current;
 								setMessages((prev) => {
 									const newMessages = [...prev];
 									newMessages[newMessages.length - 1] = {
 										role: 'assistant',
-										content: fullAssistantReply,
+										content,
 										created_at: new Date().toISOString(),
 									};
 									return newMessages;
@@ -221,13 +241,13 @@ console.log(response.data?.history.length);
 							if (parsed?.error) {
 								console.error('Stream reported error:', parsed.error);
 							}
-						} catch (error) {
+						} catch {
 							// Ignore incomplete chunks across buffers
 						}
 					}
 				}
 			}
-		} catch (error) {
+		} catch (error: unknown) {
 			console.error('Network or stream error:', error);
 		} finally {
 			setIsLoading(false);
@@ -235,7 +255,7 @@ console.log(response.data?.history.length);
 		}
 	}
 
-	async function handleSubmit(event: FormEvent<HTMLFormElement>, sendType = 'form') {
+	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
 		const userPrompt = input.trim();
 		if (!userPrompt || isSending) return;
@@ -253,20 +273,31 @@ console.log(response.data?.history.length);
 				throw new Error('Session could not be established.');
 			}
 
-			await sendPromptToAi(userPrompt, activeSessionId, sendType);
-		} catch (error: any) {
+			await sendPromptToAi(userPrompt, activeSessionId);
+		} catch (error: unknown) {
 			console.error('Submission error:', error);
-			setError(typeof error === 'string' ? error : error.message);
+			setError(
+				typeof error === 'string'
+					? error
+					: error instanceof Error
+					? error.message
+					: 'Something went wrong.',
+			);
 
 			// Handle 401 Unauthorized token expiry gracefully and retry once
-			if (error?.response?.status === 401) {
+			if (
+				typeof error === 'object' &&
+				error !== null &&
+				'response' in error &&
+				(error as { response?: { status?: number } }).response?.status === 401
+			) {
 				localStorage.removeItem('anonymous_session_token');
 				await getOrCreateSession(ref, setError);
 				const refreshedSessionId = localStorage.getItem(
 					'anonymous_session_token',
 				);
 				if (refreshedSessionId) {
-					await sendPromptToAi(userPrompt, refreshedSessionId, sendType);
+					await sendPromptToAi(userPrompt, refreshedSessionId);
 				}
 			}
 		}
@@ -276,29 +307,31 @@ console.log(response.data?.history.length);
 		<div
 			id='chat'
 			ref={widgetRef}
-			className='absolute left-1/2 top-[23px] flex h-[500px] w-[420px] -translate-x-1/2 items-center gap-2.5 rounded-lg bg-paper/40 p-3 backdrop-blur-md'
+			className='absolute inset-x-3 top-[53px] mx-auto flex h-[641px] max-w-[420px] items-center gap-2.5 rounded-lg bg-paper/40 p-3 backdrop-blur-md'
 		>
 			<div className='flex h-full w-full flex-col items-center justify-end rounded-md border border-paper bg-paper/[0.79] p-2.5'>
 				{/* Header */}
-				<div className='flex shrink-0 z-99999 absolute -top-4 left-1/2 -translate-x-1/2 flex-col items-center justify-center gap-2.5'>
-					<span className='relative block size-[40px] shrink-0 overflow-hidden rounded-full bg-border-subtle'>
+				<div className='flex shrink-0 flex-col items-center justify-center gap-2.5'>
+					<span className='relative block size-[50px] shrink-0 overflow-hidden rounded-full bg-border-subtle'>
 						<Image
 							src='/images/avatar.png'
 							alt='Quadri Helper avatar'
 							fill
-							sizes='30px'
+							sizes='50px'
 							className='object-cover'
 						/>
 					</span>
-					{messages?.length > 1 || !isShowSamplePrompt ? null : <p className='font-body  text-sm font-medium tracking-[-0.16px] text-ink'>
-						Quadri Assistant
-					</p>}
+					{messages?.length > 1 || !isShowSamplePrompt ? null : (
+						<p className='font-body text-[16px] tracking-[-0.16px] text-ink'>
+							Quadri Helper
+						</p>
+					)}
 				</div>
 
-				{/* Message list - FIX: Changed justify-end to justify-start so history stacks naturally and scrolls properly */}
+				{/* Message list */}
 				<div
 					ref={scrollContainerRef}
-					className={`flex w-full flex-1 flex-col justify-start gap-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-y-auto py-12 px-2 ${messages?.length > 2 ? 'h-[500px]' : 'h-[300px]'}`}
+					className='flex w-full flex-1 flex-col justify-start gap-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] overflow-y-auto py-12 px-2'
 				>
 					{messages?.map((message, idx) => {
 						const isUser = message.role === 'user';
@@ -361,16 +394,27 @@ console.log(response.data?.history.length);
 					})}
 				</div>
 
-					<div className='flex flex-wrap mb-5 gap-3'>
-						{messages?.length > 1 || !isShowSamplePrompt ? null : samplePrompt.map((prompt) => {
-							return (
-								<button onClick={() => handleSelectPrompt(prompt)} disabled={isLoading} className='border p-2 cursor-pointer hover:bg-black/50 hover:text-white transition-all rounded-2xl border-accent border-solid text-sm font-medium' key={prompt} type="button">
+				{messages?.length > 1 || !isShowSamplePrompt ? null : (
+					<div className='flex w-full shrink-0 flex-wrap items-center justify-center gap-2 pb-1'>
+						{samplePrompt.map((prompt) => (
+							<button
+								onClick={() => handleSelectPrompt(prompt)}
+								disabled={isLoading}
+								className='cursor-pointer rounded-full border border-border-subtle bg-paper px-3 py-1.5 font-body text-[13px] font-medium tracking-[-0.13px] text-ink shadow-button transition-colors hover:bg-surface disabled:opacity-60'
+								key={prompt}
+								type='button'
+							>
 								{prompt}
 							</button>
-							)
-						})}
-				</div>
-				
+						))}
+					</div>
+				)}
+
+				{error ? (
+					<p className='w-full shrink-0 px-1 font-body text-[13px] leading-snug text-[#b3261e]'>
+						{error}
+					</p>
+				) : null}
 
 				{/* Input row */}
 				<form

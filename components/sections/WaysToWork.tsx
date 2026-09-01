@@ -12,7 +12,7 @@ const ENGAGEMENT_MODES = [
   {
     title: "Advisory & Mentorship",
     description:
-      "Design reviews, portfolio coaching, or hands-on pairing for junior designers leveling up. Structured or ad-hoc.",
+      "Design reviews, portfolio coaching, and hands-on pairing — for junior designers leveling up or founders who need an outside design perspective. Structured or ad-hoc.",
   },
 ];
 

@@ -285,15 +285,23 @@ export default function Process() {
           </p>
         </div>
 
+        <div className="flex w-full px-6">
+          <p className="max-w-[640px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
+            Every engagement runs through the same four phases —{" "}
+            <span className="text-ink">Understand, Analyze, Design, Deliver</span> —
+            shaped differently depending on what the work actually needs:
+          </p>
+        </div>
+
         <div className="flex w-full items-center px-6">
           <div className="relative w-full overflow-hidden rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] px-6 py-8 shadow-button">
-            <div className="mx-auto mb-8 flex w-fit flex-wrap items-center justify-center gap-1 rounded-[8px] border border-border-subtle bg-border-subtle p-1 shadow-button">
+            <div className="mx-auto mb-8 flex w-full max-w-[420px] flex-col gap-1 rounded-[8px] border border-border-subtle bg-border-subtle p-1 shadow-button sm:w-fit sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
               {TABS.map((tab, index) => (
                 <button
                   key={tab.label}
                   type="button"
                   onClick={() => setActiveIndex(index)}
-                  className={`flex h-[28px] items-center whitespace-nowrap rounded-2xl px-2 py-1.5 font-body text-[14px] tracking-[-0.28px] text-ink transition-colors ${
+                  className={`flex h-[28px] w-full items-center justify-center whitespace-nowrap rounded-2xl px-2 py-1.5 font-body text-[14px] tracking-[-0.28px] text-ink transition-colors sm:w-auto ${
                     index === activeIndex
                       ? "border border-[#f5f5f5] bg-paper shadow-button"
                       : "border border-transparent"
@@ -375,7 +383,7 @@ export default function Process() {
 
               <div className="relative flex w-full max-w-[480px] flex-col items-start">
                 <div className="flex w-full flex-col items-start overflow-hidden rounded-sm border border-border-subtle bg-paper shadow-button">
-                  <div className="flex w-full items-center bg-surface">
+                  <div className="hidden w-full items-center bg-surface sm:flex">
                     <div className="w-[175px] px-3 py-2 font-body text-[14px] tracking-[-0.28px] text-ink opacity-80">
                       Issue
                     </div>
@@ -386,12 +394,18 @@ export default function Process() {
                   {active.feedback.map((item) => (
                     <div
                       key={item.issue}
-                      className="flex w-full items-start border-t border-border-subtle"
+                      className="flex w-full flex-col items-start gap-1 border-t border-border-subtle p-3 sm:flex-row sm:items-start sm:gap-0 sm:p-0"
                     >
-                      <p className="w-[175px] p-3 font-body text-[14px] leading-normal tracking-[-0.14px] text-ink opacity-60">
+                      <p className="font-body text-[11px] font-medium uppercase tracking-[0.06em] text-ink/40 sm:hidden">
+                        Issue
+                      </p>
+                      <p className="font-body text-[14px] leading-normal tracking-[-0.14px] text-ink opacity-60 sm:w-[175px] sm:p-3">
                         {item.issue}
                       </p>
-                      <p className="flex-1 p-3 font-body text-[14px] font-medium leading-normal tracking-[-0.28px] text-ink">
+                      <p className="mt-2 font-body text-[11px] font-medium uppercase tracking-[0.06em] text-ink/40 sm:hidden">
+                        Suggestion
+                      </p>
+                      <p className="font-body text-[14px] font-medium leading-normal tracking-[-0.28px] text-ink sm:flex-1 sm:p-3">
                         {item.suggestion}
                       </p>
                     </div>

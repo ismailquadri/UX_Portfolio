@@ -41,7 +41,7 @@ export default function AboutIntro() {
               <br />
               <br />
               <span className="text-ink/50">
-                With a strong focus on B2B products, I help teams move from
+                With a strong focus on complex, high-stakes products, I help teams move from
                 uncertainty to clarity — whether that means fixing usability
                 issues, defining user flows, or designing interfaces that
                 actually perform in real-world scenarios.

@@ -13,26 +13,28 @@ export default function Footer() {
         </div>
         <div className="flex w-full items-center justify-between text-ink">
           <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px]">
-            © 2025 Odama Studio . All right Reserved
+            © {new Date().getFullYear()} Quadri Ismail. All rights reserved.
           </p>
           <p className="font-body text-[16px] leading-[1.2]">
             Find me on{" "}
+            {/* TODO: replace with real LinkedIn profile URL */}
             <a
-              href="https://instagram.com"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-solid [text-underline-position:from-font]"
             >
-              Instagram
+              LinkedIn
             </a>{" "}
             or{" "}
+            {/* TODO: replace with real Behance profile URL */}
             <a
-              href="https://x.com"
+              href="#"
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-solid [text-underline-position:from-font]"
             >
-              X
+              Behance
             </a>
           </p>
         </div>
