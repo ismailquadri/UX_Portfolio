@@ -40,6 +40,32 @@ export function nodesToHtml(nodes: RootContent[]): string {
   return processor.stringify(hastTree) as string;
 }
 
+export function nodesToPlainParagraphs(nodes: RootContent[]): string {
+  return nodes
+    .filter((node) => node.type === "paragraph")
+    .map((node) => collectText((node as Paragraph).children as RootContent[]).trim())
+    .join("\n\n");
+}
+
+// Like nodesToPlainParagraphs, but slices the ORIGINAL markdown source
+// instead of re-deriving plain text from the parsed tree, so inline
+// formatting (**bold**, _italic_, [links](url)) survives a round trip
+// through an editor textarea instead of being silently flattened to
+// plain text. Falls back to nodesToPlainParagraphs if position info is
+// missing (shouldn't happen with the default remark-parse config, but
+// this keeps the function total rather than throwing).
+export function nodesToSourceText(nodes: RootContent[], source: string): string {
+  if (nodes.length === 0) return "";
+  const first = nodes[0];
+  const last = nodes[nodes.length - 1];
+  const start = first.position?.start.offset;
+  const end = last.position?.end.offset;
+  if (start === undefined || end === undefined) {
+    return nodesToPlainParagraphs(nodes);
+  }
+  return source.slice(start, end).trim();
+}
+
 export function listItemsWithLeadingImage(
   nodes: RootContent[]
 ): { text: string; image?: string }[] {
@@ -96,9 +122,23 @@ export function extractLeadingImage(
     leftover = leftover.slice(1);
   }
 
+  // The reconstructed paragraph must NOT keep the original paragraph's
+  // `.position` — that still spans back to the stripped image's start
+  // offset. nodesToSourceText() slices markdown source by node position,
+  // so an inherited position would cause the "removed" image's markdown
+  // to reappear (duplicated) in the extracted text. Rebase the start to
+  // the first surviving child's own position instead.
+  const rebasedPosition =
+    leftover.length > 0 && leftover[0].position && paragraph.position
+      ? { start: leftover[0].position.start, end: paragraph.position.end }
+      : undefined;
+
   const rest: RootContent[] =
     leftover.length > 0
-      ? [{ ...paragraph, children: leftover } as Paragraph, ...restNodes]
+      ? [
+          { ...paragraph, children: leftover, position: rebasedPosition } as Paragraph,
+          ...restNodes,
+        ]
       : restNodes;
 
   return { image: image.url, alt: image.alt ?? undefined, rest };
