@@ -46,6 +46,11 @@ export default function ChatWidget() {
 			const list = scrollContainerRef.current;
 			if (!list) return;
 			event.preventDefault();
+			// Lenis (site-wide smooth scroll) hijacks wheel events on window with
+			// its own JS-driven scroll, so it doesn't respect preventDefault() on
+			// a nested element. Stop the event from ever reaching Lenis's
+			// listener — data-lenis-prevent below is the belt to this suspender.
+			event.stopPropagation();
 			list.scrollTop += event.deltaY;
 			list.scrollLeft += event.deltaX;
 			const distanceFromBottom =
@@ -307,6 +312,7 @@ export default function ChatWidget() {
 		<div
 			id='chat'
 			ref={widgetRef}
+			data-lenis-prevent
 			className='absolute inset-x-3 top-[53px] mx-auto flex h-[641px] max-w-[420px] items-center gap-2.5 rounded-lg bg-paper/40 p-3 backdrop-blur-md'
 		>
 			<div className='flex h-full w-full flex-col items-center justify-end rounded-md border border-paper bg-paper/[0.79] p-2.5'>

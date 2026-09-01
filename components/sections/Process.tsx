@@ -295,7 +295,7 @@ export default function Process() {
 
         <div className="flex w-full items-center px-6">
           <div className="relative w-full overflow-hidden rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] px-6 py-8 shadow-button">
-            <div className="mx-auto mb-8 flex w-full max-w-[420px] flex-col gap-1 rounded-[8px] border border-border-subtle bg-border-subtle p-1 shadow-button sm:w-fit sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+            <div className="mx-auto mb-8 flex w-full max-w-[420px] flex-col gap-1 rounded-[8px] border border-border-subtle bg-border-subtle p-1 shadow-button sm:w-fit sm:max-w-none sm:flex-row sm:flex-nowrap sm:items-center sm:justify-center">
               {TABS.map((tab, index) => (
                 <button
                   key={tab.label}

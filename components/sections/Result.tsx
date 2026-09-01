@@ -1,6 +1,8 @@
 import Image from "next/image";
 import { Link } from "next-view-transitions";
 
+import BookCallButton from "@/components/BookCallButton";
+
 export default function Result() {
   return (
     <section
@@ -24,7 +26,7 @@ export default function Result() {
 
         <div className="flex w-full flex-col items-center justify-center gap-8 px-6 py-10">
           <div className="flex w-full flex-col items-center gap-4 md:flex-row">
-            <div className="relative h-[280px] w-full overflow-clip rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button md:h-[526px] md:flex-1">
+            <div className="relative h-[420px] w-full overflow-clip rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button md:h-[640px] md:flex-1">
               <Image
                 src="/images/case-studies/ryno-finance/hero.png"
                 alt="Ryno Finance case study preview"
@@ -40,7 +42,7 @@ export default function Result() {
               </Link>
             </div>
 
-            <div className="relative h-[280px] w-full overflow-clip rounded-md bg-[#151317] shadow-button md:h-[526px] md:flex-1">
+            <div className="relative h-[420px] w-full overflow-clip rounded-md bg-[#151317] shadow-button md:h-[640px] md:flex-1">
               <Image
                 src="/images/result-tile-2.png"
                 alt="Case study preview: logistics dashboard mockup"
@@ -62,19 +64,7 @@ export default function Result() {
               Want to See more magic?
             </p>
             <div className="flex items-center gap-3">
-              <a
-                href="mailto:hello@quadriismail.com"
-                className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-ink shadow-button"
-              >
-                Book 15 Mins Call
-                <Image
-                  src="/images/call-icon.png"
-                  alt=""
-                  width={17}
-                  height={14}
-                  className="h-[14px] w-[17px] object-cover"
-                />
-              </a>
+              <BookCallButton className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-ink shadow-button" />
               <Link
                 href="/case-studies"
                 className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"

@@ -1,5 +1,7 @@
 import Image from "next/image";
 
+import BookCallButton from "@/components/BookCallButton";
+
 export default function Cta() {
   return (
     <section className="flex w-full items-start justify-between overflow-clip rounded-b-lg bg-paper shadow-button">
@@ -20,19 +22,7 @@ export default function Cta() {
                 Let&rsquo;s Turn Your Idea Into a Product That Works.
               </h2>
 
-              <a
-                href="mailto:hello@quadriismail.com"
-                className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[16px] tracking-[-0.16px] text-ink shadow-button"
-              >
-                Book 15 Mins Call
-                <Image
-                  src="/images/call-icon.png"
-                  alt=""
-                  width={17}
-                  height={14}
-                  className="h-[14px] w-[17px] object-cover"
-                />
-              </a>
+              <BookCallButton className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[16px] tracking-[-0.16px] text-ink shadow-button" />
             </div>
 
             <p className="w-full max-w-[452px] font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-paper opacity-50">

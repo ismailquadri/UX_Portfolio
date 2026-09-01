@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const SERVICES = [
   {
     title: "UX Audit",
@@ -57,11 +59,18 @@ export default function Capabilities() {
             ))}
           </div>
 
-          {/* TODO: placeholder for decorative graphic (Figma composite image mock-UI panel) */}
           <div
             aria-hidden="true"
-            className="hidden flex-1 self-stretch overflow-hidden rounded-lg border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button lg:block"
-          />
+            className="relative hidden flex-1 self-stretch overflow-hidden rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button lg:block"
+          >
+            <Image
+              src="/images/capabilities-graphic.png"
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 45vw, 0px"
+              className="object-cover object-top"
+            />
+          </div>
         </div>
       </div>
     </section>

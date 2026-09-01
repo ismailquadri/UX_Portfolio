@@ -4,6 +4,8 @@ import { Link } from "next-view-transitions";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+import BookCallButton from "@/components/BookCallButton";
+
 const MOBILE_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
@@ -11,7 +13,7 @@ const MOBILE_LINKS = [
   { label: "Contact", href: "/contact" },
 ];
 
-export default function MobileNav({ onBookCall }: { onBookCall?: () => void }) {
+export default function MobileNav() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
   const containerRef = useRef<HTMLDivElement>(null);
@@ -84,18 +86,11 @@ export default function MobileNav({ onBookCall }: { onBookCall?: () => void }) {
               {link.label}
             </Link>
           ))}
-          {onBookCall && (
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                onBookCall();
-              }}
-              className="mt-1 rounded-sm border-t border-border-subtle px-3 pt-3 text-left font-body text-[16px] font-medium tracking-[-0.16px] text-ink"
-            >
-              Book 15 Mins Call
-            </button>
-          )}
+          <BookCallButton
+            onClick={() => setOpen(false)}
+            showIcon={false}
+            className="mt-1 rounded-sm border-t border-border-subtle px-3 pt-3 text-left font-body text-[16px] font-medium tracking-[-0.16px] text-ink"
+          />
         </nav>
       )}
     </div>

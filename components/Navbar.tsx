@@ -2,18 +2,15 @@
 
 import Image from "next/image";
 import { Link } from "next-view-transitions";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
-import BookingModal from "@/components/BookingModal";
+import BookCallButton from "@/components/BookCallButton";
 import MobileNav from "@/components/MobileNav";
 
 const SCROLL_THRESHOLD = 80;
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
-  const [bookingOpen, setBookingOpen] = useState(false);
-
-  const closeBooking = useCallback(() => setBookingOpen(false), []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -72,21 +69,8 @@ export default function Navbar() {
         </div>
 
         <div className="flex shrink-0 items-center gap-3">
-          <MobileNav onBookCall={() => setBookingOpen(true)} />
-          <button
-            type="button"
-            onClick={() => setBookingOpen(true)}
-            className="hidden h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button sm:flex"
-          >
-            Book 15 Mins Call
-            <Image
-              src="/images/call-icon.png"
-              alt=""
-              width={17}
-              height={14}
-              className="h-[14px] w-[17px] object-cover"
-            />
-          </button>
+          <MobileNav />
+          <BookCallButton className="hidden h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button sm:flex" />
           <Link
             href="/about"
             className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
@@ -99,7 +83,6 @@ export default function Navbar() {
           </Link>
         </div>
       </div>
-      <BookingModal open={bookingOpen} onClose={closeBooking} />
     </div>
   );
 }
