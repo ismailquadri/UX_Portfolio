@@ -10,6 +10,8 @@ import Faq from "@/components/sections/Faq";
 import CaseStudyImage from "@/components/CaseStudyImage";
 import ContextStrip from "@/components/case-study/ContextStrip";
 import ProcessInsights from "@/components/case-study/ProcessInsights";
+import ProcessFragmentationDiagram from "@/components/case-study/ProcessFragmentationDiagram";
+import DecisionFlow from "@/components/case-study/DecisionFlow";
 import SolutionSection from "@/components/case-study/SolutionSection";
 import OutcomeSection from "@/components/case-study/OutcomeSection";
 import ProseHtml from "@/components/case-study/ProseHtml";
@@ -98,7 +100,7 @@ export default async function CaseStudyDetailPage({
           {/* Context strip */}
           <RevealOnScroll>
             <section className="flex w-full flex-col gap-8 px-[6%] py-14 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)] md:px-[10%]">
-              <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
+              <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
                 About Project
               </h2>
               <ContextStrip
@@ -118,8 +120,8 @@ export default async function CaseStudyDetailPage({
             {caseStudy.problemHtml && (
               <RevealOnScroll>
                 <div className="flex flex-col gap-8 px-[6%] md:px-[10%]">
-                  <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
-                    Problem
+                  <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
+                    {caseStudy.problemHeadline ?? "Problem"}
                   </h2>
                   <ProseHtml html={caseStudy.problemHtml} />
                 </div>
@@ -129,10 +131,13 @@ export default async function CaseStudyDetailPage({
             {caseStudy.processInsights && caseStudy.processInsights.length > 0 && (
               <RevealOnScroll>
                 <div className="flex flex-col gap-8 px-[6%] md:px-[10%]">
-                  <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
-                    Process
+                  <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
+                    {caseStudy.processHeadline ?? "Process"}
                   </h2>
                   <ProcessInsights items={caseStudy.processInsights} />
+                  {caseStudy.processDiagram && (
+                    <ProcessFragmentationDiagram {...caseStudy.processDiagram} />
+                  )}
                 </div>
               </RevealOnScroll>
             )}
@@ -140,10 +145,11 @@ export default async function CaseStudyDetailPage({
             {caseStudy.obstaclesHtml && (
               <RevealOnScroll>
                 <div className="flex flex-col gap-8 px-[6%] md:px-[10%]">
-                  <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
-                    Obstacles
+                  <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
+                    {caseStudy.obstaclesHeadline ?? "Obstacles"}
                   </h2>
                   <ProseHtml html={caseStudy.obstaclesHtml} />
+                  {caseStudy.slug === "ryno-finance" && <DecisionFlow />}
                 </div>
               </RevealOnScroll>
             )}
@@ -151,8 +157,8 @@ export default async function CaseStudyDetailPage({
             {caseStudy.solutionItems && caseStudy.solutionItems.length > 0 && (
               <RevealOnScroll>
                 <div className="flex flex-col gap-8 px-[6%] md:px-[10%]">
-                  <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
-                    Solution
+                  <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
+                    {caseStudy.solutionHeadline ?? "Solution"}
                   </h2>
                   <SolutionSection items={caseStudy.solutionItems} />
                 </div>
@@ -163,8 +169,8 @@ export default async function CaseStudyDetailPage({
               caseStudy.outcomeHtml) && (
               <RevealOnScroll>
                 <div className="flex flex-col gap-8 px-[6%] md:px-[10%]">
-                  <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
-                    Outcome
+                  <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
+                    {caseStudy.outcomeHeadline ?? "Outcome"}
                   </h2>
                   <OutcomeSection metrics={caseStudy.metrics} html={caseStudy.outcomeHtml} />
                 </div>
@@ -174,8 +180,8 @@ export default async function CaseStudyDetailPage({
             {caseStudy.closeHtml && (
               <RevealOnScroll>
                 <div className="flex flex-col gap-8 px-[6%] md:px-[10%]">
-                  <h2 className="font-heading text-[32px] tracking-[-0.32px] text-ink md:text-[48px]">
-                    Close
+                  <h2 className="font-heading text-[36px] leading-tight tracking-[-0.36px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
+                    {caseStudy.closeHeadline ?? "Close"}
                   </h2>
                   <ProseHtml html={caseStudy.closeHtml} />
                 </div>

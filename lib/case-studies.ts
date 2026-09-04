@@ -30,6 +30,12 @@ export type CaseStudyProcessInsight = {
   image?: string;
 };
 
+export type CaseStudyProcessDiagram = {
+  tools: string[];
+  contextPercent: number;
+  decidePercent: number;
+};
+
 export type CaseStudy = {
   slug: string;
   title: string;
@@ -45,10 +51,20 @@ export type CaseStudy = {
   metrics?: CaseStudyMetric[];
   problemHtml?: string;
   processInsights?: CaseStudyProcessInsight[];
+  processDiagram?: CaseStudyProcessDiagram;
   obstaclesHtml?: string;
   solutionItems?: CaseStudySolutionItem[];
   outcomeHtml?: string;
   closeHtml?: string;
+  // Optional headline copy for each narrative section, shown in place of the
+  // generic "Problem" / "Process" / etc. label. Falls back to the generic
+  // label when a case study hasn't supplied one yet.
+  problemHeadline?: string;
+  processHeadline?: string;
+  obstaclesHeadline?: string;
+  solutionHeadline?: string;
+  outcomeHeadline?: string;
+  closeHeadline?: string;
 };
 
 type CaseStudyFrontmatter = {
@@ -64,6 +80,13 @@ type CaseStudyFrontmatter = {
   liveUrl?: string;
   heroImage?: string;
   metrics?: CaseStudyMetric[];
+  processDiagram?: CaseStudyProcessDiagram;
+  problemHeadline?: string;
+  processHeadline?: string;
+  obstaclesHeadline?: string;
+  solutionHeadline?: string;
+  outcomeHeadline?: string;
+  closeHeadline?: string;
 };
 
 export function getAllCaseStudySlugs(): string[] {
@@ -118,10 +141,17 @@ export function getCaseStudyBySlug(slug: string): CaseStudy | undefined {
     processInsights: processSection
       ? listItemsWithLeadingImage(processSection.nodes)
       : undefined,
+    processDiagram: frontmatter.processDiagram,
     obstaclesHtml: obstacles ? nodesToHtml(obstacles.nodes) : undefined,
     solutionItems,
     outcomeHtml: outcome ? nodesToHtml(outcome.nodes) : undefined,
     closeHtml: close ? nodesToHtml(close.nodes) : undefined,
+    problemHeadline: frontmatter.problemHeadline,
+    processHeadline: frontmatter.processHeadline,
+    obstaclesHeadline: frontmatter.obstaclesHeadline,
+    solutionHeadline: frontmatter.solutionHeadline,
+    outcomeHeadline: frontmatter.outcomeHeadline,
+    closeHeadline: frontmatter.closeHeadline,
   };
 }
 

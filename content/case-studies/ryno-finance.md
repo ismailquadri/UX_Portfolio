@@ -17,6 +17,16 @@ metrics:
     label: "Fewer partner support tickets in the first month"
   - value: "2"
     label: "New markets launched by ops alone, zero engineering tickets"
+processDiagram:
+  tools: ["Spreadsheet", "Block explorer", "Risk tool", "Slack"]
+  contextPercent: 60
+  decidePercent: 40
+problemHeadline: "I inherited a compliance process running on a spreadsheet and a prayer."
+processHeadline: "I watched her work for three sessions and found the bottleneck nobody had named."
+obstaclesHeadline: "I built the obvious dashboard first. She killed it in under a minute — and she was right."
+solutionHeadline: "I killed the dashboard idea and built three tools that each do exactly one job."
+outcomeHeadline: "Screening time: 12 minutes to 2.5. The numbers held eight weeks later."
+closeHeadline: "The lesson I'm keeping: constraints aren't the limit. They're the product."
 ---
 
 ## Problem
