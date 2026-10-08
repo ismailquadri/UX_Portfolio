@@ -38,7 +38,7 @@ export default function Navbar() {
           />
         </span>
         <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-          2 Project Slots Available
+          Product Designer · Lagos, Nigeria
         </p>
       </div>
 
@@ -46,7 +46,7 @@ export default function Navbar() {
         <div className="flex w-full flex-1 min-w-0 flex-col items-start justify-center gap-1 overflow-hidden">
           <div className="flex items-center gap-2.5">
             <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-              Hello,
+              Hi, I&rsquo;m
             </p>
             <div className="flex items-center gap-2">
               <span className="relative block size-7 shrink-0 overflow-hidden rounded-sm bg-surface">
@@ -59,12 +59,12 @@ export default function Navbar() {
                 />
               </span>
               <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                Quadri&rsquo;s here!
+                Quadri Ismail.
               </p>
             </div>
           </div>
           <p className="w-full max-w-full truncate font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink opacity-40">
-            A Product Designer for Complex Products
+            Product design for complex products
           </p>
         </div>
 

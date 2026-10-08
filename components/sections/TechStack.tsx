@@ -64,10 +64,10 @@ export default function TechStack() {
         <div className="flex w-full max-w-[431px] flex-col items-start justify-between gap-12 self-stretch">
           <div className="relative flex w-full items-center justify-between">
             <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-              <span className="block">Connected Weapons for</span>
+              <span className="block">Tools that support</span>
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[301px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-                Modern Design
+                the work
               </span>
             </h2>
           </div>
@@ -84,12 +84,10 @@ export default function TechStack() {
               />
             </div>
             <p className="w-full max-w-[366px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-              Each tool plays a role, from research and wireframing to prototyping and launch. Together, they make my
-              process fast, precise, and scalable.
+              I choose tools for the work at hand: understanding a problem, exploring a direction, documenting decisions, and collaborating with a team.
             </p>
             <p className="w-full max-w-[366px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink/50">
-              From design to development, these are the apps that power my workflow and bring clarity to complex
-              ideas.
+              These are the tools I use to move from early questions to considered product details and clear handoffs.
             </p>
           </div>
         </div>

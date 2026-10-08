@@ -10,16 +10,16 @@ type FaqProps = {
 // "general" renders with no group label (it's the default, always-relevant
 // set). "client" and "recruiter" get a small label so they read as a
 // labeled subset rather than blending into the default FAQ.
-const GROUP_ORDER: FaqAudience[] = ["general", "client", "recruiter"];
+const GROUP_ORDER: FaqAudience[] = ["general", "recruiter", "client"];
 const GROUP_LABELS: Record<FaqAudience, string | null> = {
   general: null,
-  client: "For Clients",
-  recruiter: "For Recruiters & Hiring Managers",
+  client: "For Product Teams",
+  recruiter: "For Hiring Teams",
 };
 
 export default function Faq({
   items = FAQ_ITEMS,
-  heading = "Things You Might Want to Know",
+  heading = "A Few Helpful Details",
   className = "px-6 py-14",
 }: FaqProps) {
   const groups = GROUP_ORDER.map((audience) => ({

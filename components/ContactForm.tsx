@@ -4,10 +4,10 @@ import { useId, useState, type FormEvent } from "react";
 import { Turnstile } from "@marsidev/react-turnstile";
 
 const INTEREST_OPTIONS = [
-  "UX Audit",
-  "User Segmentation & Insights",
-  "UI/UX Design & Prototyping",
-  "MVP Product Development",
+  "Full-time product design role",
+  "Contract or fractional role",
+  "Product design project",
+  "Other",
 ] as const;
 
 type SubmitState = "idle" | "sending" | "success" | "error";
@@ -77,7 +77,7 @@ export default function ContactForm() {
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="John Doe"
+              placeholder="Your name"
               className="h-[58px] w-full rounded-sm border-[0.6px] border-border-subtle bg-surface px-4 py-3 font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/50"
             />
           </div>
@@ -94,7 +94,7 @@ export default function ContactForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="hello@site.com"
+              placeholder="you@example.com"
               className="h-[58px] w-full rounded-sm border-[0.6px] border-border-subtle bg-surface px-4 py-3 font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/50"
             />
           </div>
@@ -104,7 +104,7 @@ export default function ContactForm() {
             htmlFor={interestId}
             className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink"
           >
-            I&rsquo;m interested in *
+            I&rsquo;m reaching out about *
           </label>
           <select
             id={interestId}
@@ -136,7 +136,7 @@ export default function ContactForm() {
             rows={5}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            placeholder="Tell me about your ideas"
+            placeholder="Share a little about the role, project, or question."
             className="h-[180px] w-full resize-none rounded-sm border-[0.6px] border-border-subtle bg-surface px-4 py-3 font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/50"
           />
         </div>
@@ -166,12 +166,12 @@ export default function ContactForm() {
       </button>
       {state === "success" && (
         <p className="font-body text-[14px] text-ink">
-          Thanks — your message is on its way. I&rsquo;ll get back to you within 24 hours.
+          Thanks — your message has been sent. I&rsquo;ll get back to you as soon as I can, usually within 24 hours.
         </p>
       )}
       {state === "error" && (
         <p className="font-body text-[14px] text-ink">
-          Something went wrong sending your message — try again in a moment, or email
+          Your message didn&rsquo;t go through. Try again in a moment, or email
           hello@quadriismail.com directly.
         </p>
       )}

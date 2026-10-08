@@ -8,7 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import type { ChatMessage } from '@/lib/chat-seed';
 
 
-const samplePrompt = ['Walk me through your design process', 'Show me your most impactful case study', 'How soon can you start?'];
+const samplePrompt = ['How do you approach complex product work?', 'What kind of role are you looking for?', 'Which industries do you know best?'];
 
 const NEAR_BOTTOM_PX = 48;
 const HISTORY_KEY = 'quadri-chat-history';
@@ -181,9 +181,9 @@ export default function ChatWidget() {
 			});
 			if (!response.ok) {
 				const body = await response.json().catch(() => null) as { error?: string } | null;
-				throw new Error(body?.error === 'chat_unavailable'
+						throw new Error(body?.error === 'chat_unavailable'
 					? 'Chat is temporarily unavailable. Please try again later.'
-					: 'I could not send that message. Please try again.');
+					: 'That message didn’t go through. Please try again.');
 			}
 			const reader = response.body?.getReader();
 			if (!reader) throw new Error('Chat is temporarily unavailable. Please try again.');
@@ -209,13 +209,13 @@ export default function ChatWidget() {
 					return updated;
 				});
 			}
-			if (!fullAssistantReplyRef.current.trim()) throw new Error('I could not generate a reply. Please try again.');
+			if (!fullAssistantReplyRef.current.trim()) throw new Error('I couldn’t put together a reply. Please try again.');
 			setIsShowSamplePrompt(false);
 		} catch (caught: unknown) {
 			console.error('Chat request failed:', caught);
 			setError(caught instanceof Error && caught.message.includes('Verification')
 				? caught.message
-				: 'I could not send that message. Please try again.');
+				: 'That message didn’t go through. Please try again.');
 			setMessages((prev) => prev.filter((message) => message !== assistantMessage && message !== userMessage));
 		} finally {
 			ref.current?.reset();
@@ -250,7 +250,7 @@ export default function ChatWidget() {
 					<span className='relative block size-[50px] shrink-0 overflow-hidden rounded-full bg-border-subtle'>
 						<Image
 							src='/images/avatar.png'
-							alt='Quadri Helper avatar'
+							alt='Portfolio assistant avatar'
 							fill
 							sizes='50px'
 							className='object-cover'
@@ -258,7 +258,7 @@ export default function ChatWidget() {
 					</span>
 					{messages?.length > 1 || !isShowSamplePrompt ? null : (
 						<p className='font-body text-[16px] tracking-[-0.16px] text-ink'>
-							Quadri Helper
+							Portfolio assistant
 						</p>
 					)}
 				</div>
@@ -364,7 +364,7 @@ export default function ChatWidget() {
 						maxLength={2_000}
 						value={input}
 						onChange={(event) => setInput(event.target.value)}
-						placeholder='Send us message'
+						placeholder='Ask about my work or the roles I’m looking for'
 						disabled={isSending}
 						className='min-w-0 flex-1 bg-transparent font-body text-[16px] tracking-[-0.16px] text-ink outline-none placeholder:text-ink/40 disabled:opacity-60'
 					/>

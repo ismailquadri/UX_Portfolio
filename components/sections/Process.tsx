@@ -18,56 +18,53 @@ type ProcessTab = {
 
 const TABS: ProcessTab[] = [
   {
-    label: "UX Audit",
+    label: "Product Discovery",
     steps: [
       {
-        title: "Define Objective",
+        title: "Set the goal",
         description:
-          "Identify goal of the audit what business or user problem you want to solve.",
+          "Agree on the product outcome and the decision this audit should support.",
       },
       {
         title: "Heuristic Evaluation",
         description:
-          "Review the interface using standard UX principles (e.g. Nielsen's 10 heuristics).",
+          "Review key screens and journeys for usability issues, edge cases, and unclear feedback.",
       },
       {
         title: "User Flow Analysis",
         description:
-          "Check how users move through the product and where they might get stuck.",
+          "Use research, analytics, or support patterns when available to understand where people struggle.",
       },
       {
         title: "Behavioral Data Analysis",
         description:
-          "Use analytics or heatmaps to validate friction points with real user data.",
+          "Prioritize issues by user impact and severity, then recommend specific next steps.",
       },
     ],
     feedback: [
       {
-        issue: "Ambiguous “arrow” button (send icon)",
-        suggestion:
-          "“open map”, or “send ticket”.Replace with a location pin icon or a “Map” label.",
+        issue: "The map action is unclear",
+        suggestion: "Label it “Open map” or pair the arrow with descriptive text.",
       },
       {
-        issue: "Bottom bar affordance",
-        suggestion: "Add color highlight or glowing effect to current tab.",
+        issue: "The current tab is hard to identify",
+        suggestion: "Give the active tab a clear visual state and an accessible label.",
       },
       {
         issue: "Profile photo placement",
-        suggestion:
-          "Add label (e.g. “by Chef Renatta”) or move avatar into metadata row.",
+        suggestion: "Add a name or role so visitors understand whose profile they are viewing.",
       },
       {
         issue: "Confusing notification icons",
-        suggestion:
-          "Redesign icons to be more intuitive and provide tooltips for clarification.",
+        suggestion: "Use familiar icons and labels that explain what each notification means.",
       },
       {
-        issue: "Filter icon (hamburger)",
-        suggestion: "Use rounded background or filter-funnel icon for better clarity.",
+        issue: "The filter control looks like navigation",
+        suggestion: "Use a filter icon and make the applied state visible.",
       },
       {
         issue: "Typographic contrast",
-        suggestion: "Slightly darken to improve readability under sunlight.",
+        suggestion: "Check text contrast in context and adjust it so the content remains readable.",
       },
     ],
     mockup: {
@@ -79,59 +76,53 @@ const TABS: ProcessTab[] = [
     },
   },
   {
-    label: "User Segmentation",
+    label: "Research & Insights",
     steps: [
       {
-        title: "Define Target Users",
+        title: "Frame the research question",
         description:
-          "Identify who your product serves by understanding different user groups, their goals, and behaviors.",
+          "Decide what the team needs to learn and which people can help answer it.",
       },
       {
         title: "User Research",
         description:
-          "Collect insights through interviews, surveys, analytics, and observations to understand real user needs.",
+          "Use interviews, observation, surveys, or product data to learn how people work today.",
       },
       {
-        title: "Create User Personas",
+        title: "Find meaningful patterns",
         description:
-          "Build representative personas that reflect user motivations, frustrations, and expectations.",
+          "Group people by relevant needs and behavior, using evidence rather than assumptions.",
       },
       {
         title: "Map User Journeys",
         description:
-          "Visualize how each user segment interacts with your product across every touchpoint.",
+          "Map key journeys and validate the differences that matter to the product decision.",
       },
     ],
     feedback: [
       {
-        issue: "Broad target audience",
-        suggestion:
-          "Narrow the audience into meaningful user segments based on goals and behaviors.",
+        issue: "The audience is too broad",
+        suggestion: "Define the groups by the goals and behaviors relevant to this decision.",
       },
       {
-        issue: "Generic personas",
-        suggestion:
-          "Create data-driven personas using real research instead of assumptions.",
+        issue: "Personas are based on assumptions",
+        suggestion: "Use research evidence and label any remaining assumptions clearly.",
       },
       {
-        issue: "Unclear user needs",
-        suggestion:
-          "Identify user motivations, pain points, and desired outcomes through interviews.",
+        issue: "Needs are not connected to evidence",
+        suggestion: "Trace each finding to an observation, interview, or product signal.",
       },
       {
         issue: "Overlapping segments",
-        suggestion:
-          "Define clear segmentation criteria such as demographics, behaviors, or use cases.",
+        suggestion: "Write down the criteria and test whether each group behaves differently.",
       },
       {
-        issue: "Missing journey insights",
-        suggestion:
-          "Map complete user journeys to uncover friction points and opportunities.",
+        issue: "The journey ends at the interface",
+        suggestion: "Include the surrounding steps, handoffs, and offline work where relevant.",
       },
       {
-        issue: "No prioritization",
-        suggestion:
-          "Rank user segments by business value, frequency, and customer lifetime potential.",
+        issue: "Research findings are not prioritized",
+        suggestion: "Connect the findings to user impact and the decision the team needs to make.",
       },
     ],
     mockup: {
@@ -143,55 +134,53 @@ const TABS: ProcessTab[] = [
     },
   },
   {
-    label: "UI/UX Design & Prototyping",
+    label: "Product Design",
     steps: [
       {
-        title: "Wireframing",
+        title: "Map the experience",
         description:
-          "Create low-fidelity layouts to establish structure, content hierarchy, and user flow before visual design.",
+          "Set the content hierarchy and key steps before adding visual detail.",
       },
       {
-        title: "Visual Design",
+        title: "Resolve the interface",
         description:
-          "Design intuitive interfaces with consistent typography, colors, spacing, and reusable components.",
+          "Use clear visual hierarchy, consistent components, and useful system states.",
       },
       {
-        title: "Interactive Prototyping",
+        title: "Prototype key interactions",
         description:
-          "Build clickable prototypes that simulate real user interactions and key user journeys.",
+          "Make the important paths and decisions concrete enough for the team to review.",
       },
       {
         title: "Usability Testing",
         description:
-          "Validate the design with real users to identify friction points and improve the overall experience.",
+          "Test the riskiest assumptions with users, then refine the design based on what you learn.",
       },
     ],
     feedback: [
       {
-        issue: "Complex navigation",
-        suggestion: "Simplify the information architecture and reduce unnecessary steps.",
+        issue: "People lose their place",
+        suggestion: "Clarify the hierarchy and show where each action leads.",
       },
       {
-        issue: "Inconsistent UI components",
-        suggestion: "Build a reusable design system with standardized components.",
+        issue: "Similar controls behave differently",
+        suggestion: "Align patterns and document the exceptions the team needs to support.",
       },
       {
-        issue: "Weak visual hierarchy",
-        suggestion:
-          "Improve spacing, typography, and color contrast to guide user attention.",
+        issue: "Important information is easy to miss",
+        suggestion: "Give the primary task and its status a clearer visual hierarchy.",
       },
       {
-        issue: "Confusing interactions",
-        suggestion: "Add clear feedback, transitions, and interaction states.",
+        issue: "Actions give little feedback",
+        suggestion: "Show clear loading, success, error, and disabled states.",
       },
       {
-        issue: "Prototype not validated",
-        suggestion: "Conduct usability testing before development begins.",
+        issue: "The prototype does not answer the key question",
+        suggestion: "Test the decision or workflow that carries the most risk.",
       },
       {
-        issue: "Missing developer specs",
-        suggestion:
-          "Include design tokens, component documentation, and interaction details for handoff.",
+        issue: "Handoff leaves interaction details open",
+        suggestion: "Document behavior, edge cases, and component states for implementation.",
       },
     ],
     mockup: {
@@ -203,54 +192,54 @@ const TABS: ProcessTab[] = [
     },
   },
   {
-    label: "MVP Product Development",
+    label: "MVP Definition",
     steps: [
       {
-        title: "Define Core Features",
+        title: "Define the first outcome",
         description:
-          "Identify the essential features that solve the primary user problem and deliver immediate value.",
+          "Name the user need and the smallest useful outcome the first release should support.",
       },
       {
-        title: "Product Roadmap",
+        title: "Set the first scope",
         description:
-          "Prioritize features into phased releases based on impact, feasibility, and business goals.",
+          "Choose what belongs in the first release and what can wait, based on impact and constraints.",
       },
       {
-        title: "Rapid Development",
+        title: "Prototype the riskiest part",
         description:
-          "Build the MVP quickly using scalable technologies and an iterative development approach.",
+          "Explore the key flow before the team commits to a full implementation.",
       },
       {
-        title: "User Feedback",
+        title: "Plan what to learn",
         description:
-          "Launch early, collect real user feedback, and validate assumptions through continuous testing.",
+          "Define the signals and feedback that will show whether the first release solves the right problem.",
       },
     ],
     feedback: [
       {
-        issue: "Too many initial features",
+        issue: "The first release has too many features",
         suggestion:
-          "Focus only on essential features that solve the core user problem.",
+          "Keep the scope focused on the user outcome the team needs to validate.",
       },
       {
-        issue: "Unclear product priorities",
-        suggestion: "Create a roadmap based on business goals and user impact.",
+        issue: "Priorities are not clear",
+        suggestion: "Make the user need, business goal, and constraints visible together.",
       },
       {
-        issue: "Slow development cycle",
-        suggestion: "Use agile sprints and release small, incremental updates.",
+        issue: "The team is committing before testing the idea",
+        suggestion: "Prototype the riskiest assumption before investing in the full build.",
       },
       {
-        issue: "Limited user validation",
-        suggestion: "Gather feedback early through beta testing and analytics.",
+        issue: "The team has no learning plan",
+        suggestion: "Decide what feedback or product signal will guide the next iteration.",
       },
       {
-        issue: "Low feature adoption",
-        suggestion: "Measure user engagement and refine features based on data.",
+        issue: "Success is defined only by delivery",
+        suggestion: "Agree on a user or business outcome to review after release.",
       },
       {
-        issue: "Difficult scalability",
-        suggestion: "Build a flexible architecture that supports future growth.",
+        issue: "Future needs are shaping the first release",
+        suggestion: "Separate what must work now from the flexibility the product may need later.",
       },
     ],
     mockup: {
@@ -273,10 +262,10 @@ export default function Process() {
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex items-center gap-2.5">
             <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-              <span className="block">A Process Rooted in</span>
+              <span className="block">How I Approach Product Work</span>
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[383px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-                Clarity &amp; Insight.
+                Understand, focus, design, learn.
               </span>
             </h2>
           </div>
@@ -287,9 +276,7 @@ export default function Process() {
 
         <div className="flex w-full px-6">
           <p className="max-w-[640px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
-            Every engagement runs through the same four phases —{" "}
-            <span className="text-ink">Understand, Analyze, Design, Deliver</span> —
-            shaped differently depending on what the work actually needs:
+            I start with the people and constraints around the problem, then focus on the workflow that matters most. The methods change with the work; the aim is a clear decision and a useful next step.
           </p>
         </div>
 

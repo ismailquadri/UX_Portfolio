@@ -2,24 +2,24 @@ import Image from "next/image";
 
 const SERVICES = [
   {
-    title: "UX Audit",
+    title: "Product Discovery & UX Audits",
     description:
-      "Identify what's holding your product back. I analyze usability, flow, and interaction patterns to uncover friction points and turn them into opportunities for better user experience.",
+      "Find where people get stuck and why. I review key journeys, product constraints, and available evidence, then help the team decide what to improve first.",
   },
   {
-    title: "User Segmentation & Insights",
+    title: "Research & User Insights",
     description:
-      "Define who your users truly are. I help you develop clear user segments and behavioral insights to make every design decision data-driven and human-centered.",
+      "Understand the people behind the workflow—their goals, context, and decisions—so the product responds to real needs instead of assumptions.",
   },
   {
-    title: "UI/UX Design & Prototyping",
+    title: "Product Design & Prototyping",
     description:
-      "From concept to clickable prototype — I design interfaces that don't just look good but feel intuitive, efficient, and on-brand.",
+      "Turn the problem into clear flows, considered interactions, and prototypes the team can review before implementation.",
   },
   {
-    title: "MVP Product Development",
+    title: "MVP Definition & Design",
     description:
-      "Turn your idea into a working product fast. I help you design, build, and launch your MVP with just the right features to validate your vision and attract early users.",
+      "Decide what the first useful release needs to do, then shape an experience that helps the team test its most important assumptions.",
   },
 ];
 
@@ -30,10 +30,10 @@ export default function Capabilities() {
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex flex-1 items-center gap-2.5">
             <h2 className="relative w-full max-w-[640px] font-heading text-[56px] leading-none tracking-[-0.56px] text-ink md:w-[640px]">
-              <span className="block">I don&rsquo;t bring dreams,</span>
+              <span className="block">Complex products need</span>
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 h-[67px] w-full -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0" />
-                I bring solutions for your Business
+                clear, considered design.
               </span>
             </h2>
           </div>

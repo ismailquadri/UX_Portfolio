@@ -36,15 +36,11 @@ export default function AboutIntro() {
           <div className="relative w-full">
             <span className="absolute -left-2.5 top-[46%] -z-10 hidden h-[67px] w-[500px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
             <p className="relative font-heading text-[24px] leading-normal tracking-[-0.24px] text-ink md:text-[48px] md:tracking-[-0.48px]">
-              I&rsquo;m a product designer focused on turning complex ideas
-              into clear, usable, and scalable digital experiences.
+              I&rsquo;m a product designer who starts by understanding how work actually happens.
               <br />
               <br />
               <span className="text-ink/50">
-                With a strong focus on complex, high-stakes products, I help teams move from
-                uncertainty to clarity — whether that means fixing usability
-                issues, defining user flows, or designing interfaces that
-                actually perform in real-world scenarios.
+                I look for the source of friction, question early assumptions, and shape focused workflows teams can build on. I care about the thinking behind the interface as much as the final screens.
               </span>
             </p>
           </div>

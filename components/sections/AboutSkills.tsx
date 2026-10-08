@@ -2,29 +2,29 @@ const SKILL_GROUPS = [
   {
     title: "Product Design",
     bullets: [
-      "End-to-end UX for complex systems (state machines, role hierarchies, multi-entity flows)",
-      "Design systems & component architecture",
+      "End-to-end product design for complex workflows",
+      "Role-based systems and multi-entity flows",
       "Information architecture for dense operational tools",
-      "Prototyping & interaction design",
-      "Usability testing & heuristic evaluation",
+      "Design systems, prototyping, and interaction design",
+      "Usability testing and heuristic evaluation",
     ],
   },
   {
     title: "Tools & Workflows",
     bullets: [
       "Figma (components, variables, auto-layout, prototyping)",
-      "Claude Code + Cursor (AI-augmented design-to-engineering)",
-      "FigJam, Miro (systems mapping & workshop facilitation)",
-      "Notion, Linear (documentation & async collaboration)",
+      "Claude Code + Cursor for rapid exploration and prototyping",
+      "FigJam and Miro for systems mapping and workshops",
+      "Notion and Linear for documentation and team coordination",
     ],
   },
   {
     title: "Domains",
     bullets: [
-      "FinTech - compliance workflows, transaction monitoring, KYC",
-      "AI-native - multi-model orchestration, marketplace matching, dependency mapping",
-      "GovTech - civil-service platforms, org-scale role systems, national registries",
-      "Enterprise SaaS - B2B dashboards, admin consoles, data-dense interfaces",
+      "FinTech — compliance workflows, transaction monitoring, and KYC",
+      "AI-native products — orchestration, matching, and dependency mapping",
+      "GovTech — civil-service platforms and role systems",
+      "Enterprise SaaS — B2B dashboards, admin consoles, and data-dense tools",
     ],
   },
 ];
@@ -38,7 +38,7 @@ export default function AboutSkills() {
             [ ABOUT ME ]
           </p>
           <h2 className="font-heading text-[28px] tracking-[-0.28px] text-ink md:text-[40px] md:tracking-[-0.4px]">
-            Skills &amp; Domains
+            Skills &amp; Focus
           </h2>
         </div>
 
@@ -71,11 +71,12 @@ export default function AboutSkills() {
 
         <div className="flex w-full px-6">
           <a
-            href="#"
+            href="https://ng.linkedin.com/in/quadriismail"
+            target="_blank"
+            rel="noopener noreferrer"
             className="font-body text-[14px] tracking-[-0.14px] text-ink underline decoration-solid underline-offset-2"
           >
-            {/* TODO: link to real CV file */}
-            Download CV ↓
+            View my LinkedIn profile ↗
           </a>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { useState } from "react";
 import BookingModal from "@/components/BookingModal";
 
 /**
- * Single source of truth for every "Book 15 Mins Call" trigger on the site.
+ * Single source of truth for every conversation-booking trigger on the site.
  * Owns its own modal state, so it can be dropped anywhere (nav, hero, CTA
  * sections) without prop-drilling open/close handlers through parents —
  * and it guarantees every instance opens the same Calendly modal instead of
@@ -15,7 +15,7 @@ import BookingModal from "@/components/BookingModal";
 export default function BookCallButton({
   className,
   showIcon = true,
-  label = "Book 15 Mins Call",
+  label = "Schedule a conversation",
   onClick,
 }: {
   className?: string;

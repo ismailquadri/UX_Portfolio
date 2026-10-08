@@ -20,12 +20,12 @@ export default function AboutClients() {
             <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[531px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-                Who I Work With
+                Selected Organizations
               </span>
             </h2>
           </div>
           <p className="hidden shrink-0 whitespace-nowrap font-body text-[18px] tracking-[-0.18px] text-ink md:block">
-            [ CLIENT ]
+            [ SELECTED WORK ]
           </p>
         </div>
 

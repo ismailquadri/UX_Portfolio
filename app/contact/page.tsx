@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 	title: "Contact",
 	alternates: { canonical: "/contact" },
   description:
-    "Get in touch about UX audits, UI/UX design, or MVP product development.",
+    "Contact Quadri Ismail about a product design role, contract opportunity, or product challenge.",
 };
 
 export default function ContactPage() {
@@ -37,7 +37,7 @@ export default function ContactPage() {
                 GET IN TOUCH
               </p>
               <h2 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
-                Send me a Message
+                Tell me what you&rsquo;re looking for
               </h2>
             </div>
 
@@ -51,15 +51,20 @@ export default function ContactPage() {
                       Email
                     </p>
                     <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                      hello@quadriismail.com
+                      <a
+                        href="mailto:hello@quadriismail.com"
+                        className="underline underline-offset-2"
+                      >
+                        hello@quadriismail.com
+                      </a>
                     </p>
                   </div>
                   <div className="flex flex-col gap-2">
                     <p className="font-body text-[16px] font-medium tracking-[-0.16px] text-ink/50">
-                      Response time
+                      Typical response time
                     </p>
                     <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-                      24 hours
+                      Usually within 24 hours
                     </p>
                   </div>
                 </div>
@@ -68,7 +73,7 @@ export default function ContactPage() {
               <div className="relative h-[320px] w-full shrink-0 overflow-hidden rounded-2xl sm:h-[420px] lg:h-[518px] lg:w-[507px]">
                 <Image
                   src="/images/contact-portrait.png"
-                  alt="Portrait of Quadri, available for new projects"
+                  alt="Portrait of Quadri Ismail, product designer based in Lagos"
                   fill
                   sizes="(min-width: 1024px) 507px, 100vw"
                   className="object-cover"

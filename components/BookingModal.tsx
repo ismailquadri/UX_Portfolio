@@ -39,7 +39,7 @@ export default function BookingModal({
       className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-8"
       role="dialog"
       aria-modal="true"
-      aria-label="Book a 15 minute call"
+      aria-label="Schedule a conversation with Quadri"
     >
       <button
         type="button"
@@ -50,7 +50,7 @@ export default function BookingModal({
       <div className="relative flex h-full max-h-[760px] w-full max-w-[920px] flex-col overflow-hidden rounded-md border border-border-subtle bg-paper shadow-button">
         <div className="flex shrink-0 items-center justify-between gap-4 border-b border-border-subtle px-4 py-3">
           <p className="whitespace-nowrap font-body text-[14px] font-medium tracking-[-0.28px] text-ink">
-            [ BOOK 15 MINS CALL ]
+            [ SCHEDULE A CONVERSATION ]
           </p>
           <button
             ref={closeButtonRef}

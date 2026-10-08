@@ -19,16 +19,14 @@ export default function Cta() {
           <div className="relative flex w-full max-w-[544px] flex-col items-start justify-between gap-10 py-10">
             <div className="flex flex-col items-start gap-6">
               <h2 className="w-full max-w-[469px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink mix-blend-overlay md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-                Let&rsquo;s Turn Your Idea Into a Product That Works.
+                Let&rsquo;s talk about the product work ahead.
               </h2>
 
-              <BookCallButton className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[16px] tracking-[-0.16px] text-ink shadow-button" />
+              <BookCallButton label="Schedule a conversation" className="flex h-10 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[16px] tracking-[-0.16px] text-ink shadow-button" />
             </div>
 
             <p className="w-full max-w-[452px] font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-paper opacity-50">
-              Whether it&rsquo;s your first MVP or a full redesign, I&rsquo;ll
-              help you move from concept to launch with purpose and
-              precision.
+              Tell me about the role or product challenge. I&rsquo;ll bring a clear point of view, thoughtful questions, and a practical next step.
             </p>
           </div>
         </div>

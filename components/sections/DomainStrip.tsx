@@ -1,10 +1,10 @@
-const DOMAINS = ["FinTech", "AI-native", "GovTech", "Enterprise SaaS"];
+const DOMAINS = ["FinTech", "AI-native products", "GovTech", "Enterprise SaaS"];
 
 export default function DomainStrip() {
   return (
     <section className="flex w-full flex-col items-center justify-center gap-4 bg-paper py-6">
       <p className="font-body text-[12px] font-medium tracking-[2px] text-muted">
-        [ DOMAINS ]
+        [ FOCUS AREAS ]
       </p>
       <div className="flex flex-wrap items-start justify-center gap-3">
         {DOMAINS.map((domain) => (

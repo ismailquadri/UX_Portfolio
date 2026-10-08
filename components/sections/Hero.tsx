@@ -31,7 +31,7 @@ export default function Hero() {
           </p>
         </div>
         <p className="max-w-[560px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
-          I&rsquo;m Quadri, a product designer working across FinTech, AI-native, and GovTech — helping teams move from uncertain to shipped.
+          I&rsquo;m Quadri, a product designer in Lagos. I turn complex workflows into clear product experiences across FinTech, AI-native products, GovTech, and enterprise SaaS.
         </p>
       </div>
 
@@ -45,11 +45,7 @@ export default function Hero() {
 
             <div className="absolute left-1/2 top-[714px] w-[calc(100%_-_24px)] max-w-[337px] -translate-x-1/2 text-center font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-paper">
               <p>
-                You can send me a message via this popup with the tag{" "}
-                <span className="rounded-[8px] border border-white/10 bg-white/20 px-1.5 py-0.5 text-[14px] tracking-[-0.14px] opacity-70">
-                  @quadri
-                </span>{" "}
-                or ask anything about my service.
+                Ask about my work, process, or the roles I&rsquo;m looking for.
               </p>
             </div>
           </div>

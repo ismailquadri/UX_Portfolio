@@ -12,14 +12,9 @@ export default function Result() {
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <h2 className="w-full max-w-[971px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-            Every product starts as an idea, but not every idea becomes a{" "}
-            <span className="relative inline">
-              <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[52px] w-[150px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-              product.
-            </span>{" "}
+            Selected work shows how I turn complex workflows into products people can use.
             <span className="text-ink/40">
-              Through research, testing, and iteration, I help that idea find
-              its form
+              {" "}Each project starts with the people, decisions, and constraints behind the interface.
             </span>
           </h2>
         </div>
@@ -61,7 +56,7 @@ export default function Result() {
 
           <div className="flex flex-col items-center gap-4">
             <p className="whitespace-nowrap font-body text-[16px] tracking-[-0.16px] text-ink/30">
-              Want to See more magic?
+              Want to explore the work?
             </p>
             <div className="flex items-center gap-3">
               <BookCallButton className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-ink shadow-button" />
@@ -73,7 +68,7 @@ export default function Result() {
                     "radial-gradient(ellipse 8.3px 3.6px at 50% 0%, rgba(255,255,255,0.3) 11.881%, rgba(255,255,255,0) 100%)",
                 }}
               >
-                See All Finished Product
+                View all case studies
               </Link>
             </div>
           </div>

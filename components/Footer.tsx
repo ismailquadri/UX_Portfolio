@@ -4,10 +4,10 @@ export default function Footer() {
       <div className="flex w-full flex-1 flex-col items-start justify-center gap-20">
         <div className="tracking-[-0.32px]">
           <p className="font-body text-[32px] leading-[1.6] text-accent/50">
-            A Product Designer Based in Lagos
+            Product designer based in Lagos, Nigeria
           </p>
           <p className="font-body text-[32px] font-medium leading-[1.6] text-accent">
-            Get in touch with me -{" "}
+            Let&rsquo;s talk about the role or product work ahead.{" "}
             <a href="mailto:hello@quadriismail.com">hello@quadriismail.com</a>
           </p>
         </div>
@@ -17,9 +17,8 @@ export default function Footer() {
           </p>
           <p className="font-body text-[16px] leading-[1.2]">
             Find me on{" "}
-            {/* TODO: replace with real LinkedIn profile URL */}
             <a
-              href="#"
+              href="https://ng.linkedin.com/in/quadriismail"
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-solid [text-underline-position:from-font]"
@@ -27,9 +26,8 @@ export default function Footer() {
               LinkedIn
             </a>{" "}
             or{" "}
-            {/* TODO: replace with real Behance profile URL */}
             <a
-              href="#"
+              href="https://www.behance.net/quadriismail"
               target="_blank"
               rel="noopener noreferrer"
               className="underline decoration-solid [text-underline-position:from-font]"

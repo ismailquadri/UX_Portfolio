@@ -1,18 +1,18 @@
 const ENGAGEMENT_MODES = [
   {
-    title: "Full-Time Roles",
+    title: "Full-time Product Design",
     description:
-      "Embedded product designer shipping daily alongside your engineering team. Best for teams building complex systems that need sustained design thinking.",
+      "Hands-on individual-contributor work with product and engineering teams, shaping complex workflows from the problem through implementation.",
   },
   {
-    title: "Contract / Fractional",
+    title: "Contract & Fractional Work",
     description:
-      "Scoped sprints or ongoing part-time partnership. Design systems, critical flows, or zero-to-one product definition - without a full headcount.",
+      "Focused support for a product team: clarify a difficult workflow, improve a key journey, or define the first useful release.",
   },
   {
     title: "Advisory & Mentorship",
     description:
-      "Design reviews, portfolio coaching, and hands-on pairing — for junior designers leveling up or founders who need an outside design perspective. Structured or ad-hoc.",
+      "A thoughtful second perspective on a product decision, design review, or portfolio. Each session ends with clear next steps.",
   },
 ];
 

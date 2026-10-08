@@ -10,10 +10,10 @@ import { RevealOnScroll } from "@/components/RevealOnScroll";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-	title: "About",
+  title: "About Quadri Ismail",
 	alternates: { canonical: "/about" },
   description:
-    "Product designer focused on complex, high-stakes products — my approach, skills, and the clients I've worked with.",
+    "Meet Quadri Ismail, a product designer in Lagos focused on complex workflows, thoughtful product decisions, and clear team collaboration.",
 };
 
 export default function AboutPage() {
