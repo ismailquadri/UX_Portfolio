@@ -31,6 +31,7 @@ export default function ChatWidget() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [input, setInput] = useState('');
 	const [isSending, setIsSending] = useState(false);
+	const [isVerifying, setIsVerifying] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [isShowSamplePrompt, setIsShowSamplePrompt] = useState(false);
 	const [error, setError] = useState('');
@@ -158,6 +159,7 @@ export default function ChatWidget() {
 		setMessages(nextMessages);
 		setError('');
 		setIsSending(true);
+		setIsVerifying(Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY));
 		setIsLoading(true);
 		fullAssistantReplyRef.current = '';
 
@@ -165,9 +167,9 @@ export default function ChatWidget() {
 			let turnstileToken: string | undefined;
 			if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
 				if (!ref.current) throw new Error('Security verification is not ready. Please try again.');
-				ref.current.execute();
-				turnstileToken = await withTimeout(ref.current.getResponsePromise(), 10_000);
+				turnstileToken = await withTimeout(ref.current.getResponsePromise(), 30_000);
 			}
+			setIsVerifying(false);
 
 			const response = await fetch('/api/chat', {
 				method: 'POST',
@@ -217,6 +219,7 @@ export default function ChatWidget() {
 			setMessages((prev) => prev.filter((message) => message !== assistantMessage && message !== userMessage));
 		} finally {
 			ref.current?.reset();
+			setIsVerifying(false);
 			setIsLoading(false);
 			setIsSending(false);
 		}
@@ -306,7 +309,7 @@ export default function ChatWidget() {
 													strokeLinecap='round'
 												/>
 											</svg>
-											<span className='text-[14px] italic'>Thinking...</span>
+											<span className='text-[14px] italic'>{isVerifying ? 'Checking…' : 'Thinking…'}</span>
 										</span>
 									) : message.role === 'assistant' ? (
 										<ReactMarkdown>{message.content}</ReactMarkdown>
@@ -368,10 +371,7 @@ export default function ChatWidget() {
 
 					<Turnstile
 						siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''}
-						options={{
-							execution: 'execute',
-							appearance: 'interaction-only',
-						}}
+						options={{ appearance: 'interaction-only' }}
 						ref={ref}
 					/>
 					<button

@@ -3,6 +3,7 @@ import { SYSTEM_PROMPT } from "@/lib/chat-system-prompt";
 import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
+export const maxDuration = 60;
 
 const MAX_HISTORY = 20;
 const MAX_MESSAGE_LENGTH = 2_000;
