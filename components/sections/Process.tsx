@@ -262,10 +262,10 @@ export default function Process() {
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex items-center gap-2.5">
             <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-              <span className="block">How I Approach Product Work</span>
+              <span className="block">How I work through</span>
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[383px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-                Understand, focus, design, learn.
+                complex product problems.
               </span>
             </h2>
           </div>

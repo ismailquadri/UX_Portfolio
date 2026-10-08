@@ -20,7 +20,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
 	metadataBase: new URL("https://quadriismail.com"),
 	title: {
-		default: "Quadri Ismail — Product Designer",
+		default: "Quadri Ismail — Product Designer for Complex Products",
 		template: "%s | Quadri Ismail",
 	},
 	description: "Quadri Ismail is a product designer in Lagos, Nigeria, who turns complex workflows into clear product experiences across FinTech, AI-native products, GovTech, and enterprise SaaS.",

@@ -44,7 +44,7 @@ export default function AboutPage() {
           <RevealOnScroll>
             <div id="contact" className="flex flex-col gap-6 px-6 py-16 md:px-20">
               <h2 className="font-heading text-[32px] text-ink md:text-[56px]">
-                Send me a Message
+                Tell me what you&rsquo;re looking for
               </h2>
               <ContactForm />
             </div>
