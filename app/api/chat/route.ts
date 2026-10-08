@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chat-system-prompt";
+import { formatRetrievedKnowledge, retrieveKnowledge } from "@/lib/knowledge-base";
 import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
@@ -79,6 +80,21 @@ export async function POST(request: Request) {
   }
 
   const client = new Anthropic({ apiKey });
+  const messages = body.messages.slice(-MAX_HISTORY).map((message) => ({
+    role: message.role,
+    content: message.content,
+  }));
+  const userQuestions = body.messages.filter((message) => message.role === "user");
+  const latestQuestion = userQuestions.at(-1)?.content ?? "";
+  const retrievalQuestions = latestQuestion.trim().split(/\s+/).length < 6
+    ? userQuestions.slice(-2)
+    : [userQuestions.at(-1)!];
+  const retrievalQuery = retrievalQuestions
+    .map((message) => message.content)
+    .join("\n")
+    .slice(-3_000);
+  const retrievedKnowledge = retrieveKnowledge(retrievalQuery);
+  const systemPrompt = `${SYSTEM_PROMPT}\n\nRETRIEVED SOURCE MATERIAL\n${formatRetrievedKnowledge(retrievedKnowledge)}`;
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const encoder = new TextEncoder();
@@ -86,11 +102,8 @@ export async function POST(request: Request) {
         const anthropicStream = client.messages.stream({
           model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
           max_tokens: 512,
-          system: SYSTEM_PROMPT,
-          messages: body.messages.slice(-MAX_HISTORY).map((message) => ({
-            role: message.role,
-            content: message.content,
-          })),
+          system: systemPrompt,
+          messages,
         });
 
         anthropicStream.on("text", (text) => {

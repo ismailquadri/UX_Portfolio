@@ -1,0 +1,46 @@
+[
+  {
+    "id": "linkedin-profile",
+    "title": "LinkedIn professional profile",
+    "content": "Quadri Ismail's LinkedIn profile identifies him as a product designer based in Lagos State, Nigeria. The public profile lists services including brand design, interaction design, strategic planning, and user experience design. It includes experience associated with Ryno and recommends Quadri for translating complex business requirements into intuitive user-centered solutions, taking ownership, working across teams, and delivering under pressure. Treat third-party recommendations as endorsements, not independently verified performance claims. Do not infer current availability, seniority, or employment dates from incomplete profile snippets.",
+    "sourceTitle": "Quadri Ismail on LinkedIn",
+    "sourceUrl": "https://ng.linkedin.com/in/quadriismail",
+    "sourceType": "professional-profile",
+    "observedAt": "2026-10-08",
+    "freshness": "profile details may change; employment and availability details are not established by this snapshot",
+    "tags": ["linkedin", "profile", "experience", "endorsements", "skills", "services"]
+  },
+  {
+    "id": "behance-profile",
+    "title": "Behance profile and selected public projects",
+    "content": "Quadri's Behance profile presents him as a Senior Product Designer in Lagos, Nigeria, and describes transforming complex ideas into intuitive digital interfaces and experiences. The profile says he has over six years in the industry; treat this as a claim on that profile, not a separately verified career calculation. Its public project list includes Adnova: A Retention-First Marketing AI Dashboard, Digital Agency, Evacare - Online Medical Consultation App (multiple owners), Decentralized Finance Concept, Crypto Harvest, Crypto Exploration, Crypto Market Concept, Crypto Portfolio Website, NFT Market Place, Bitcoin Transaction App, SaaS Landing page, and Crypto Wallet App. The listing alone does not establish Quadri's exact role, client, project status, or outcomes. The profile has displayed freelance and full-time availability, but availability is time-sensitive and this captured listing must not be used as a current availability promise.",
+    "sourceTitle": "Quadri Ismail on Behance",
+    "sourceUrl": "https://www.behance.net/quadriismail",
+    "sourceType": "creative-profile",
+    "observedAt": "2026-10-08",
+    "freshness": "project titles are public profile listings; availability and experience claims can become stale",
+    "tags": ["behance", "profile", "projects", "portfolio", "experience", "availability"]
+  },
+  {
+    "id": "linkedin-design-growth-post",
+    "title": "How I measure growth as a designer",
+    "content": "In a public LinkedIn post, Quadri reflected that design growth is not only about making screens look more polished. He described growth in organizing files faster, thinking more critically about design decisions, conducting better user research, and structuring design systems more efficiently. This is a useful signal of his professional perspective, not a formal methodology or a claim about a specific client project.",
+    "sourceTitle": "Why I Once Thought I Wasn't Growing as a UI/UX Designer — LinkedIn post",
+    "sourceUrl": "https://www.linkedin.com/posts/quadriismail_why-i-once-thought-i-wasnt-growing-as-a-activity-7297851147418005504-H-mC",
+    "sourceType": "authored-post",
+    "observedAt": "2026-10-08",
+    "freshness": "evergreen professional perspective",
+    "tags": ["linkedin", "design-growth", "user-research", "design-systems", "perspective"]
+  },
+  {
+    "id": "github-public-work",
+    "title": "GitHub profile and public repositories",
+    "content": "The GitHub account is publicly named Quadri Ismail under the username ismailquadri. Its public profile lists repositories including quadriismail-portfolio, Shopplus, syncpoint, and figma-component-generator. The syncpoint repository description calls it a go-to-market launch orchestrator for high-growth enterprise environments; figma-component-generator is described as generating React components from Figma designs with styling options and design token extraction. Repository presence or description alone does not prove authorship scope, production status, adoption, or project results. Use repository details only for questions about public coding or side projects, and link to the profile for context.",
+    "sourceTitle": "ismailquadri on GitHub",
+    "sourceUrl": "https://github.com/ismailquadri",
+    "sourceType": "developer-profile",
+    "observedAt": "2026-10-08",
+    "freshness": "repository listings and descriptions can change",
+    "tags": ["github", "code", "repositories", "side-projects", "syncpoint", "figma"]
+  }
+]
