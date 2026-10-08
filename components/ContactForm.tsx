@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type FormEvent } from "react";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const INTEREST_OPTIONS = [
   "UX Audit",
@@ -17,6 +18,8 @@ export default function ContactForm() {
   const [interest, setInterest] = useState("");
   const [message, setMessage] = useState("");
   const [state, setState] = useState<SubmitState>("idle");
+  const [turnstileToken, setTurnstileToken] = useState("");
+  const [turnstileResetKey, setTurnstileResetKey] = useState(0);
 
   const nameId = useId();
   const emailId = useId();
@@ -25,13 +28,18 @@ export default function ContactForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !turnstileToken) {
+      setState("error");
+      return;
+    }
+
     setState("sending");
 
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interest, message }),
+        body: JSON.stringify({ name, email, interest, message, turnstileToken }),
       });
 
       if (!response.ok) {
@@ -43,8 +51,12 @@ export default function ContactForm() {
       setEmail("");
       setInterest("");
       setMessage("");
+      setTurnstileToken("");
     } catch {
       setState("error");
+    } finally {
+      setTurnstileToken("");
+      setTurnstileResetKey((key) => key + 1);
     }
   }
 
@@ -129,9 +141,25 @@ export default function ContactForm() {
           />
         </div>
       </div>
+      {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
+        <div>
+          <Turnstile
+            key={turnstileResetKey}
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
+            onSuccess={setTurnstileToken}
+            onExpire={() => setTurnstileToken("")}
+            onError={() => setTurnstileToken("")}
+          />
+          {!turnstileToken && state === "error" && (
+            <p className="mt-2 font-body text-[14px] text-ink" role="alert">
+              Please complete the security check and try again.
+            </p>
+          )}
+        </div>
+      )}
       <button
         type="submit"
-        disabled={state === "sending"}
+        disabled={state === "sending" || (Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) && !turnstileToken)}
         className="flex h-[41px] w-full items-center justify-center rounded-sm bg-ink font-body text-[14px] font-medium tracking-[-0.28px] text-paper disabled:opacity-60"
       >
         {state === "sending" ? "Sending..." : "Submit"}

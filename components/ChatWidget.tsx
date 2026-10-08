@@ -440,7 +440,7 @@ export default function ChatWidget() {
 					/>
 
 					<Turnstile
-						siteKey='0x4AAAAAAEVSDbLmpQVNuy4H'
+						siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? ''}
 						options={{
 							execution: 'execute',
 							appearance: 'interaction-only',
