@@ -33,7 +33,7 @@ export default function Result() {
                 href="/case-studies/ryno-finance"
                 className="absolute bottom-[29px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
               >
-                See Study Case
+                View case study
               </Link>
             </div>
 
@@ -49,7 +49,7 @@ export default function Result() {
                 href="/case-studies/linqart"
                 className="absolute bottom-[30px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
               >
-                See Study Case
+                View case study
               </Link>
             </div>
           </div>
