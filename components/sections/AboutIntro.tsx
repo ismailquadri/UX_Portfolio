@@ -40,7 +40,7 @@ export default function AboutIntro() {
               <br />
               <br />
               <span className="text-ink/50">
-                I look for the source of friction, question early assumptions, and shape focused workflows teams can build on. I care about the thinking behind the interface as much as the final screens.
+                I look for what slows people down, ask questions before deciding what to change, and design workflows the team can build. I care about why a screen works, not only what it looks like.
               </span>
             </p>
           </div>

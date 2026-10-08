@@ -34,7 +34,7 @@ export const FAQ_ITEMS: FaqItem[] = [
   {
     question: "What kind of role are you looking for?",
     answer:
-      "I’m focused on hands-on individual-contributor product design, not people-management roles. I want to own meaningful product problems and work closely with product and engineering partners.",
+      "I’m looking for a hands-on product design role where I can take responsibility for product work and collaborate closely with product and engineering.",
     audience: "recruiter",
   },
   {

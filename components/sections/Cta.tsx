@@ -26,7 +26,7 @@ export default function Cta() {
             </div>
 
             <p className="w-full max-w-[452px] font-body text-[24px] leading-[1.6] tracking-[-0.24px] text-paper opacity-50">
-              Tell me about the role or product challenge. I&rsquo;ll bring a clear point of view, thoughtful questions, and a practical next step.
+              Tell me about the role or product challenge. I&rsquo;ll ask a few questions and suggest a useful next step.
             </p>
           </div>
         </div>

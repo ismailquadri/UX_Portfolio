@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   title: "About Quadri Ismail",
 	alternates: { canonical: "/about" },
   description:
-    "Meet Quadri Ismail, a product designer in Lagos focused on complex workflows, thoughtful product decisions, and clear team collaboration.",
+    "Meet Quadri Ismail, a product designer in Lagos who designs clear workflows for complex products and works closely with product and engineering teams.",
 };
 
 export default function AboutPage() {

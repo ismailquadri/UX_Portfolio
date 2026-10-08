@@ -12,9 +12,9 @@ export default function Result() {
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <h2 className="w-full max-w-[971px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-            Selected work shows how I turn complex workflows into products people can use.
+            Take a look at a few products I&rsquo;ve worked on and the decisions behind them.
             <span className="text-ink/40">
-              {" "}Each project starts with the people, decisions, and constraints behind the interface.
+              {" "}I focus on the people using them and the problems they need to solve.
             </span>
           </h2>
         </div>

@@ -4,17 +4,17 @@ const SERVICES = [
   {
     title: "Product Discovery & UX Audits",
     description:
-      "Find where people get stuck and why. I review key journeys, product constraints, and available evidence, then help the team decide what to improve first.",
+      "Find where people get stuck and why. I review the main user flows, product constraints, and available evidence, then help the team choose what to fix first.",
   },
   {
     title: "Research & User Insights",
     description:
-      "Understand the people behind the workflow—their goals, context, and decisions—so the product responds to real needs instead of assumptions.",
+      "Learn what people are trying to do, what gets in their way, and how they make decisions at work.",
   },
   {
     title: "Product Design & Prototyping",
     description:
-      "Turn the problem into clear flows, considered interactions, and prototypes the team can review before implementation.",
+      "Sketch a few directions, test the key interactions, and show the team what each option means before development.",
   },
   {
     title: "MVP Definition & Design",
@@ -33,7 +33,7 @@ export default function Capabilities() {
               <span className="block">Complex products need</span>
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 h-[67px] w-full -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0" />
-                clear, considered design.
+                clear design.
               </span>
             </h2>
           </div>

@@ -166,7 +166,7 @@ export default function ContactForm() {
       </button>
       {state === "success" && (
         <p className="font-body text-[14px] text-ink">
-          Thanks — your message has been sent. I&rsquo;ll get back to you as soon as I can, usually within 24 hours.
+          Thanks, your message has been sent. I&rsquo;ll usually reply within 24 hours.
         </p>
       )}
       {state === "error" && (

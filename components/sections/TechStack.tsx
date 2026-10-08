@@ -87,7 +87,7 @@ export default function TechStack() {
               I choose tools for the work at hand: understanding a problem, exploring a direction, documenting decisions, and collaborating with a team.
             </p>
             <p className="w-full max-w-[366px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink/50">
-              These are the tools I use to move from early questions to considered product details and clear handoffs.
+              I use them to explore ideas, work through product details, and share decisions with the team.
             </p>
           </div>
         </div>

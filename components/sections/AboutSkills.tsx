@@ -21,10 +21,10 @@ const SKILL_GROUPS = [
   {
     title: "Domains",
     bullets: [
-      "FinTech — compliance workflows, transaction monitoring, and KYC",
-      "AI-native products — orchestration, matching, and dependency mapping",
-      "GovTech — civil-service platforms and role systems",
-      "Enterprise SaaS — B2B dashboards, admin consoles, and data-dense tools",
+      "FinTech: compliance workflows, transaction monitoring, and KYC",
+      "AI-native products: orchestration, matching, and dependency mapping",
+      "GovTech: civil-service platforms and role systems",
+      "Enterprise SaaS: B2B dashboards, admin consoles, and data-heavy tools",
     ],
   },
 ];

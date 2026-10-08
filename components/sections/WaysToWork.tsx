@@ -7,12 +7,12 @@ const ENGAGEMENT_MODES = [
   {
     title: "Contract & Fractional Work",
     description:
-      "Focused support for a product team: clarify a difficult workflow, improve a key journey, or define the first useful release.",
+      "Short-term support to untangle a difficult workflow, improve a key task, or plan the first release.",
   },
   {
     title: "Advisory & Mentorship",
     description:
-      "A thoughtful second perspective on a product decision, design review, or portfolio. Each session ends with clear next steps.",
+      "A second perspective on a product decision, design review, or portfolio, with clear next steps after each session.",
   },
 ];
 

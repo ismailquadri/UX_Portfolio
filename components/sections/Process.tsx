@@ -28,7 +28,7 @@ const TABS: ProcessTab[] = [
       {
         title: "Heuristic Evaluation",
         description:
-          "Review key screens and journeys for usability issues, edge cases, and unclear feedback.",
+          "Review key screens and user flows for usability issues, edge cases, and unclear feedback.",
       },
       {
         title: "User Flow Analysis",
@@ -44,7 +44,7 @@ const TABS: ProcessTab[] = [
     feedback: [
       {
         issue: "The map action is unclear",
-        suggestion: "Label it “Open map” or pair the arrow with descriptive text.",
+        suggestion: "Add an Open map label beside the arrow.",
       },
       {
         issue: "The current tab is hard to identify",
@@ -89,14 +89,14 @@ const TABS: ProcessTab[] = [
           "Use interviews, observation, surveys, or product data to learn how people work today.",
       },
       {
-        title: "Find meaningful patterns",
+        title: "Look for patterns",
         description:
           "Group people by relevant needs and behavior, using evidence rather than assumptions.",
       },
       {
         title: "Map User Journeys",
         description:
-          "Map key journeys and validate the differences that matter to the product decision.",
+          "Map the steps people take and check which differences matter to the product decision.",
       },
     ],
     feedback: [
@@ -117,7 +117,7 @@ const TABS: ProcessTab[] = [
         suggestion: "Write down the criteria and test whether each group behaves differently.",
       },
       {
-        issue: "The journey ends at the interface",
+        issue: "The workflow ends at the interface",
         suggestion: "Include the surrounding steps, handoffs, and offline work where relevant.",
       },
       {
@@ -276,7 +276,7 @@ export default function Process() {
 
         <div className="flex w-full px-6">
           <p className="max-w-[640px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
-            I start with the people and constraints around the problem, then focus on the workflow that matters most. The methods change with the work; the aim is a clear decision and a useful next step.
+            I learn about the people, the product, and the constraints. Then I focus on the workflow that matters most and help the team decide what to do next.
           </p>
         </div>
 
