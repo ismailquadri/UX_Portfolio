@@ -112,7 +112,17 @@ export async function POST(request: Request) {
 
         await anthropicStream.finalMessage();
         controller.close();
-      } catch {
+      } catch (error) {
+        const details =
+          typeof error === "object" && error !== null
+            ? (error as { name?: unknown; status?: unknown; request_id?: unknown })
+            : undefined;
+        console.error("Chat completion stream failed", {
+          name: typeof details?.name === "string" ? details.name : "UnknownError",
+          status: typeof details?.status === "number" ? details.status : undefined,
+          requestId:
+            typeof details?.request_id === "string" ? details.request_id : undefined,
+        });
         controller.error(new Error("chat_request_failed"));
       }
     },
