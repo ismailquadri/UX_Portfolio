@@ -1,5 +1,16 @@
 [
   {
+    "id": "portfolio-profile",
+    "title": "Portfolio profile, industries, and services",
+    "content": "Quadri Ismail is a product designer based in Lagos, Nigeria. His portfolio lists his focus areas as FinTech, AI-native products, GovTech, and enterprise SaaS. The portfolio describes his work as helping teams make complex products easier to understand and use. Listed services include UX audits, user segmentation and insights, UI/UX design and prototyping, and MVP product development. The portfolio presents his process as Understand, Analyze, Design, and Deliver. This portfolio page is the primary source for his current positioning, focus areas, services, and process.",
+    "sourceTitle": "Quadri Ismail portfolio",
+    "sourceUrl": "https://quadriismail.com/",
+    "sourceType": "portfolio-profile",
+    "observedAt": "2026-10-08",
+    "freshness": "current portfolio positioning and services",
+    "tags": ["portfolio", "profile", "product designer", "industries", "industry", "sectors", "domains", "focus areas", "fintech", "ai-native", "govtech", "enterprise saas", "services", "process"]
+  },
+  {
     "id": "linkedin-profile",
     "title": "LinkedIn professional profile",
     "content": "Quadri Ismail's LinkedIn profile identifies him as a product designer based in Lagos State, Nigeria. The public profile lists services including brand design, interaction design, strategic planning, and user experience design. It includes experience associated with Ryno and recommends Quadri for translating complex business requirements into intuitive user-centered solutions, taking ownership, working across teams, and delivering under pressure. Treat third-party recommendations as endorsements, not independently verified performance claims. Do not infer current availability, seniority, or employment dates from incomplete profile snippets.",
