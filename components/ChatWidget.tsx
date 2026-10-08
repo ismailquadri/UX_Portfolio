@@ -2,24 +2,36 @@
 
 import Image from 'next/image';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import { getOrCreateSession } from '@/utils/get-or-create-session';
-import { api } from '@/lib/axios-instance';
 import { Turnstile } from '@marsidev/react-turnstile';
 import type { TurnstileInstance } from '@marsidev/react-turnstile';
 import ReactMarkdown from 'react-markdown';
-import { ChatMessage } from '@/lib/chat-seed'; // Adjust path if needed
+import type { ChatMessage } from '@/lib/chat-seed';
 
 
 const samplePrompt = ['Walk me through your design process', 'Show me your most impactful case study', 'How soon can you start?'];
 
 const NEAR_BOTTOM_PX = 48;
+const HISTORY_KEY = 'quadri-chat-history';
+const MAX_HISTORY = 20;
+
+function withTimeout<T>(promise: Promise<T>, timeoutMs: number): Promise<T> {
+	return new Promise((resolve, reject) => {
+		const timer = setTimeout(
+			() => reject(new Error('Verification timed out. Please try again.')),
+			timeoutMs,
+		);
+		promise.then(
+			(value) => { clearTimeout(timer); resolve(value); },
+			(error) => { clearTimeout(timer); reject(error); },
+		);
+	});
+}
 
 export default function ChatWidget() {
 	const [messages, setMessages] = useState<ChatMessage[]>([]);
 	const [input, setInput] = useState('');
 	const [isSending, setIsSending] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	// const [sendType, setSendType] = useState('')
 	const [isShowSamplePrompt, setIsShowSamplePrompt] = useState(false);
 	const [error, setError] = useState('');
 	const ref = useRef<TurnstileInstance | null>(null);
@@ -31,6 +43,7 @@ export default function ChatWidget() {
 	// Set false when the user scrolls away from the bottom, true again when
 	// they return or send a message.
 	const stickToBottomRef = useRef(true);
+	const historyHydratedRef = useRef(false);
 	// Streaming accumulates tokens across async chunks; keeping it in a ref
 	// avoids reassigning a value React considers immutable during render.
 	const fullAssistantReplyRef = useRef('');
@@ -62,54 +75,10 @@ export default function ChatWidget() {
 		return () => widget.removeEventListener('wheel', handleWheel);
 	}, []);
 
-	const handleSelectPrompt = async (userPrompt: string) => {
-		
-
-					setIsLoading(true);
-		try {
-			// FIX: Ensure session is fully resolved and active BEFORE getting the token
-			await getOrCreateSession(ref, setError);
-			const activeSessionId = localStorage.getItem('anonymous_session_token');
-
-			if (!activeSessionId) {
-				throw new Error('Session could not be established.');
-			}
-			setIsShowSamplePrompt(true)
-      
-			setIsLoading(true);
-			await sendPromptToAi(userPrompt, activeSessionId);
-	
-
-			setIsShowSamplePrompt(false)
-		} catch (error: unknown) {
-			console.error('Submission error:', error);
-			const message =
-				typeof error === 'string'
-					? error
-					: error instanceof Error
-					? error.message
-					: 'Something went wrong.';
-			setError(message);
-      setIsShowSamplePrompt(true)
-			// Handle 401 Unauthorized token expiry gracefully and retry once
-			if (
-				typeof error === 'object' &&
-				error !== null &&
-				'response' in error &&
-				(error as { response?: { status?: number } }).response?.status === 401
-			) {
-				setIsShowSamplePrompt(true)
-				localStorage.removeItem('anonymous_session_token');
-				await getOrCreateSession(ref, setError);
-				const refreshedSessionId = localStorage.getItem(
-					'anonymous_session_token',
-				);
-				if (refreshedSessionId) {
-					await sendPromptToAi(userPrompt, refreshedSessionId);
-				}
-			}
-		} 
-	}
+	const handleSelectPrompt = (userPrompt: string) => {
+		setIsShowSamplePrompt(true);
+		void sendPromptToAi(userPrompt);
+	};
 
 	// Scroll the message list to the bottom (used on history load and when
 	// following a streaming reply).
@@ -123,32 +92,34 @@ export default function ChatWidget() {
 	};
 
 	useEffect(() => {
-		async function getMessages() {
-			const session_id = localStorage.getItem('anonymous_session_token');
-
-			if (!session_id) {
-					setIsShowSamplePrompt(true)
-				return;
+		try {
+			const saved = localStorage.getItem(HISTORY_KEY);
+			const history = saved ? (JSON.parse(saved) as ChatMessage[]) : [];
+			if (Array.isArray(history)) {
+				const cleanHistory = history.filter((message) =>
+					(message.role === 'user' || message.role === 'assistant') &&
+					typeof message.content === 'string' && typeof message.created_at === 'string'
+				).slice(-MAX_HISTORY);
+				requestAnimationFrame(() => {
+					historyHydratedRef.current = true;
+					setMessages(cleanHistory);
+					setIsShowSamplePrompt(cleanHistory.length === 0);
+					if (cleanHistory.length) scrollToBottom();
+				});
 			}
-			try {
-				const response = await api.get(`/chat/history/${session_id}`);
-				const history = response.data?.history || [];
-				setMessages(history);
-
-				if (history.length < 1) {
-					setIsShowSamplePrompt(true);
-				} else {
-					// Jump to the latest message when a session's history loads.
-					stickToBottomRef.current = true;
-					requestAnimationFrame(() => scrollToBottom());
-				}
-			} catch (err) {
-				console.error('Failed to load history', err);
-			}
+		} catch {
+			localStorage.removeItem(HISTORY_KEY);
+			requestAnimationFrame(() => {
+				historyHydratedRef.current = true;
+				setIsShowSamplePrompt(true);
+			});
 		}
-
-		getMessages();
 	}, []);
+
+	useEffect(() => {
+		if (!historyHydratedRef.current) return;
+		if (!isSending) localStorage.setItem(HISTORY_KEY, JSON.stringify(messages.slice(-MAX_HISTORY)));
+	}, [isSending, messages]);
 
 	// FIX: Trigger scroll whenever messages update, but only while the user
 	// hasn't scrolled away to read earlier messages — otherwise a streaming
@@ -168,93 +139,84 @@ export default function ChatWidget() {
 		});
 	}
 
-	async function sendPromptToAi(userPrompt: string, sessionToken: string) {
+	async function sendPromptToAi(userPrompt: string) {
+		if (isSending) return;
 		stickToBottomRef.current = true;
-		setMessages((prev) => [
-			...prev,
-			{
-				role: 'user',
-				content: userPrompt,
-				created_at: new Date().toISOString(),
-			},
-			{ role: 'assistant', content: '', created_at: new Date().toISOString() },
-		]);
+		const userMessage: ChatMessage = {
+			role: 'user', content: userPrompt, created_at: new Date().toISOString(),
+		};
+		const assistantMessage: ChatMessage = {
+			role: 'assistant', content: '', created_at: new Date().toISOString(),
+		};
+		const promptMessages = [...messages, userMessage].slice(-MAX_HISTORY);
+		if (promptMessages[0]?.role === 'assistant') promptMessages.shift();
+		const nextMessages = [...promptMessages, assistantMessage];
+		while (nextMessages.length > MAX_HISTORY) {
+			nextMessages.shift();
+			if (nextMessages[0]?.role === 'assistant') nextMessages.shift();
+		}
+		setMessages(nextMessages);
+		setError('');
 		setIsSending(true);
 		setIsLoading(true);
+		fullAssistantReplyRef.current = '';
 
 		try {
-			// FIX: was hardcoded to http://localhost:8000/prompt, which only
-			// resolves on the developer's own machine — every other visitor's
-			// browser would try to hit their own localhost and fail silently.
-			// Use the same env-configured API base as the rest of the app.
-			const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/prompt`, {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'application/json',
-					Authorization: `Bearer ${sessionToken}`,
-				},
-				body: JSON.stringify({ prompt: userPrompt }),
-			});
-
-			if (!response.ok) {
-				throw new Error('Failed to stream response from server.');
+			let turnstileToken: string | undefined;
+			if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) {
+				if (!ref.current) throw new Error('Security verification is not ready. Please try again.');
+				ref.current.execute();
+				turnstileToken = await withTimeout(ref.current.getResponsePromise(), 10_000);
 			}
 
+			const response = await fetch('/api/chat', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					messages: promptMessages.map(({ role, content }) => ({ role, content })),
+					turnstileToken,
+				}),
+			});
+			if (!response.ok) {
+				const body = await response.json().catch(() => null) as { error?: string } | null;
+				throw new Error(body?.error === 'chat_unavailable'
+					? 'Chat is temporarily unavailable. Please try again later.'
+					: 'I could not send that message. Please try again.');
+			}
 			const reader = response.body?.getReader();
-			if (!reader) return;
-
+			if (!reader) throw new Error('Chat is temporarily unavailable. Please try again.');
 			const decoder = new TextDecoder();
-			fullAssistantReplyRef.current = '';
-
 			while (true) {
 				const { value, done } = await reader.read();
 				if (done) break;
-
-				const chunkText = decoder.decode(value, { stream: true });
-				const lines = chunkText.split('\n\n');
-
-				for (const line of lines) {
-					if (line.startsWith('data: ')) {
-						const jsonString = line.replace('data: ', '').trim();
-
-						if (jsonString === '[DONE]') {
-							setIsLoading(false);
-							setIsSending(false);
-							return;
-						}
-
-						try {
-							const parsed = JSON.parse(jsonString) as {
-								token?: string;
-								error?: string;
-							};
-
-							if (parsed?.token) {
-								fullAssistantReplyRef.current += parsed.token;
-								const content = fullAssistantReplyRef.current;
-								setMessages((prev) => {
-									const newMessages = [...prev];
-									newMessages[newMessages.length - 1] = {
-										role: 'assistant',
-										content,
-										created_at: new Date().toISOString(),
-									};
-									return newMessages;
-								});
-							}
-
-							if (parsed?.error) {
-								console.error('Stream reported error:', parsed.error);
-							}
-						} catch {
-							// Ignore incomplete chunks across buffers
-						}
-					}
-				}
+				fullAssistantReplyRef.current += decoder.decode(value, { stream: true });
+				const content = fullAssistantReplyRef.current;
+				setMessages((prev) => {
+					const updated = [...prev];
+					updated[updated.length - 1] = { ...assistantMessage, content };
+					return updated;
+				});
 			}
-		} catch (error: unknown) {
-			console.error('Network or stream error:', error);
+			const finalChunk = decoder.decode();
+			if (finalChunk) {
+				fullAssistantReplyRef.current += finalChunk;
+				const content = fullAssistantReplyRef.current;
+				setMessages((prev) => {
+					const updated = [...prev];
+					updated[updated.length - 1] = { ...assistantMessage, content };
+					return updated;
+				});
+			}
+			if (!fullAssistantReplyRef.current.trim()) throw new Error('I could not generate a reply. Please try again.');
+			setIsShowSamplePrompt(false);
+		} catch (caught: unknown) {
+			console.error('Chat request failed:', caught);
+			setError(caught instanceof Error && caught.message.includes('Verification')
+				? caught.message
+				: 'I could not send that message. Please try again.');
+			setMessages((prev) => prev.filter((message) => message !== assistantMessage && message !== userMessage));
 		} finally {
+			ref.current?.reset();
 			setIsLoading(false);
 			setIsSending(false);
 		}
@@ -269,43 +231,7 @@ export default function ChatWidget() {
 		setInput('');
 		event.currentTarget.reset();
 
-		try {
-			// FIX: Ensure session is fully resolved and active BEFORE getting the token
-			await getOrCreateSession(ref, setError);
-			const activeSessionId = localStorage.getItem('anonymous_session_token');
-
-			if (!activeSessionId) {
-				throw new Error('Session could not be established.');
-			}
-
-			await sendPromptToAi(userPrompt, activeSessionId);
-		} catch (error: unknown) {
-			console.error('Submission error:', error);
-			setError(
-				typeof error === 'string'
-					? error
-					: error instanceof Error
-					? error.message
-					: 'Something went wrong.',
-			);
-
-			// Handle 401 Unauthorized token expiry gracefully and retry once
-			if (
-				typeof error === 'object' &&
-				error !== null &&
-				'response' in error &&
-				(error as { response?: { status?: number } }).response?.status === 401
-			) {
-				localStorage.removeItem('anonymous_session_token');
-				await getOrCreateSession(ref, setError);
-				const refreshedSessionId = localStorage.getItem(
-					'anonymous_session_token',
-				);
-				if (refreshedSessionId) {
-					await sendPromptToAi(userPrompt, refreshedSessionId);
-				}
-			}
-		}
+		await sendPromptToAi(userPrompt);
 	}
 
 	return (
@@ -432,6 +358,7 @@ export default function ChatWidget() {
 					<input
 						type='text'
 						name='message'
+						maxLength={2_000}
 						value={input}
 						onChange={(event) => setInput(event.target.value)}
 						placeholder='Send us message'

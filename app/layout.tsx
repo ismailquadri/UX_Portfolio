@@ -18,8 +18,28 @@ const instrumentSerif = Instrument_Serif({
 });
 
 export const metadata: Metadata = {
-  title: "Quadri Ismail — Product Designer",
-  description: "A product designer based in Lagos.",
+	metadataBase: new URL("https://quadriismail.com"),
+	title: {
+		default: "Quadri Ismail — Product Designer",
+		template: "%s | Quadri Ismail",
+	},
+	description: "Quadri Ismail is a product designer in Lagos, Nigeria, crafting clear digital products and thoughtful user experiences.",
+	applicationName: "Quadri Ismail Portfolio",
+	openGraph: {
+		type: "website",
+		locale: "en_NG",
+		url: "https://quadriismail.com",
+		siteName: "Quadri Ismail",
+		title: "Quadri Ismail — Product Designer",
+		description: "Product design, selected work, and case studies by Quadri Ismail.",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Quadri Ismail — Product Designer",
+		description: "Product design, selected work, and case studies by Quadri Ismail.",
+	},
+	 alternates: { canonical: "/" },
+	robots: { index: true, follow: true },
 };
 
 export default function RootLayout({

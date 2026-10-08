@@ -12,10 +12,13 @@ Personal portfolio site built from a Figma design, with an AI-backed chat widget
 ## Setup
 
 1. `npm install`
-2. Copy `.env.local.example` to `.env.local` and set `ANTHROPIC_API_KEY` to a real key from https://console.anthropic.com/settings/keys
+2. Copy `.env.local.example` to `.env.local` and set the keys needed for the features you are running:
+   - `ANTHROPIC_API_KEY` for the server-side chat endpoint
+   - `NEXT_PUBLIC_TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` to enable bot checks on chat and contact forms
+   - `RESEND_API_KEY`, `RESEND_FROM_EMAIL`, and `CONTACT_TO_EMAIL` for contact form email delivery
 3. `npm run dev` and open http://localhost:3000
 
-Without an API key set, the site runs fine but the hero chat widget will show a friendly "having trouble connecting" fallback instead of real AI replies.
+Keep private keys in `.env.local` or your deployment provider's encrypted environment settings. Never add them to client code or commit them. Production chat and contact requests fail closed when Turnstile configuration is missing.
 
 ## Scripts
 
@@ -23,6 +26,8 @@ Without an API key set, the site runs fine but the hero chat widget will show a 
 - `npm run build` — production build
 - `npm run start` — serve the production build
 - `npm run lint` — run ESLint
+
+GitHub Actions runs lint and a production build for pushes and pull requests to `master`.
 
 ## Project structure
 

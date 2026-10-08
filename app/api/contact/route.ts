@@ -1,6 +1,9 @@
 import { Resend } from "resend";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
+const MAX_REQUEST_BYTES = 12_000;
+const MAX_FIELD_LENGTH = 4_000;
 
 type ContactPayload = {
   name: string;
@@ -16,26 +19,15 @@ function isContactPayload(value: unknown): value is ContactPayload {
     value as Record<string, unknown>;
   return (
     typeof name === "string" &&
-    name.trim().length > 0 &&
+    name.trim().length > 0 && name.length <= 120 &&
     typeof email === "string" &&
-    email.includes("@") &&
+    email.includes("@") && email.length <= 254 &&
     typeof interest === "string" &&
-    interest.trim().length > 0 &&
+    interest.trim().length > 0 && interest.length <= 120 &&
     typeof message === "string" &&
-    message.trim().length > 0 &&
+    message.trim().length > 0 && message.length <= MAX_FIELD_LENGTH &&
     (turnstileToken === undefined || typeof turnstileToken === "string")
   );
-}
-
-async function verifyTurnstile(token: string, secret: string, hostname: string) {
-  const form = new URLSearchParams({ secret, response: token });
-  const response = await fetch(
-    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
-    { method: "POST", body: form, signal: AbortSignal.timeout(5_000) },
-  );
-  if (!response.ok) return false;
-  const result = (await response.json()) as { success?: boolean; hostname?: string };
-  return result.success === true && result.hostname === hostname;
 }
 
 function jsonError(error: string, status: number): Response {
@@ -50,13 +42,21 @@ export async function POST(request: Request) {
   if (!apiKey) {
     return jsonError("missing_api_key", 500);
   }
+  const contentLength = Number(request.headers.get("content-length"));
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    return jsonError("request_too_large", 413);
+  }
   const from =
     process.env.RESEND_FROM_EMAIL || "Portfolio Contact Form <onboarding@resend.dev>";
   const to = process.env.CONTACT_TO_EMAIL || "hello@quadriismail.com";
 
   let body: unknown;
   try {
-    body = await request.json();
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).byteLength > MAX_REQUEST_BYTES) {
+      return jsonError("request_too_large", 413);
+    }
+    body = JSON.parse(rawBody);
   } catch {
     return jsonError("invalid_json", 400);
   }

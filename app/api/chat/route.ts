@@ -1,62 +1,95 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { SYSTEM_PROMPT } from "@/lib/chat-system-prompt";
+import { verifyTurnstile } from "@/lib/turnstile";
 
 export const runtime = "nodejs";
 
 const MAX_HISTORY = 20;
+const MAX_MESSAGE_LENGTH = 2_000;
+const MAX_REQUEST_BYTES = 48_000;
 
 type IncomingMessage = { role: "user" | "assistant"; content: string };
+type ChatPayload = { messages: IncomingMessage[]; turnstileToken?: string };
 
 function jsonError(error: string, status: number): Response {
-  return new Response(JSON.stringify({ error }), {
-    status,
-    headers: { "Content-Type": "application/json" },
-  });
+  return Response.json({ error }, { status });
 }
 
-function isIncomingMessage(value: unknown): value is IncomingMessage {
+function isChatPayload(value: unknown): value is ChatPayload {
   if (typeof value !== "object" || value === null) return false;
-  const { role, content } = value as Record<string, unknown>;
+  const candidate = value as Record<string, unknown>;
   return (
-    (role === "user" || role === "assistant") && typeof content === "string"
+    Array.isArray(candidate.messages) &&
+    candidate.messages.length > 0 &&
+    candidate.messages.length <= MAX_HISTORY &&
+    candidate.messages.every((message) => {
+      if (typeof message !== "object" || message === null) return false;
+      const item = message as Record<string, unknown>;
+      return (
+        (item.role === "user" || item.role === "assistant") &&
+        typeof item.content === "string" &&
+        item.content.length > 0 &&
+        item.content.length <= MAX_MESSAGE_LENGTH
+      );
+    }) &&
+    (candidate.turnstileToken === undefined ||
+      typeof candidate.turnstileToken === "string")
   );
 }
 
 export async function POST(request: Request) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
-  if (!apiKey) {
-    return jsonError("missing_api_key", 500);
+  if (!apiKey) return jsonError("chat_unavailable", 503);
+  const contentLength = Number(request.headers.get("content-length"));
+  if (Number.isFinite(contentLength) && contentLength > MAX_REQUEST_BYTES) {
+    return jsonError("request_too_large", 413);
   }
 
   let body: unknown;
   try {
-    body = await request.json();
+    const rawBody = await request.text();
+    if (new TextEncoder().encode(rawBody).byteLength > MAX_REQUEST_BYTES) {
+      return jsonError("request_too_large", 413);
+    }
+    body = JSON.parse(rawBody);
   } catch {
     return jsonError("invalid_json", 400);
   }
 
-  const messages = (body as { messages?: unknown } | null)?.messages;
+  if (!isChatPayload(body)) return jsonError("invalid_messages", 400);
+
+  const secret = process.env.TURNSTILE_SECRET_KEY;
+  const token = body.turnstileToken?.trim();
   if (
-    !Array.isArray(messages) ||
-    messages.length === 0 ||
-    !messages.every(isIncomingMessage)
+    process.env.NODE_ENV === "production" &&
+    (!secret || !process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY)
   ) {
-    return jsonError("invalid_messages", 400);
+    return jsonError("security_check_unavailable", 503);
+  }
+  if (secret) {
+    if (!token) return jsonError("security_check_required", 400);
+    try {
+      if (!(await verifyTurnstile(token, secret, new URL(request.url).hostname))) {
+        return jsonError("security_check_failed", 400);
+      }
+    } catch {
+      return jsonError("security_check_unavailable", 503);
+    }
   }
 
-  const history = messages.slice(-MAX_HISTORY);
-
   const client = new Anthropic({ apiKey });
-
-  const stream = new ReadableStream({
+  const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const encoder = new TextEncoder();
       try {
         const anthropicStream = client.messages.stream({
-          model: "claude-sonnet-4-5",
+          model: process.env.ANTHROPIC_MODEL || "claude-sonnet-4-5",
           max_tokens: 512,
           system: SYSTEM_PROMPT,
-          messages: history.map((m) => ({ role: m.role, content: m.content })),
+          messages: body.messages.slice(-MAX_HISTORY).map((message) => ({
+            role: message.role,
+            content: message.content,
+          })),
         });
 
         anthropicStream.on("text", (text) => {
@@ -65,13 +98,17 @@ export async function POST(request: Request) {
 
         await anthropicStream.finalMessage();
         controller.close();
-      } catch (error) {
-        controller.error(error);
+      } catch {
+        controller.error(new Error("chat_request_failed"));
       }
     },
   });
 
   return new Response(stream, {
-    headers: { "Content-Type": "text/plain; charset=utf-8" },
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "no-cache, no-transform",
+      "X-Content-Type-Options": "nosniff",
+    },
   });
 }

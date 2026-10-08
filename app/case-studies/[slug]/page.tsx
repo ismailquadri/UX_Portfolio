@@ -36,8 +36,9 @@ export async function generateMetadata({
     return {};
   }
   return {
-    title: `${caseStudy.title} — Quadri Ismail`,
-    description: caseStudy.summary,
+		title: caseStudy.title,
+		description: caseStudy.summary,
+		alternates: { canonical: `/case-studies/${slug}` },
   };
 }
 

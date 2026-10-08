@@ -7,7 +7,8 @@ import Footer from "@/components/Footer";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact — Quadri Ismail",
+	title: "Contact",
+	alternates: { canonical: "/contact" },
   description:
     "Get in touch about UX audits, UI/UX design, or MVP product development.",
 };

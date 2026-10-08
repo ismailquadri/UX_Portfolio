@@ -6,7 +6,8 @@ import { getAllCaseStudies } from "@/lib/case-studies";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Case Studies — Quadri Ismail",
+	title: "Case Studies",
+	alternates: { canonical: "/case-studies" },
   description:
     "Selected UX and product design case studies across FinTech, AI-native, and GovTech.",
 };
