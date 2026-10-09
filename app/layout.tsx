@@ -3,6 +3,7 @@ import { Inter_Tight, Instrument_Serif } from "next/font/google";
 import { ViewTransitions } from "next-view-transitions";
 import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import PageTransition from "@/components/PageTransition";
+import FloatingChat from "@/components/FloatingChat";
 import "./globals.css";
 
 const interTight = Inter_Tight({
@@ -20,7 +21,7 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
 	metadataBase: new URL("https://quadriismail.com"),
 	title: {
-		default: "Quadri Ismail — Product Designer for Complex Products",
+		default: "Quadri Ismail | Product Designer for Complex Products",
 		template: "%s | Quadri Ismail",
 	},
 	description: "Quadri Ismail is a product designer in Lagos, Nigeria, who turns complex workflows into clear product experiences across FinTech, AI-native products, GovTech, and enterprise SaaS.",
@@ -30,12 +31,12 @@ export const metadata: Metadata = {
 		locale: "en_NG",
 		url: "https://quadriismail.com",
 		siteName: "Quadri Ismail",
-		title: "Quadri Ismail — Product Designer for Complex Products",
+		title: "Quadri Ismail | Product Designer for Complex Products",
 		description: "Product design for complex workflows across FinTech, AI-native products, GovTech, and enterprise SaaS.",
 	},
 	twitter: {
 		card: "summary_large_image",
-		title: "Quadri Ismail — Product Designer for Complex Products",
+		title: "Quadri Ismail | Product Designer for Complex Products",
 		description: "Product design for complex workflows across FinTech, AI-native products, GovTech, and enterprise SaaS.",
 	},
 	 alternates: { canonical: "/" },
@@ -54,9 +55,11 @@ export default function RootLayout({
         className={`${interTight.variable} ${instrumentSerif.variable}`}
       >
         <body>
+          <a href="#main-content" className="skip-link">Skip to content</a>
           <SmoothScrollProvider>
             <PageTransition>{children}</PageTransition>
           </SmoothScrollProvider>
+          <FloatingChat />
         </body>
       </html>
     </ViewTransitions>

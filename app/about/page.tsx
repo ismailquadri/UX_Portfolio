@@ -22,7 +22,7 @@ export default function AboutPage() {
       <Navbar />
       <div className="flex w-full flex-1">
         <SiteSidebar />
-        <main className="flex w-full flex-1 flex-col">
+        <main id="main-content" className="flex w-full flex-1 flex-col">
           <div id="intro">
             <AboutIntro />
           </div>

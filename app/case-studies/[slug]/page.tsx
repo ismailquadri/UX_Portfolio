@@ -70,7 +70,7 @@ export default async function CaseStudyDetailPage({
       <Navbar />
       <div className="flex w-full flex-1">
         <SiteSidebar />
-        <main className="flex w-full flex-1 flex-col">
+        <main id="main-content" className="flex w-full flex-1 flex-col">
           {/* Hero */}
           <section className="flex w-full flex-col gap-6 border-b border-border-subtle pt-14 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
             <div className="flex flex-col items-center gap-4 px-[6%] text-center md:px-[10%]">

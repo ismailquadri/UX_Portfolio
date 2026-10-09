@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 const SITE_LINKS = [
   { label: "About", href: "/about" },
   { label: "Case Studies", href: "/case-studies" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -14,7 +15,7 @@ export default function SiteSidebar() {
   const pathname = usePathname();
 
   return (
-    <div className="sticky top-[84px] hidden h-[calc(100vh_-_84px)] w-[269px] shrink-0 flex-col items-start justify-center overflow-clip border-r border-border-subtle bg-surface md:flex">
+    <div className="sticky top-[84px] hidden h-[calc(100vh_-_84px)] w-[220px] shrink-0 flex-col items-start justify-center overflow-clip border-r border-border-subtle bg-surface lg:flex">
       <div className="flex w-full flex-col items-start justify-center gap-8 py-10 pl-10 pr-4">
         <Link
           href="/"
@@ -32,12 +33,12 @@ export default function SiteSidebar() {
                 key={link.href}
                 href={link.href}
                 className={`relative flex w-full items-start gap-2.5 whitespace-nowrap p-2.5 font-body text-[16px] tracking-[-0.16px] text-ink ${
-                  isActive ? "font-medium" : "font-medium opacity-30"
+                  isActive ? "font-medium" : "font-medium text-muted hover:text-ink"
                 }`}
               >
                 {link.label}
                 {isActive && (
-                  <span className="absolute inset-x-0 bottom-0 h-px w-[213px] bg-border-subtle" />
+                  <span className="absolute inset-x-0 bottom-0 h-px w-full bg-border-subtle" />
                 )}
               </Link>
             );

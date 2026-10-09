@@ -1,79 +1,23 @@
 import Image from "next/image";
 import { Link } from "next-view-transitions";
-
-import BookCallButton from "@/components/BookCallButton";
+import { ArrowRightIcon, ArrowTopRightIcon } from "@radix-ui/react-icons";
+import { getCaseStudyBySlug } from "@/lib/case-studies";
 
 export default function Result() {
-  return (
-    <section
-      id="result"
-      className="flex w-full items-start justify-between"
-    >
-      <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
-        <div className="flex w-full items-end justify-between px-6">
-          <h2 className="w-full max-w-[971px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-            Take a look at a few products I&rsquo;ve worked on and the decisions behind them.
-            <span className="text-ink/40">
-              {" "}I focus on the people using them and the problems they need to solve.
-            </span>
-          </h2>
-        </div>
-
-        <div className="flex w-full flex-col items-center justify-center gap-8 px-6 py-10">
-          <div className="flex w-full flex-col items-center gap-4 md:flex-row">
-            <div className="relative h-[420px] w-full overflow-clip rounded-md border border-border-subtle bg-[rgba(245,245,245,0.2)] shadow-button md:h-[640px] md:flex-1">
-              <Image
-                src="/images/case-studies/ryno-finance/hero.png"
-                alt="Ryno Finance case study preview"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-              <Link
-                href="/case-studies/ryno-finance"
-                className="absolute bottom-[29px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
-              >
-                View case study
-              </Link>
-            </div>
-
-            <div className="relative h-[420px] w-full overflow-clip rounded-md bg-[#151317] shadow-button md:h-[640px] md:flex-1">
-              <Image
-                src="/images/result-tile-2.png"
-                alt="Case study preview: logistics dashboard mockup"
-                fill
-                sizes="(min-width: 768px) 50vw, 100vw"
-                className="object-cover"
-              />
-              <Link
-                href="/case-studies/linqart"
-                className="absolute bottom-[30px] left-1/2 flex h-9 -translate-x-1/2 items-center justify-center gap-2 overflow-hidden rounded-sm border border-white/10 bg-white/20 px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-paper backdrop-blur-sm"
-              >
-                View case study
-              </Link>
-            </div>
-          </div>
-
-          <div className="flex flex-col items-center gap-4">
-            <p className="whitespace-nowrap font-body text-[16px] tracking-[-0.16px] text-ink/30">
-              Want to explore the work?
-            </p>
-            <div className="flex items-center gap-3">
-              <BookCallButton className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.14px] text-ink shadow-button" />
-              <Link
-                href="/case-studies"
-                className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
-                style={{
-                  backgroundImage:
-                    "radial-gradient(ellipse 8.3px 3.6px at 50% 0%, rgba(255,255,255,0.3) 11.881%, rgba(255,255,255,0) 100%)",
-                }}
-              >
-                View all case studies
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  const work = [
+    { slug: "ryno-finance", name: "Ryno Finance", image: "/images/case-studies/ryno-finance/hero.png" },
+    { slug: "linqart", name: "Linqart", image: "/images/result-tile-2.png" },
+  ];
+  return <section id="result" className="section-pad scroll-mt-24 border-t border-border-subtle">
+    <div className="mb-8 flex flex-wrap items-end justify-between gap-4"><div><p className="eyebrow">Selected work</p><h2 className="section-title mt-3">The work behind the words.</h2></div><Link href="/case-studies" className="inline-flex items-center gap-2 text-sm underline-offset-4 hover:underline">All case studies <ArrowRightIcon aria-hidden="true" /></Link></div>
+    <div className="grid gap-10 lg:grid-cols-2">{work.map(item => {
+      const study = getCaseStudyBySlug(item.slug);
+      return <Link key={item.slug} href={`/case-studies/${item.slug}`} className="group block">
+        <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-[#edf0ef]"><Image src={item.image} alt={`${item.name} product interface`} fill sizes="(min-width: 1024px) 40vw, 90vw" className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-[1.025]" /><span className="absolute bottom-4 right-4 flex size-11 items-center justify-center rounded-full bg-paper text-ink shadow-button"><ArrowTopRightIcon className="size-5" aria-hidden="true" /></span></div>
+        <div className="mt-5 flex items-center justify-between gap-3"><h3 className="text-xl font-medium">{item.name}</h3><span className="rounded-full border border-border-subtle px-3 py-1 text-xs text-muted">{study?.category}</span></div>
+        <p className="mt-2 max-w-[480px] text-base leading-relaxed text-muted">{study?.summary}</p>
+        <span className="mt-4 inline-block text-sm underline decoration-ink/30 underline-offset-4 group-hover:decoration-ink">View case study</span>
+      </Link>;
+    })}</div>
+  </section>;
 }

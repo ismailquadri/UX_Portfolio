@@ -19,7 +19,7 @@ export default function ContactPage() {
       <Navbar />
       <div className="flex w-full flex-1">
         <SiteSidebar />
-        <main className="flex w-full flex-1 flex-col">
+        <main id="main-content" className="flex w-full flex-1 flex-col">
           <section className="flex w-full items-end justify-between gap-6 border-b border-border-subtle px-6 py-14">
             <h1 className="font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-[normal] md:tracking-[-0.56px]">
               Let&rsquo;s start a

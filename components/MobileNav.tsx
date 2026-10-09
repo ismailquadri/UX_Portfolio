@@ -10,6 +10,7 @@ const MOBILE_LINKS = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Case Studies", href: "/case-studies" },
+  { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];
 
@@ -54,7 +55,7 @@ export default function MobileNav() {
     href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
-    <div ref={containerRef} className="relative md:hidden">
+    <div ref={containerRef} className="relative lg:hidden">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
@@ -80,7 +81,7 @@ export default function MobileNav() {
               href={link.href}
               onClick={() => setOpen(false)}
               className={`rounded-sm px-3 py-2 font-body text-[16px] tracking-[-0.16px] text-ink ${
-                isActive(link.href) ? "bg-surface font-medium" : "font-medium opacity-50"
+                isActive(link.href) ? "bg-surface font-medium" : "font-medium text-muted"
               }`}
             >
               {link.label}

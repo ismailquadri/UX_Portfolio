@@ -28,7 +28,7 @@ export default function Navbar() {
         scrolled ? "border-b border-border-subtle" : "border-b border-transparent"
       }`}
     >
-      <div className="hidden md:flex h-[74px] w-[269px] shrink-0 items-center justify-center gap-3 border-r border-border-subtle px-10 py-4">
+      <div className="hidden lg:flex h-[74px] w-[220px] shrink-0 items-center justify-center gap-3 border-r border-border-subtle px-10 py-4">
         <span className="relative block size-4 shrink-0 -m-1">
           <Image
             src="/images/button-notification.svg"
@@ -38,7 +38,7 @@ export default function Navbar() {
           />
         </span>
         <p className="whitespace-nowrap font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink">
-          Product Designer · Lagos, Nigeria
+          Lagos, Nigeria
         </p>
       </div>
 
@@ -63,7 +63,7 @@ export default function Navbar() {
               </p>
             </div>
           </div>
-          <p className="w-full max-w-full truncate font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink opacity-40">
+          <p className="w-full max-w-full truncate font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-ink text-muted">
             Product design for complex products
           </p>
         </div>
@@ -73,7 +73,7 @@ export default function Navbar() {
           <BookCallButton className="hidden h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-border-subtle bg-paper px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-ink shadow-button sm:flex" />
           <Link
             href="/about"
-            className="flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
+            className="hidden sm:flex h-9 shrink-0 items-center justify-center gap-2 rounded-sm border border-white bg-black px-3 py-2 font-body text-[14px] font-medium tracking-[-0.28px] text-paper shadow-[0px_6px_6px_-3px_rgba(0,0,0,0.25),0px_0px_0px_2px_rgba(0,0,0,0.15)]"
             style={{
               backgroundImage:
                 "radial-gradient(ellipse 8.3px 3.6px at 50% 0%, rgba(255,255,255,0.3) 11.881%, rgba(255,255,255,0) 100%)",

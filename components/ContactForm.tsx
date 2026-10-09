@@ -1,7 +1,7 @@
 "use client";
 
-import { useId, useState, type FormEvent } from "react";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { useId, useRef, useState, type FormEvent } from "react";
+import { Turnstile, type TurnstileInstance } from "@marsidev/react-turnstile";
 
 const INTEREST_OPTIONS = [
   "Full-time product design role",
@@ -13,6 +13,9 @@ const INTEREST_OPTIONS = [
 type SubmitState = "idle" | "sending" | "success" | "error";
 
 export default function ContactForm() {
+  const verification = useRef<TurnstileInstance>(null);
+  const submitting = useRef(false);
+  const [verifying, setVerifying] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [interest, setInterest] = useState("");
@@ -28,18 +31,24 @@ export default function ContactForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !turnstileToken) {
-      setState("error");
-      return;
-    }
-
+    if (submitting.current) return;
+    submitting.current = true;
     setState("sending");
-
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 45_000);
     try {
+      let token = turnstileToken;
+      if (process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && !token) {
+        setVerifying(true);
+        if (!verification.current) throw new Error("verification_not_ready");
+        token = await verification.current.getResponsePromise(30_000);
+      }
+      setVerifying(false);
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, interest, message, turnstileToken }),
+        body: JSON.stringify({ name, email, interest, message, turnstileToken: token }),
+        signal: controller.signal,
       });
 
       if (!response.ok) {
@@ -55,6 +64,9 @@ export default function ContactForm() {
     } catch {
       setState("error");
     } finally {
+      clearTimeout(timer);
+      submitting.current = false;
+      setVerifying(false);
       setTurnstileToken("");
       setTurnstileResetKey((key) => key + 1);
     }
@@ -63,7 +75,7 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="flex w-full max-w-[576px] flex-col gap-10">
       <div className="flex w-full flex-col gap-6">
-        <div className="flex w-full items-start gap-6">
+        <div className="grid w-full gap-6 sm:grid-cols-2">
           <div className="flex flex-1 flex-col gap-3">
             <label
               htmlFor={nameId}
@@ -74,6 +86,7 @@ export default function ContactForm() {
             <input
               id={nameId}
               type="text"
+              autoComplete="name"
               required
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -91,6 +104,7 @@ export default function ContactForm() {
             <input
               id={emailId}
               type="email"
+              autoComplete="email"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -144,6 +158,8 @@ export default function ContactForm() {
       {process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY && (
         <div>
           <Turnstile
+            ref={verification}
+            options={{ appearance: "interaction-only", size: "flexible" }}
             key={turnstileResetKey}
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY}
             onSuccess={setTurnstileToken}
@@ -159,18 +175,18 @@ export default function ContactForm() {
       )}
       <button
         type="submit"
-        disabled={state === "sending" || (Boolean(process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY) && !turnstileToken)}
+        disabled={state === "sending"}
         className="flex h-[41px] w-full items-center justify-center rounded-sm bg-ink font-body text-[14px] font-medium tracking-[-0.28px] text-paper disabled:opacity-60"
       >
-        {state === "sending" ? "Sending..." : "Submit"}
+        {verifying ? "Checking..." : state === "sending" ? "Sending..." : "Send message"}
       </button>
       {state === "success" && (
-        <p className="font-body text-[14px] text-ink">
+        <p role="status" className="font-body text-[14px] text-ink">
           Thanks, your message has been sent. I&rsquo;ll usually reply within 24 hours.
         </p>
       )}
       {state === "error" && (
-        <p className="font-body text-[14px] text-ink">
+        <p role="status" className="font-body text-[14px] text-ink">
           Your message didn&rsquo;t go through. Try again in a moment, or email
           hello@quadriismail.com directly.
         </p>

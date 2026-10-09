@@ -29,7 +29,7 @@ export default function Capabilities() {
       <div className="flex w-full flex-1 flex-col items-start gap-12 py-14">
         <div className="flex w-full items-end justify-between px-6">
           <div className="relative flex flex-1 items-center gap-2.5">
-            <h2 className="relative w-full max-w-[640px] font-heading text-[56px] leading-none tracking-[-0.56px] text-ink md:w-[640px]">
+            <h2 className="relative w-full max-w-[640px] font-heading text-[36px] leading-tight tracking-[-0.56px] text-ink md:text-[56px]">
               <span className="block">Complex products need</span>
               <span className="relative z-10 block">
                 <span className="absolute -left-2.5 top-1/2 -z-10 h-[67px] w-full -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0" />

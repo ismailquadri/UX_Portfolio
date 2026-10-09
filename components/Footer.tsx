@@ -1,6 +1,6 @@
 export default function Footer() {
   return (
-    <footer className="flex w-full items-center justify-center bg-border-subtle px-6 py-8">
+    <footer className="flex w-full items-center justify-center bg-border-subtle px-6 pt-10 pb-28">
       <div className="flex w-full flex-1 flex-col items-start justify-center gap-20">
         <div className="tracking-[-0.32px]">
           <p className="font-body text-[32px] leading-[1.6] text-accent/50">
@@ -11,7 +11,7 @@ export default function Footer() {
             <a href="mailto:hello@quadriismail.com">hello@quadriismail.com</a>
           </p>
         </div>
-        <div className="flex w-full items-center justify-between text-ink">
+        <div className="flex w-full flex-wrap items-center justify-between gap-4 text-ink">
           <p className="font-body text-[16px] leading-[1.4] tracking-[-0.16px]">
             © {new Date().getFullYear()} Quadri Ismail. All rights reserved.
           </p>

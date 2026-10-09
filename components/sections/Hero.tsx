@@ -1,56 +1,20 @@
-import ChatWidget from "@/components/ChatWidget";
-
-// Original abstract gradient, not a reproduction of any Apple wallpaper —
-// soft, blurred color blobs over a dark base in the visual spirit of macOS
-// default wallpapers (Monterey/Sonoma-style mesh gradients), kept dark at
-// the bottom so the white caption text underneath stays legible.
-const HERO_BACKGROUND = {
-  backgroundImage: [
-    "radial-gradient(120% 120% at 15% 18%, #6ea8ff 0%, rgba(110,168,255,0) 55%)",
-    "radial-gradient(100% 100% at 85% 12%, #a78bfa 0%, rgba(167,139,250,0) 55%)",
-    "radial-gradient(90% 90% at 30% 85%, #ff9a76 0%, rgba(255,154,118,0) 50%)",
-    "radial-gradient(100% 90% at 80% 90%, #4fd1c5 0%, rgba(79,209,197,0) 50%)",
-    "linear-gradient(180deg, #0b1020 0%, #141428 45%, #05070d 100%)",
-  ].join(", "),
-};
+import Image from "next/image";
+import { Link } from "next-view-transitions";
+import { ArrowDownIcon, ArrowTopRightIcon } from "@radix-ui/react-icons";
+import OpenChatButton from "@/components/OpenChatButton";
 
 export default function Hero() {
-  return (
-    <section className="flex w-full flex-col items-start">
-      <div className="flex w-full flex-col items-start gap-6 px-6 pb-8 pt-10 md:pb-10">
-        <div className="flex w-full items-end justify-between gap-6">
-          <h1 className="relative max-w-[720px] font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
-            <span className="block">Turning complex problems</span>
-            <span className="relative z-10 block">
-              <span className="absolute -left-2.5 top-1/2 -z-10 hidden h-[67px] w-[380px] -translate-y-1/2 rounded-full bg-gradient-to-r from-black/10 to-black/0 md:block" />
-              into products people understand.
-            </span>
-          </h1>
-          <p className="hidden shrink-0 whitespace-nowrap font-body text-[18px] tracking-[-0.18px] text-ink md:block">
-            [ PRODUCT DESIGNER ]
-          </p>
-        </div>
-        <p className="max-w-[560px] font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-muted">
-          I&rsquo;m Quadri, a product designer in Lagos. I turn complex workflows into clear product experiences across FinTech, AI-native products, GovTech, and enterprise SaaS.
-        </p>
-      </div>
-
-      <div className="flex w-full flex-1 flex-col items-end">
-        <div className="flex h-[814px] w-full items-center justify-center overflow-clip px-6 py-3">
-          <div
-            className="relative h-full w-full overflow-clip rounded-lg"
-            style={HERO_BACKGROUND}
-          >
-            <ChatWidget />
-
-            <div className="absolute left-1/2 top-[714px] w-[calc(100%_-_24px)] max-w-[337px] -translate-x-1/2 text-center font-body text-[16px] leading-[1.4] tracking-[-0.16px] text-paper">
-              <p>
-                Ask about my work, process, or the roles I&rsquo;m looking for.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="hero-section section-pad">
+    <div className="max-w-[740px]">
+      <p className="eyebrow">Quadri Ismail / Product designer / Lagos</p>
+      <h1 className="mt-6 max-w-[680px] font-heading text-[clamp(2.8rem,5.2vw,5rem)] leading-[1.04] tracking-[-0.035em]">Complex products.<br /><span className="text-accent/65">Clearer ways to work.</span></h1>
+      <p className="mt-6 max-w-[520px] text-lg leading-relaxed text-muted">I design the workflows people rely on to get things done. My work spans FinTech, AI-native products, GovTech, and enterprise SaaS.</p>
+      <div className="mt-8 flex flex-wrap items-center gap-3"><a href="#result" className="button-primary">Explore my work <ArrowDownIcon aria-hidden="true" /></a><OpenChatButton /></div>
+      <div className="mt-10 flex flex-wrap gap-x-6 gap-y-3 border-t border-border-subtle pt-5 text-sm text-muted"><span>Full-time, contract &amp; fractional roles</span><Link href="/about" className="inline-flex items-center gap-1 text-ink underline-offset-4 hover:underline">A little about me <ArrowTopRightIcon aria-hidden="true" /></Link></div>
+    </div>
+    <div className="hero-portrait">
+      <div className="relative aspect-[4/5] overflow-hidden rounded-t-[100px] rounded-b-2xl bg-surface"><Image src="/images/contact-portrait.png" alt="Quadri Ismail" fill priority sizes="(min-width: 1280px) 260px, 0px" className="object-cover" /></div>
+      <p className="mt-4 text-sm text-muted">Curious about the decisions behind the screens? Ask my portfolio assistant.</p>
+    </div>
+  </section>;
 }

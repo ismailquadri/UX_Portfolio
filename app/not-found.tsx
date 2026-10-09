@@ -7,7 +7,7 @@ export default function NotFound() {
   return (
     <div className="flex min-h-screen w-full flex-col bg-paper">
       <Navbar />
-      <main className="relative flex w-full flex-1 items-center justify-center overflow-hidden py-[120px]">
+      <main id="main-content" className="relative flex w-full flex-1 items-center justify-center overflow-hidden py-[120px]">
         <Image
           src="/images/404-bg.png"
           alt=""

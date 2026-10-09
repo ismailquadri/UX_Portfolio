@@ -11,7 +11,7 @@ const MAX_MESSAGE_LENGTH = 2_000;
 const MAX_REQUEST_BYTES = 48_000;
 
 type IncomingMessage = { role: "user" | "assistant"; content: string };
-type ChatPayload = { messages: IncomingMessage[]; turnstileToken?: string };
+type ChatPayload = { messages: IncomingMessage[]; turnstileToken?: string; pagePath?: string };
 
 function jsonError(error: string, status: number): Response {
   return Response.json({ error }, { status });
@@ -93,8 +93,10 @@ export async function POST(request: Request) {
     .map((message) => message.content)
     .join("\n")
     .slice(-3_000);
-  const retrievedKnowledge = retrieveKnowledge(retrievalQuery);
-  const systemPrompt = `${SYSTEM_PROMPT}\n\nRETRIEVED SOURCE MATERIAL\n${formatRetrievedKnowledge(retrievedKnowledge)}`;
+  const pagePath = typeof body.pagePath === "string" && /^\/(?:about|contact|blog|case-studies)(?:\/[a-z0-9-]+)?$/.test(body.pagePath) ? body.pagePath : "/";
+  const pageContext = /\b(this|current|here)\b/i.test(latestQuestion) ? ` ${pagePath.replaceAll("/", " ").replaceAll("-", " ")}` : "";
+  const retrievedKnowledge = retrieveKnowledge(retrievalQuery + pageContext);
+  const systemPrompt = `${SYSTEM_PROMPT}\nCurrent portfolio page: ${pagePath}\n\nRETRIEVED SOURCE MATERIAL\n${formatRetrievedKnowledge(retrievedKnowledge)}`;
   const stream = new ReadableStream<Uint8Array>({
     async start(controller) {
       const encoder = new TextEncoder();

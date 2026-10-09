@@ -28,7 +28,7 @@ const GRID_CELLS: GridCell[] = [
   { key: "row2-col5", variant: "flat" },
 
   // Row 3
-  { key: "gitlab", icon: { src: "/images/tools/gitlab.svg", alt: "GitLab" }, variant: "elevated" },
+  { key: "openai", icon: { src: "/images/tools/openai.svg", alt: "OpenAI" }, variant: "elevated" },
   { key: "row3-col2", variant: "fade" },
   { key: "vs-code", icon: { src: "/images/tools/vs-code.svg", alt: "VS Code" }, variant: "elevated" },
   { key: "row3-col4", variant: "flat" },
@@ -36,7 +36,7 @@ const GRID_CELLS: GridCell[] = [
 
   // Row 4
   { key: "row4-col1", variant: "flat" },
-  { key: "imessage", icon: { src: "/images/tools/imessage.svg", alt: "Messages" }, variant: "elevated" },
+  { key: "claude", icon: { src: "/images/tools/claude.svg", alt: "Claude AI" }, variant: "elevated" },
   { key: "row4-col3", variant: "flat" },
   { key: "figma", icon: { src: "/images/tools/figma.svg", alt: "Figma" }, variant: "elevated" },
   { key: "row4-col5", variant: "flat" },
@@ -59,9 +59,9 @@ const CELL_VARIANT_CLASSES: Record<NonNullable<GridCell["variant"]>, string> = {
 
 export default function TechStack() {
   return (
-    <section id="tech-stack" className="flex w-full items-start justify-between shadow-[0px_4px_4px_0px_rgba(0,0,0,0.25)]">
-      <div className="flex w-full flex-1 flex-col items-start gap-10 px-6 py-14 md:flex-row">
-        <div className="flex w-full max-w-[431px] flex-col items-start justify-between gap-12 self-stretch">
+    <section id="tech-stack" className="flex w-full items-start justify-between border-t border-border-subtle">
+      <div className="flex w-full flex-1 flex-col items-start gap-10 section-pad xl:flex-row">
+        <div className="flex w-full max-w-[431px] xl:max-w-[280px] flex-col items-start justify-between gap-12 self-stretch">
           <div className="relative flex w-full items-center justify-between">
             <h2 className="relative font-heading text-[32px] leading-tight tracking-[-0.32px] text-ink md:text-[56px] md:leading-none md:tracking-[-0.56px]">
               <span className="block">Tools that support</span>
@@ -92,11 +92,11 @@ export default function TechStack() {
           </div>
         </div>
 
-        <div className="grid flex-1 grid-cols-3 gap-3 px-0 sm:grid-cols-4 md:px-8 lg:grid-cols-5">
+        <div className="grid w-full max-w-[590px] flex-1 grid-cols-3 gap-3 sm:grid-cols-5">
           {GRID_CELLS.map((cell) => (
             <div
               key={cell.key}
-              className={`relative size-[108px] shrink-0 overflow-hidden rounded-md ${CELL_VARIANT_CLASSES[cell.variant ?? "flat"]}${cell.className ? ` ${cell.className}` : ""}`}
+              className={`relative aspect-square w-full overflow-hidden rounded-md ${cell.icon ? "" : "hidden sm:block"} ${CELL_VARIANT_CLASSES[cell.variant ?? "flat"]}${cell.className ? ` ${cell.className}` : ""}`}
             >
               {cell.icon && (
                 <Image
@@ -104,7 +104,7 @@ export default function TechStack() {
                   alt={cell.icon.alt}
                   width={cell.icon.size ?? 58}
                   height={cell.icon.size ?? 58}
-                  className="absolute left-1/2 top-1/2 size-[58px] -translate-x-1/2 -translate-y-1/2"
+                  className="absolute left-1/2 top-1/2 size-[44px] sm:size-[50px] -translate-x-1/2 -translate-y-1/2"
                 />
               )}
             </div>

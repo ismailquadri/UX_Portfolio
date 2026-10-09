@@ -21,7 +21,7 @@ export default function CaseStudiesPage() {
       <div className="flex w-full flex-1">
         <SiteSidebar />
         <main
-          id="list"
+          id="main-content"
           className="flex w-full flex-1 flex-col gap-12 px-6 py-14 md:px-6 md:py-14"
         >
           <div className="flex items-end justify-between whitespace-nowrap px-6 text-ink">
@@ -33,7 +33,7 @@ export default function CaseStudiesPage() {
             </span>
           </div>
           <div className="h-px w-full bg-border-subtle" />
-          <CaseStudyListClient caseStudies={caseStudies} />
+          <div id="list"><CaseStudyListClient caseStudies={caseStudies} /></div>
         </main>
       </div>
       <Footer />
